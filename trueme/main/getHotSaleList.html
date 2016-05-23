@@ -1,0 +1,49 @@
+
+<!-- 内部样式 -->
+<style>
+    .more-list { padding: .2rem .15rem; }
+    .more-list li { float: left; margin : 0 .05rem .2rem; }
+    .more-list li .more-img { overflow: hidden; }
+    .more-list li .more-img img { display: block; width: 3.5rem; height: 3.5rem; }
+    .more-list li .more-name { margin-top: .06rem; line-height: .52rem; text-align: center; font-size: .24rem; color: #000; }
+    .more-list li .more-price { margin-bottom: .14rem; text-align: center; font-size: .24rem; color: #fd4a4a; }
+</style>
+ 
+<!-- html -->
+<div id="appHot">
+<ul class="more-list">
+    <li v-for="item in hotSaleList">
+        <div class="more-img">
+            <img :src="item.imgMainUrl|qiniuImgFilter 2 350 350"/>
+        </div>
+        <p class="more-name" v-text="item.skuTitle">达瓦达瓦发我</p>
+        <div class="more-price" v-text="'¥'+item.salePrice">&yen;180.99</div>
+    </li>
+</ul>
+</div>
+
+<script type="text/javascript">
+//hut
+$(function(){
+    var vmmo = new Vue({
+        el: '#appHot',
+        data: {
+            hotSaleList:[],
+        },
+        ready: function(){
+            This=this;
+            //获取hot数据列表
+            $.AJAX({
+                type:'GET',
+                url:config.basePath+'product/svProduct/getHotSaleList',
+                data:{
+                    num:4,
+                },
+                success:function(data){
+                    vmmo.hotSaleList=data.data.hotSaleList;
+                },
+            });
+        },
+    }); 
+});
+</script>

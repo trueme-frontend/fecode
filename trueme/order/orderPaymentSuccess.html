@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>订单支付</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- 样式文件 -->
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/order/orderPaymentSuccess.css?__inline"/>
+    <!-- 内部样式 -->
+</head>
+<body class="bg-cc">
+<div class="container padding-horizontal-0">
+    <div id="container" class="orderPaymentSuccess">
+        <div class="header">
+            <div class="header-right-text">完成</div>
+            订单支付
+        </div>
+        <div class="top">
+            <div class="success-icon"><img v-show="done" src="../../assets/trueme/images/order/paymentSuccess.png" alt="支付成功"></div>
+            <div class="title title1">支付方式：<span class="text-main">在线支付</span></div>
+            <div class="title title2">订单金额：<span class="text-main">&yen;<span v-text="totalFee"></span></span></div>
+            <div class="butLink text-center">
+                <a href="#" class="btn btn-default">查看订单</a>
+                <a href="/index.html" class="btn btn-main">返回首页</a>
+            </div>
+            <div class="p">注意：萃美不会以订单异常、系统升级为由，要求您点击任何链接进行退款操作。</div>
+        </div> 
+    </div>
+</div>
+<!-- 模板js文件 -->
+<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+<script type="text/javascript" src="../../assets/common/js/main.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/vue-plug/filter.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/order/orderPaymentSuccess.js?__inline"></script>
+</body>
+</html>

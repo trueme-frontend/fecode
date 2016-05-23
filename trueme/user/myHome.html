@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>myHome</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- 样式文件 -->
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/user/user.css"/>
+    <!-- 内部样式 -->
+    <style>
+        #container {
+            display: none;
+        }
+    </style>
+    
+</head>
+<body class="bg-cc padding-bottom-xl">
+<div class="wrapper">
+    <div id="container">
+        <div class="m-header g-border-b">
+            <div class="header-right"><!-- <a href="javascript:void(0)" onclick="goBack();" class="setting"></a> --></div>
+            我的家
+        </div>
+        <!--user-box 未登陆：addClass('logout'); 登录时：removeClass('logout')-->
+        <div class="user-box logout">
+        <!-- <div class="user-box"> -->
+            <div class="user-img">
+                <img v-bind:src="userInfo.userPhoto || '../../assets/trueme/images/user/user.png'" alt="用户头像">
+                <a href="userMessage.html"></a>
+                <p class="padding-vertical-sm" v-text="userInfo.nickName">用户昵称</p>
+            </div>
+            <div class="logout-box">
+                <p>关注你感兴趣的品牌<br> 第一时间发现更多新品、折扣</p>
+                <button type="button" class="btn btn-main" v-on:click="login">登录/注册</button>
+            </div>
+            <div class="user-box-nav">
+                <dl>
+                    <dt v-text="userInfo.contentCollectionNum"></dt>
+                    <dd><a href="javascript:void(0)">关注的内容</a></dd>
+                </dl>
+                <dl>
+                    <dt v-text="userInfo.gooodsCollectionNum"></dt>
+                    <dd><a href="userCollectBrand.html">收藏的商品</a></dd>
+                </dl>
+            </div>
+        </div>
+        <div class="container my-order">
+            <div class="pull-left">我的订单</div>
+            <a href="../order/myOrder.html#orderstates=0" class="pull-right my-order-r">查看全部订单</a>
+        </div>
+        <ul class="user-nav">
+            <li>
+                <a href="../order/myOrder.html#orderstates=1">
+                    <div class="icon dt1"></div>
+                    <div>待付款</div>
+                </a>
+            </li>
+            <li>
+                <a href="../order/myOrder.html#orderstates=2">
+                    <div class="icon dt2"></div>
+                    <div>待发货</div>
+                </a>
+            </li>
+            <li>
+                <a href="../order/myOrder.html#orderstates=3">
+                    <div class="icon dt3"></div>
+                    <div>待收货</div>
+                </a>
+            </li>
+          <!--   <li>
+                <a href="#">
+                    <div class="icon dt4"></div>
+                    <div>待评价</div>
+                </a>
+            </li> -->
+        </ul>
+        <ul class="user-list">
+            <li><a href="#">升级创客</a></li>
+            <li><a href="../address/addressManage.html">收货地址管理</a></li>
+            <li><a href="#">客服中心</a></li>
+            <li><a href="#">关于我们</a></li>
+            <li class="logout"><div class="logout-btn" v-on:click="logout">退出登陆</div></li>
+        </ul>
+        <!--底部菜单-->
+        <link rel="import" href="/trueme/main/footer.html?__inline">
+    </div>
+</div>
+<!-- 模板js文件 -->
+<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+<script type="text/javascript" src="../../assets/common/js/jquery-2.1.4.min.js?__inline"></script>
+<script type="text/javascript" src="../../assets/common/js/jquery.cookie.js?__inline"></script>
+<script type="text/javascript" src="../../assets/common/js/main.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/user/myHome.js?__inline"></script>
+</body>
+</html>

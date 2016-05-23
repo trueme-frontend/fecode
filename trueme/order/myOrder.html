@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>我的订单</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- 样式文件 -->
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/order/myOrder.css?__inline"/>
+    <!-- 内部样式 -->
+</head>
+<body class="bg-cc">
+<div class="wrapper" id="container">
+    <div class="m-header border-0">
+        <div class="header-left"><a href="javascript:void(0)" onclick="goBack();" class="back"></a></div>
+        我的订单
+    </div>
+    <ul class="order-nav">
+        <li class="on"><a href="javascript:void (0)" data="#item1">全部</a></li>
+        <li><a href="javascript:void (0)" data="#item2">待付款</a></li>
+        <li><a href="javascript:void (0)" data="#item3">待发货</a></li>
+        <li><a href="javascript:void (0)" data="#item4">待收货</a></li>
+    </ul>
+    <div class="order-con">
+        <div class="item active" id="item1">
+            <div class="notice">关于香港物流的相关信息</div>
+            <ul>
+                <li v-for="item in datas.orderList">
+                    <div class="title">
+                        <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
+                        <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
+                    </div>
+                    <div class="pro-box" v-for="citem in item.orderDetailDto">
+                        <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
+                        <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
+                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
+                    </div>
+                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
+                    <div class="operation">
+                        <button v-if="item.orderStatus|stateBoolen '1,2,3' " v-on:click="deteleOrder(item.orderNo)" type="button" class="btn btn-default">删除订单</button>
+                        <a v-if="item.orderStatus|stateBoolen '1' " class="btn btn-default" href="orderPayment.html?payOrderNo={{item.platPayNo}}">去付款</a>
+                        <button v-if="item.orderStatus|stateBoolen '2' " v-on:click="cancelOrder(item.orderNo)" type="button" class="btn btn-default" >取消订单</button>
+                        <a v-if="item.orderStatus|stateBoolen '3' " class="btn btn-default" href="checkWuLi.html?orderId={{item.orderNo}}">订单跟踪</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+       <!--  <div class="item" id="item2">
+            <div class="notice">关于香港物流的相关信息</div>
+            <ul>
+                <li v-for="item in datas1.orderList">
+                    <div class="title">
+                        <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
+                        <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
+                    </div>
+                    <div class="pro-box" v-for="citem in item.orderDetailDto">
+                        <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
+                        <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
+                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
+                    </div>
+                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
+                    <div class="operation">
+                        <button type="button" class="btn btn-default" v-on:click="deteleOrder(item.orderNo)">删除订单</button>
+                        <a class="btn btn-default" href="orderPayment.html?payOrderNo={{item.platPayNo}}">去付款</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="item" id="item3">
+            <div class="notice">关于香港物流的相关信息</div>
+            <ul>
+                <li v-for="item in datas2.orderList">
+                    <div class="title">
+                        <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
+                        <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
+                    </div>
+                    <div class="pro-box" v-for="citem in item.orderDetailDto">
+                        <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
+                        <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
+                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
+                    </div>
+                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
+                    <div class="operation">
+                        <button type="button" class="btn btn-default" v-on:click="deteleOrder(item.orderNo)">删除订单</button>
+                        <button type="button" class="btn btn-default" v-on:click="cancelOrder(item.orderNo)">取消订单</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="item" id="item4">
+            <div class="notice">关于香港物流的相关信息</div>
+            <ul>
+                <li v-for="item in datas3.orderList">
+                    <div class="title">
+                        <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
+                        <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
+                    </div>
+                    <div class="pro-box" v-for="citem in item.orderDetailDto">
+                        <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
+                        <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
+                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
+                    </div>
+                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
+                    <div class="operation">
+                        <button type="button" class="btn btn-default" v-on:click="deteleOrder(item.orderNo)">删除订单</button>
+                        <a class="btn btn-default" href="checkWuLi.html?orderNo={{item.orderNo}}">订单跟踪</a>
+                    </div>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+    <!-- <div style="margin-top:1000px;">00000</div> -->
+    <div id="bottomscolltop"></div>
+</div>
+<!-- 模板js文件 -->
+<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+<script type="text/javascript" src="../../assets/common/js/main.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/order/myOrder.js?__inline"></script>
+</body>
+</html>
