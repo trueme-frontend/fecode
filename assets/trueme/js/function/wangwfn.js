@@ -27,7 +27,7 @@ w:{
 getWeiXinCode:function(){
   /*微信支付前端流程*/
   if(IsWeiXin){
-      var url='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx781eedd86597e0d1&redirect_uri='+encodeURIComponent(config.redirect_uri)+'&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
+      var url='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx3c8059fedebed664&redirect_uri='+encodeURIComponent(config.redirect_uri)+'&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
       //var url='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx56f243c9546f50e8&redirect_uri='+encodeURIComponent(config.redirect_uri)+'&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
       sessionStorage.setItem("state-url",url);  
       window.location.href=url;
@@ -207,10 +207,9 @@ scrollGetData:function(json){
 cancelOrder:function(json){
   $.AJAX({
     type:'post',
-    url:json.url,
+    url:config.basePath+'order/svorder/cancleorderpayno',
     data:{
         "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-        "token": "1bad975d941264d64a054e18beae15057003a8866adf25df9805c0339d700af1",
         "orderId":json.orderId, //'P160519201459101012',//getQueryString('payOrderNo')
     },
     success:function(data){
@@ -224,10 +223,9 @@ cancelOrder:function(json){
 deteleOrder:function(json){
   $.AJAX({
     type:'post',
-    url:json.url,
+    url:config.basePath+'order/svorder/delorder',
     data:{
         "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-        "token": "1bad975d941264d64a054e18beae15057003a8866adf25df9805c0339d700af1",
         "orderId":json.orderId, //'P160519201459101012',//getQueryString('payOrderNo')
     },
     success:function(data){
@@ -258,6 +256,7 @@ collection:function(json){
   $.AJAX({
       type:'post',
       url:config.basePath+'user/svUserProductCollect',
+      code:true,
       data:{
           userId:json.userId,
           spuId:json.spuId,
@@ -275,3 +274,5 @@ collection:function(json){
 
 
 }
+
+

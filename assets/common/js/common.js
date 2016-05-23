@@ -1,5 +1,47 @@
-﻿
-__inline('config.js')   //引入 config.js 前端配置项
+
+/*-------------------------------------------后台配置------------------------------------------------*/ 
+window.config={
+	//登陆页面 
+	loginUrl:"/trueme/user/login.html", 
+
+	//登陆成功后需要跳转到的页面                                                       
+	homeUrl: "/index.html",    
+
+	//开发服务器 接口						
+	basePath:'http://dev.truemeee.com/',
+	//basePath:'http://192.168.0.101:8080/',
+
+	//弹出框 消失层 的消失时间              
+	popLayerHideTime:1000,
+
+	//主模板display:block的时间                                            
+	contentTimeShow:200,  
+
+	//ajax 超时配置                                              
+	ajaxtimeout:8000,  
+
+	//发送短信的时间间隔
+	msgTime:60,
+
+    //商户公众号id
+    appId:'wx3c8059fedebed664',
+
+    //前端动画的时间
+    alimTime:200,
+
+    //滚动加载更多数据底部距离
+    bottomTop:600,
+    //初始时候可加载更多数据
+    scrollbegin:true,
+
+    //微信信任回调页面    
+    redirect_uri:'http://'+window.location.host+'/trueme/wx-code/wx-code.html',     
+
+    //登录或者绑定手机等成功后 跳转到上一页面或者首页
+    prevUrl:getNextUrl(),                                             
+                                                
+};
+   //引入 config.js 前端配置项
 
 
 /*------------------------ start jquery 相关  ------------------------*/
@@ -28,7 +70,12 @@ if(window.$){
 			success:function(data){
 				if(!json.nohideloading){ win.hideLoading();};
 				clearTimeout(timeout);
-				error(JSON.parse(data),json);
+				if(typeof(data)=='string'){
+					error(JSON.parse(data),json);
+				}else{
+					error(data,json);
+				}
+				
 			},
 			complete:function(XMLHttpRequest){
 				if(!json.nohideloading){ win.hideLoading();};
@@ -140,7 +187,6 @@ if(window.$){
 }	
 /*------------------------ end jquery 相关  ------------------------*/
 
-
 /*------------------------ start 布局写入  ------------------------*/
 window==window.top && document.write('<div id="loading"></div>');
 /*------------------------ end 布局写入  ------------------------*/
@@ -158,6 +204,20 @@ window==window.top && document.write('<div id="loading"></div>');
 		sessionStorage.setItem("weixin-url",window.location.href);
 	}
 })();
+
+//首页底部导航增加active样式
+$(function(){
+	var linkArr = ['index.html','javascript:voind(0)','cart_new.html','myHome.html'];
+    for(var i=0; i<linkArr.length; i++){
+        if(location.href.indexOf(linkArr[i]) > -1){
+            $('.fixed-bar li').removeClass('active');
+            $('.fixed-bar li').eq(i).addClass('active');
+            $('.fixed-bar li').eq(i).on('click', function(){
+                return false;
+            })
+        }
+    }
+});
 
 /*------------------------ start 原生扩展  ------------------------*/
 var win=window.top;
@@ -419,6 +479,9 @@ function getCheckboxVal(name){
 function getQueryString(name,hash) {
     var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
     if(hash){
+    	if(!window.location.hash){
+    		return false;
+    	};
     	var r = decodeURIComponent(window.location.hash).substr(1).match(reg);
     }else{
     	var r = decodeURIComponent(window.location.search).substr(1).match(reg);
@@ -607,7 +670,18 @@ function extend(json1,json2){
 	return newJson;
 }
 
-
+//获得登录后可跳转的url
+function getNextUrl(){
+	//清除 weixin-next-url 
+	if(sessionStorage.getItem('weixin-next-url')==window.location.href){
+		sessionStorage.setItem('weixin-next-url','');
+	};
+	if(sessionStorage.getItem('weixin-next-url')){
+		return sessionStorage.getItem('weixin-next-url');
+	}else{
+		return sessionStorage.getItem("weixin-url")||'http://'+window.location.host+'/index.html';
+	}
+}
 
 
 /*------------------------ end 原生扩展  ------------------------*/

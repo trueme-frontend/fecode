@@ -8,12 +8,29 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/order/myOrder.css?__inline"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <style type="text/css">.order-nav { width: 100%; height: 1rem; padding: 0 .25rem; line-height: 1rem; border-bottom: 1px solid #f0f0f0; background-color: #fff; }
+.order-nav li { display: inline-block; float: left; width: 25%; text-align: center; }
+.order-nav li a { padding: .1rem .2rem; }
+.order-nav li.on a { border-bottom: 3px solid #fb4a4a; }
+.notice { width: 100%; height: .6rem; padding: 0 .25rem 0 .7rem; margin: .2rem 0; line-height: .6rem; background: #fff url("/assets/trueme/images/order/notice.png") no-repeat .25rem center; background-size: .3rem auto; color: #737373; }
+.item { display: none; }
+.item.active { display: block; }
+.item ul li { padding: 0 .25rem; margin-bottom: .2rem; background-color: #fff; }
+.item ul li > div { width: 100%; }
+.item ul li > .title { height: .7rem; line-height: .7rem; border-bottom: 1px solid #f0f0f0; color: #737373; }
+.item ul li > .pro-box { width: 100%; height: 1.6rem; padding: .2rem 0; border-bottom: 1px solid #f0f0f0; }
+.item ul li > .pro-box .img { float: left; width: 1.1rem; height: 1.1rem; margin-right: .2rem; background-color: #737373; }
+.item ul li > .pro-box .img img { max-width: 1.1rem; min-width: 1.1rem; }
+.item ul li > .pro-box .name { float: left; width: 4.2rem; }
+.item ul li > .pro-box .money { float: right; width: 1.1rem; }
+.item ul li > .account { height: .7rem; line-height: .7rem; text-align: right; }
+.item ul li > .operation { height: 1rem; padding-top: .2rem; text-align: right; }
+</style>
     <!-- 内部样式 -->
 </head>
 <body class="bg-cc">
-<div class="wrapper" id="container">
+<div class="wrapper" id="container" class="hide">
     <div class="m-header border-0">
         <div class="header-left"><a href="javascript:void(0)" onclick="goBack();" class="back"></a></div>
         我的订单
@@ -33,17 +50,19 @@
                         <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
                         <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
                     </div>
+                    <a href="orderDetails.html?orderId={{item.id}}">
                     <div class="pro-box" v-for="citem in item.orderDetailDto">
                         <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
                         <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
                         <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
                     </div>
+                    </a>
                     <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
                     <div class="operation">
-                        <button v-if="item.orderStatus|stateBoolen '1,2,3' " v-on:click="deteleOrder(item.orderNo)" type="button" class="btn btn-default">删除订单</button>
+                        <button v-if="item.orderStatus|stateBoolen '1,2,3' " v-on:click="deteleOrder(item.id)" type="button" class="btn btn-default">删除订单</button>
                         <a v-if="item.orderStatus|stateBoolen '1' " class="btn btn-default" href="orderPayment.html?payOrderNo={{item.platPayNo}}">去付款</a>
-                        <button v-if="item.orderStatus|stateBoolen '2' " v-on:click="cancelOrder(item.orderNo)" type="button" class="btn btn-default" >取消订单</button>
-                        <a v-if="item.orderStatus|stateBoolen '3' " class="btn btn-default" href="checkWuLi.html?orderId={{item.orderNo}}">订单跟踪</a>
+                        <button v-if="item.orderStatus|stateBoolen '2' " v-on:click="cancelOrder(item.id)" type="button" class="btn btn-default" >取消订单</button>
+                        <a v-if="item.orderStatus|stateBoolen '3' " class="btn btn-default" href="checkWuLi.html?orderId={{item.id}}">订单跟踪</a>
                     </div>
                 </li>
             </ul>
@@ -116,9 +135,150 @@
     <div id="bottomscolltop"></div>
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-<script type="text/javascript" src="../../assets/common/js/main.js"></script>
-<script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
-<script type="text/javascript" src="../../assets/trueme/js/order/myOrder.js?__inline"></script>
+<script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+<script type="text/javascript" src="/assets/common/js/main.js"></script>
+<script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
+<script type="text/javascript">/*** Created by HZH on 2016/5/19.*/
+win.hideLoading();
+//查询的订单状态  1.待付款 2.待发货3.已发货【配送中】4.已完成【已收货】5.退款中6.已取消7.已关闭8.退货中9. 已退款
+var stateOrder=0;  
+//用户userId
+var truemeUserId=$.cookie('cuserid'); 
+//当前的订单状态tab
+var orderstatestab=getQueryString('orderstates',true)?getQueryString('orderstates',true):0;
+
+//改变tab样式
+$(".order-nav li").eq(orderstatestab).addClass("on").siblings().removeClass("on");
+
+//vue begin
+var vm = new Vue({
+    el: '#container',
+    data: {
+      index:orderstatestab,   //初始table索引
+      datas:{}, //当前的列表数据
+      datasList:{
+        data0:{data:{},startNum:0},
+        data1:{data:{},startNum:0},
+        data2:{data:{},startNum:0},
+        data3:{data:{},startNum:0},
+      },  //数据列表
+    },
+    ready: function () {
+        var This=this;
+        //tab切换
+        $(".order-nav li").click(function () {
+           $(this).addClass("on").siblings().removeClass("on");
+           var $aid = $(this).children("a").attr("data");
+           if ($(this).hasClass("on")){
+               $($aid).addClass("active").siblings().removeClass("active");
+           }
+
+           //缓存数据
+           config.scrollbegin=true;
+           location.hash='#orderstates='+$(this).index(); 
+
+           This.index=$(this).index();
+           //切换table数据
+           This.datas=This.datasList['data'+This.index]['data']; 
+           //数据为空时加载数据
+           if(jQuery.isEmptyObject(This.datasList['data'+This.index]['data'])){
+            win.showLoading();
+            //加载数据
+            This.queryMyOrderList(This.index);
+           }
+           //判断json是否为空 jQuery.isEmptyObject({})
+           
+        });
+
+        //获取数据列表
+        This.queryMyOrderList(This.index); 
+    },
+    methods: {
+      //查询我的订单列表
+      queryMyOrderList:function(orderStatus){
+        var This=this;
+        //请求我的订单数据列表
+        $.AJAX({
+              type:'post', 
+              url:config.basePath+'order/svqueryorder/orderlist',
+              data:{
+                  "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
+                  "orderStatus":orderStatus,
+                  "startNum":0,
+                  "userId":truemeUserId
+              },
+              success:function(data){
+                setTimeout(function(){$('#container').removeClass('hide');},100);
+                This.datas=data.data;
+                This.datasList['data'+This.index]['data']=data.data||'{"name":"wangwei",startNum:2}';
+                This.datasList['data'+This.index]['startNum']=data.data.startNum||1;
+                //滚动拉去更多数据
+                This.scollGetMoreData();
+              }
+        });
+      },
+
+      //滚动获得更多数据
+     scollGetMoreData:function(){
+      var This=this;
+      //滚动时执行
+      wx.w.scrollGetData({  
+          lastObj:$('#bottomscolltop'),
+          bottomTop:700,
+          callback:function(){
+            $.AJAX({
+                type:'post',
+                url:config.basePath+'order/svqueryorder/orderlist',
+                data:{
+                  "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
+                  "orderStatus":This.index,
+                  "startNum":This.datasList['data'+This.index]['startNum'],
+                  "userId":truemeUserId
+                },
+                success:function(data){
+                  //判断是否还需要滚动获取数据 向数组里push数据
+                  if(data.data.orderList.length>0){
+                    config.scrollbegin=true; //可以再次滚动
+                    This.datasList['data'+This.index]['data'].orderList=(This.datasList['data'+This.index]['data'].orderList).concat(data.data.orderList);
+                    This.datas=This.datasList['data'+This.index]['data'];
+                    //This.datas.orderList = This.datas.orderList.concat(data.data.orderList);
+                  }
+                  This.datasList['data'+This.index]['startNum']=data.data.startNum;
+                  //This[startNumStr]=data.data.startNum;
+                  
+                },
+           });  
+          },
+      });
+     }, //end
+
+      //取消订单
+      cancelOrder:function(orderNo){
+        wx.w.cancelOrder({
+          orderId:orderNo,  //'P160519201459101012'
+          success:function(data){
+            //获取数据列表
+            This.queryMyOrderList(This.index); 
+          }
+        });
+      },
+
+      //删除订单
+      deteleOrder:function(orderNo){
+        wx.w.deteleOrder({
+          orderId:orderNo,  //'P160519201459101012'
+          success:function(data){
+            //获取数据列表
+            This.queryMyOrderList(This.index); 
+          }
+        });
+      },
+
+      
+       
+    }
+});
+</script>
 </body>
 </html>

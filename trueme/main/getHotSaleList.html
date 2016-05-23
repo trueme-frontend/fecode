@@ -1,7 +1,12 @@
 
 <!-- 内部样式 -->
 <style>
-    .more-list { padding: .2rem .15rem; }
+    .hot-see-more{background: #fff;overflow: hidden;margin-top:0.2rem;}
+    .hot-see-more .recommend-title{font-size:0.32rem; height: .92rem; line-height: .92rem; text-align: center; }
+    .hot-see-more .recommend-title span{position: relative; display: inline-block;}
+    .hot-see-more .recommend-title span::before{content:''; position: absolute; top:50%; left: -.36rem; margin-top: -1px; width: .36rem; height: 1px; background-color: #4a4a4a;}
+    .hot-see-more .recommend-title span::after{content:''; position: absolute; top:50%; right: -.36rem; margin-top: -1px; width: .36rem; height: 1px; background-color: #4a4a4a;}
+    .more-list { padding: 0 .15rem .2rem; }
     .more-list li { float: left; margin : 0 .05rem .2rem; }
     .more-list li .more-img { overflow: hidden; }
     .more-list li .more-img img { display: block; width: 3.5rem; height: 3.5rem; }

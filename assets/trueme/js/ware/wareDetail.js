@@ -125,6 +125,7 @@ $(function () {
             type:1,   //1为手机加入购物车 ，2为立即购买
             shopingNum:1, //购买商品数量
             getSkuStockInf:0,  //可购买的库存量
+            goodsPrice:0,  //商品价格 
         },
         ready: function(){
 
@@ -136,9 +137,10 @@ $(function () {
                     spuId:shopSpuId,
                 },
                 success:function(data){
-                    console.log(data.data.spuDetailInfo.title)
+                    setTimeout(function(){$('#container').removeClass('hide');},0);
                     spuDetails.spuDetailList=data.data.spuDetailInfo;
-                }
+                    spuDetails.goodsPrice=data.data.spuDetailInfo.salePrice
+                },
             });
 
             //获取商品规格
@@ -169,6 +171,16 @@ $(function () {
                     },
                     success:function(data){
                         spuDetails.getSkuStockInf=data.data.getSkuStockInfo.stockNum;
+                        //获得产品规格和价格
+                        $.AJAX({ 
+                            url:config.basePath+'product/svProduct/getSkuPriceInfo',
+                            data:{ 
+                                skuId:skuId,
+                            },
+                            success:function(data){
+                                spuDetails.goodsPrice=data.data.getSkuStockInfo.salePrice;
+                            },
+                        });//end
                     },
                 });
             },
@@ -218,7 +230,8 @@ $(function () {
                     });
                 }else if(spuDetails.type==2){
                     //立即购买 结算订单
-                    var price=spuDetails.spuDetailList.salePrice*spuDetails.shopingNum;
+                    var price=spuDetails.goodsPrice*spuDetails.shopingNum;
+                    //var price=spuDetails.spuDetailList.salePrice*spuDetails.shopingNum;
                     var json={
                         userId:truemeUserId,
                         totalPrice:price,
@@ -232,7 +245,9 @@ $(function () {
                         success: function(o){
                             console.log(o);
                             sessionStorage.setItem('data', JSON.stringify(o.data));
-                            location.href = "../order/confirmOrder.html?userId=" + truemeUserId;
+                            var href="../order/confirmOrder.html?userId=" + truemeUserId;
+                            location.href = href;
+                            sessionStorage.setItem('weixin-next-url', href);
                         }
                     });
                 }//end

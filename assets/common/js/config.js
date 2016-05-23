@@ -1,4 +1,4 @@
-﻿/*-------------------------------------------后台配置------------------------------------------------*/ 
+/*-------------------------------------------后台配置------------------------------------------------*/ 
 window.config={
 	//登陆页面 
 	loginUrl:"/trueme/user/login.html", 
@@ -8,7 +8,7 @@ window.config={
 
 	//开发服务器 接口						
 	basePath:'http://dev.truemeee.com/',
-	//basePath:'http://192.168.0.105:8080/',
+	//basePath:'http://192.168.0.101:8080/',
 
 	//弹出框 消失层 的消失时间              
 	popLayerHideTime:1000,
@@ -20,10 +20,10 @@ window.config={
 	ajaxtimeout:8000,  
 
 	//发送短信的时间间隔
-	msgTime:10,
+	msgTime:60,
 
     //商户公众号id
-    appId:'wx781eedd86597e0d1',
+    appId:'wx3c8059fedebed664',
 
     //前端动画的时间
     alimTime:200,
@@ -37,6 +37,6 @@ window.config={
     redirect_uri:'http://'+window.location.host+'/trueme/wx-code/wx-code.html',     
 
     //登录或者绑定手机等成功后 跳转到上一页面或者首页
-    prevUrl:sessionStorage.getItem("weixin-url")||'http://'+window.location.host+'/index.html',                                                 
+    prevUrl:getNextUrl(),                                             
                                                 
 };

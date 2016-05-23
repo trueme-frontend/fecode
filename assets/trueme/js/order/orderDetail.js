@@ -12,22 +12,26 @@ win.hideLoading();
 var vm = new Vue({
     el: '#container',
     data: {
-       payOrderNo:'',  //预支付订单号
-       needPay:'', //需要支付的金额
-       createTime:'', //生成订单的倒计时时间
-       openId:'',  //用户的openId
-       isSubmitPay:false, //是否可支付状态
+       orderDetails:'',  //订单详情数据
+       oderId:getQueryString('orderId'),
     },
     ready: function () {
       var This=this;
-       
+      //获取订单详情
+      $.AJAX({
+        type:'post',
+        url:config.basePath+'order/svqueryorder/orderdetail',
+        data:{
+          "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
+          "orderId": This.oderId,
+        },
+        success:function(data){
+          This.orderDetails=data.data
+        },
+      }); 
       
     },
-    methods: {
-        
-        
-      
-    }
+    methods: { }
 });
 
 

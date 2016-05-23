@@ -1,11 +1,13 @@
 /*login.js*/
 win.hideLoading();
-setTimeout(function(){
+window.onload=function(){
+  setTimeout(function(){
     Popup.loading({"title":"支付中，请稍后"}); 
-},500)
+    },0)  
+};
 
 var vm = new Vue({
-    el: '#container',
+    el: '#orderSuccess',
     data: {
         done: false,
         totalFee: ''
@@ -29,13 +31,11 @@ var vm = new Vue({
             doingAjax = true;
             $.AJAX({
                 type:'POST', 
-                url:config.basePath+'order/svpay/queryorderpay?payOrderNo=' + getQueryString('payOrderNo'),
+                url:config.basePath+'order/svpay/queryorderpay',
                 code : true,
-                // data:{
-                //     "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                //     "token": "1bad975d941264d64a054e18beae15057003a8866adf25df9805c0339d700af1",
-                //     "payOrderNo": getQueryString('payOrderNo')
-                // },
+                data:{
+                    "payOrderNo": getQueryString('payOrderNo'),
+                },
                 success:function(o){
                     clearInterval(timer);
                     that.done = true;

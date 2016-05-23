@@ -11,15 +11,15 @@
         !function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);
     </script>
 <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/main/base.css" /> 
+    <link rel="stylesheet" type="text/css" href="/assets/trueme/css/main/base.css" /> 
 <!-- 内部样式 -->
     <style>
         html{background-color: #f0f0f0;}
         .search-box{position: relative; width: 7.5rem; height: .88rem; padding: .14rem .14rem .14rem .2rem; background-color: #fff; box-sizing: border-box;}
-        .search-box .search_icon{position: absolute; top:50%; left:.4rem; margin-top: -.14rem; width: .28rem; height: .28rem; background: url('../../assets/trueme/images/search/small_search_icon.png') no-repeat 0 0; background-size: cover;}
+        .search-box .search_icon{position: absolute; top:50%; left:.4rem; margin-top: -.14rem; width: .28rem; height: .28rem; background: url('/assets/trueme/images/search/small_search_icon.png') no-repeat 0 0; background-size: cover;}
         .search-box input{padding-left:.64rem; padding-right: .64rem; width: 4.92rem; height:.6rem; border:none; background-color: #eee; border-radius: .1rem; margin:auto;}
         .search-box .clear-input{position: absolute; top: .14rem; right: 1.1rem; bottom: .14rem; width: .64rem;} 
-        .search-box .clear-input span{position: absolute; top:50%; right: .2rem; margin-top: -.12rem; width: .24rem; height: .24rem; background: url('../../assets/trueme/images/search/clear_input.png') no-repeat 0 0; background-size: cover;}
+        .search-box .clear-input span{position: absolute; top:50%; right: .2rem; margin-top: -.12rem; width: .24rem; height: .24rem; background: url('/assets/trueme/images/search/clear_input.png') no-repeat 0 0; background-size: cover;}
         .search-box .search-status{ float: right; line-height: .6rem;}
 
         .pop-search{background-color: #fff; overflow: hidden;}
@@ -29,17 +29,18 @@
     </style>
 
 <!-- 模板js文件 -->
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-    <script src="../../assets/common/js/main.js"></script>
-    <script type="text/javascript" src="../../assets/common/js/T.js?_inline"></script>
-    <script src="../../assets/common/js/swiper-3.3.1.jquery.min.js"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+    <script src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="/assets/common/js/T.js?_inline"></script>
+    <script src="/assets/common/js/swiper-3.3.1.jquery.min.js"></script>
 </head>
 <body>
 	<div class="wrapper">
         <div id="container">
             <div class="search-box g-border-b">
                 <span class="search_icon"></span>
-                <input type="text" placeholder="搜索商品、品牌" v-on:keydown="changeWord" v-on:input="changeWord" v-model="searchKey" />
+                <input type="text" placeholder="搜索商品、品牌" v-on:keydown="changeWord" v-on:input="changeWord" v-model="searchKey" v-on:keyup.enter="search" />
                 <div class="clear-input" v-show="!isEmpty" v-on:click="clear">
                     <span></span>
                 </div>

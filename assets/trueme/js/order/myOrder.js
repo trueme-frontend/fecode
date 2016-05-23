@@ -5,7 +5,7 @@ var stateOrder=0;
 //用户userId
 var truemeUserId=$.cookie('cuserid'); 
 //当前的订单状态tab
-var orderstatestab=location.hash.substr(1)+''?parseInt(location.hash.substr(1)):0;
+var orderstatestab=getQueryString('orderstates',true)?getQueryString('orderstates',true):0;
 
 //改变tab样式
 $(".order-nav li").eq(orderstatestab).addClass("on").siblings().removeClass("on");
@@ -17,10 +17,10 @@ var vm = new Vue({
       index:orderstatestab,   //初始table索引
       datas:{}, //当前的列表数据
       datasList:{
-        data0:{data:{},startNum:1},
-        data1:{data:{},startNum:1},
-        data2:{data:{},startNum:1},
-        data3:{data:{},startNum:1},
+        data0:{data:{},startNum:0},
+        data1:{data:{},startNum:0},
+        data2:{data:{},startNum:0},
+        data3:{data:{},startNum:0},
       },  //数据列表
     },
     ready: function () {
@@ -35,7 +35,8 @@ var vm = new Vue({
 
            //缓存数据
            config.scrollbegin=true;
-           location.hash=$(this).index(); 
+           location.hash='#orderstates='+$(this).index(); 
+
            This.index=$(this).index();
            //切换table数据
            This.datas=This.datasList['data'+This.index]['data']; 
@@ -59,19 +60,18 @@ var vm = new Vue({
         //请求我的订单数据列表
         $.AJAX({
               type:'post', 
-              //url:config.basePath+'order/svqueryorder/orderlist',
               url:config.basePath+'order/svqueryorder/orderlist',
               data:{
                   "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
                   "orderStatus":orderStatus,
-                  "startNum":1,
+                  "startNum":0,
                   "userId":truemeUserId
               },
               success:function(data){
+                setTimeout(function(){$('#container').removeClass('hide');},100);
                 This.datas=data.data;
                 This.datasList['data'+This.index]['data']=data.data||'{"name":"wangwei",startNum:2}';
                 This.datasList['data'+This.index]['startNum']=data.data.startNum||1;
-                console.log(JSON.stringify(This.datasList));
                 //滚动拉去更多数据
                 This.scollGetMoreData();
               }
@@ -115,11 +115,10 @@ var vm = new Vue({
       //取消订单
       cancelOrder:function(orderNo){
         wx.w.cancelOrder({
-          url:config.basePath+'order/svorder/cancleorderpayno',
           orderId:orderNo,  //'P160519201459101012'
           success:function(data){
-
-            console.log(data)
+            //获取数据列表
+            This.queryMyOrderList(This.index); 
           }
         });
       },
@@ -127,10 +126,10 @@ var vm = new Vue({
       //删除订单
       deteleOrder:function(orderNo){
         wx.w.deteleOrder({
-          url:config.basePath+'order/svorder/delorder',
           orderId:orderNo,  //'P160519201459101012'
           success:function(data){
-            console.log(data)
+            //获取数据列表
+            This.queryMyOrderList(This.index); 
           }
         });
       },

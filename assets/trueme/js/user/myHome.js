@@ -1,19 +1,23 @@
 /*login.js*/
 win.hideLoading();
 
-$(function () {
-});
+
 var vm = new Vue({
     el: '#container',
     data: {
+        isLogin: false,
         userInfo: {}
     },
     ready: function () {
         var that = this;
-        $('.fixed-bar li').removeClass('active');
-        $('.fixed-bar li').last().addClass('active');
+        $('.jumpCheck').on('click', function(){
+            if($.cookie('cuserid') && ($.cookie('cuserid') != "")){
+                location.href = $(this).data('link');
+            }
+        });
         // $.cookie('userId', 1);
-        if($.cookie('cuserid')){
+        if($.cookie('cuserid') && ($.cookie('cuserid') != "")){
+            that.isLogin = true;
             $('.user-box').removeClass('logout');
             $.AJAX({
                 type: "POST",
@@ -25,23 +29,32 @@ var vm = new Vue({
             	}
             });
         }else{
+            that.isLogin = false;
             $('#container').show();
         }
     },
     methods: {
         login: function(){
-            location.href = "/trueme/user/login.html"
+            wx.w.getWeiXinCode();
         },
         logout: function(){
+            win.showLoading();
             $.AJAX({
                 type: "POST",
                 url: config.basePath + 'user/svloginout?userId=' + $.cookie('cuserid'),
                 success: function(){
-                    $.removeCookie('cuserid');
-                    location.href = location.href;
+                    location.reload();
                 }
             });
         }
+        // jumpPage: function(e){
+        //     var jumpLink = $(e.target).data('link');
+        //     if($.cookie('cuserid') && ($.cookie('cuserid') != "")){
+        //         location.href = jumpLink;
+        //     }else{
+        //         wx.w.getWeiXinCode();
+        //     }
+        // }
     }
 });
 

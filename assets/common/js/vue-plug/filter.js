@@ -9,7 +9,7 @@ Vue.filter('qiniuImgFilter', function (src,type,w,h) {  //?imageView2/0/w/300/h/
 	if(type){
 		var src=src+'?imageView2';
 	}else{
-		var src=src+'?imageView2/2/w750';
+		var src=src+'?imageView2/2/w/750';
 	}
 	var type=type+''?type:2;
 	if(w&&h){

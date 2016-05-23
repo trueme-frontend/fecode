@@ -7,8 +7,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/index/index.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/maker/css/index/index.css"/>
 </head>
 <body class="bg-cc padding-bottom-xl">
 <header>
@@ -19,7 +19,7 @@
 <div class="wrapper">
     <div class="user-box">
         <div class="user-img">
-            <img src="../../assets/trueme/images/user/user.png" alt="user"/>
+            <img src="/assets/trueme/images/user/user.png" alt="user"/>
             <span>3</span>
         </div>
         <div class="name"><span>三星创客</span></div>
@@ -59,8 +59,9 @@
     </ul>
 </footer>
 <!-- 模板js文件 -->
-<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-<script type="text/javascript" src="../../assets/common/js/main.js"></script>
+<script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+<script type="text/javascript" src="/assets/common/js/main.js"></script>
 <script>
     win.hideLoading();
 </script>

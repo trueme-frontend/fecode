@@ -54,7 +54,7 @@ img {
     border-radius: 50%;
 }
 .container {
-    max-width: 760px;
+    max-width: 7.5rem;
     padding-right: .25rem;
     padding-left: .25rem;
     margin-right: auto;

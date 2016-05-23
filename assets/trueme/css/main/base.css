@@ -499,7 +499,7 @@ iframe {
     display: inline-block;
     height: 0.4rem;
     margin-top: 0.1rem;
-    background: url("../../images/common/nav_icon.png") 0 0 no-repeat;
+    background: url("/assets/trueme/images/common/nav_icon.png") 0 0 no-repeat;
     background-size: 1.92rem .8rem;
 }
 .sprite-icon_home_1 {

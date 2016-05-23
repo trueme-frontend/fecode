@@ -499,7 +499,7 @@ iframe {
     display: inline-block;
     height: 0.4rem;
     margin-top: 0.1rem;
-    background: url("../images/nav_icon.png") 0 0 no-repeat;
+    background: url("/assets/common/images/nav_icon.png") 0 0 no-repeat;
     background-size: 1.92rem .8rem;
 }
 .sprite-icon_home_1 {
@@ -542,7 +542,7 @@ iframe {
 }
 
 /* 遮罩类 */
-#loading {position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100001; background: rgba(248,248,248,.8) url('../images/loading.gif') no-repeat center center;}
+#loading {position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100001; background: rgba(248,248,248,.8) url('/assets/common/images/loading.gif') no-repeat center center;}
 
 /*公共头部导航*/
 header{ position: fixed; top: 0; left: 0; right: 0; width: 100%; max-width: 7.5rem; height: .88rem; margin: 0 auto; z-index: 10000; }
@@ -550,6 +550,6 @@ header{ position: fixed; top: 0; left: 0; right: 0; width: 100%; max-width: 7.5r
 .m-header .header-left, .m-header .header-right { position: absolute; top: 0; width: .8rem; height: .88rem; }
 .m-header .header-left { left: 0; }
 .m-header .header-right { right: 0; }
-.m-header a { display: block; width: 100%; height: 100%; background-image: url('../../trueme/images/user/user1.png'); background-repeat: no-repeat; background-size: 4.1rem auto; }
+.m-header a { display: block; width: 100%; height: 100%; background-image: url('/assets/trueme/images/user/user1.png'); background-repeat: no-repeat; background-size: 4.1rem auto; }
 .m-header .header-left .back { background-position: .3rem center; }
 .m-header .header-right .setting { background-position: -.6rem center; }

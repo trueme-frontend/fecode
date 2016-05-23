@@ -24,7 +24,6 @@ var vm = new Vue({
             url:config.basePath+'order/svorder/querypay', 
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "token": "1bad975d941264d64a054e18beae15057003a8866adf25df9805c0339d700af1",
                 "payNo":getQueryString('payOrderNo'), // 'P160519201459101012'
             },
             success:function(data){
@@ -57,7 +56,6 @@ var vm = new Vue({
                 url:config.basePath+"order/svorder/ordersign", 
                 data:{
                     "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                    "token": "1bad975d941264d64a054e18beae15057003a8866adf25df9805c0339d700af1",
                     "payWay":2,
                     "payOrderNo":This.payOrderNo,
                     "needPay":This.needPay,
@@ -111,7 +109,6 @@ var vm = new Vue({
             url:config.basePath+'order/svorder/cancleorderpayno',
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "token": "1bad975d941264d64a054e18beae15057003a8866adf25df9805c0339d700af1",
                 "payNo":getQueryString('payOrderNo'), //'P160519201459101012',//getQueryString('payOrderNo')
             },
             success:function(data){
@@ -128,7 +125,6 @@ var vm = new Vue({
             url:config.basePath+'order/svorder/closeorder',
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "token": "1bad975d941264d64a054e18beae15057003a8866adf25df9805c0339d700af1",
                 "payNo":getQueryString('payOrderNo'),//getQueryString('payOrderNo')
             },
             success:function(data){
