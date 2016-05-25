@@ -20,7 +20,10 @@
 .orderPayment .center{margin-top:0.2rem;background: #fff;overflow: hidden;}
 .orderPayment .center .tit{padding:0 0.2rem;height:0.8rem;border-bottom:solid 1px #e0e0e0;line-height: 0.8rem;position: relative;}
 .orderPayment .center .tit .pull-right{padding-right:0.4rem;}
-.orderPayment .center .tit span#slide{display: block;position: absolute;right:0.2rem;top:0.2rem;width:0.4rem;height:0.4rem;background:url('/assets/trueme/images/common/arrow_up.png') no-repeat center right;
+.orderPayment .center .tit span#slide{display: block;position: absolute;right:0.2rem;top:0.2rem;width:0.4rem;height:0.4rem;
+	background-image:url('/assets/trueme/images/common/arrow_down.png');
+	background-repeat: no-repeat;
+	background-position: center right;
 	background-size: 80%;
 }
 .orderPayment .center .paylist{overflow: hidden;}
@@ -95,6 +98,7 @@ var vm = new Vue({
        createTime:'', //生成订单的倒计时时间
        openId:'',  //用户的openId
        isSubmitPay:false, //是否可支付状态
+       payNo:getQueryString('payOrderNo'), //支付订单号
     },
     ready: function () {
         var This=this;
@@ -104,16 +108,18 @@ var vm = new Vue({
             url:config.basePath+'order/svorder/querypay', 
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "payNo":getQueryString('payOrderNo'), // 'P160519201459101012'
+                "payNo":This.payNo, // 'P160519201459101012'
             },
             success:function(data){
                 This.payOrderNo=data.data.payOrderNo; //预支付订单号
                 This.openId=data.data.openId;  //openId
                 This.needPay=data.data.needPay;
                 //生成订单时间
+                var timespe=(data.data.expireTime-data.data.createTime)/1000; //时间差
+                // var timespe=(10000)/1000; //时间差
                 var timer=setInterval(function(){
-                    var timespe=data.data.expireTime-time(); //时间差
-                    This.createTime=formatSeconds(timespe/1000);
+                    This.createTime=formatSeconds(timespe);
+                    timespe--;
                     if(timespe<=0){
                         clearInterval(timer);
                         This.createTime='00:00';
@@ -189,7 +195,7 @@ var vm = new Vue({
             url:config.basePath+'order/svorder/cancleorderpayno',
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "payNo":getQueryString('payOrderNo'), //'P160519201459101012',//getQueryString('payOrderNo')
+                "payNo":vm.payNo, //'P160519201459101012',//getQueryString('payOrderNo')
             },
             success:function(data){
                //跳转到订单列表
@@ -205,7 +211,7 @@ var vm = new Vue({
             url:config.basePath+'order/svorder/closeorder',
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "payNo":getQueryString('payOrderNo'),//getQueryString('payOrderNo')
+                "payNo":vm.payNo,//getQueryString('payOrderNo')
             },
             success:function(data){
               //跳转到订单列表
@@ -223,8 +229,10 @@ var vm = new Vue({
     //上下滑动
     $('#slide').click(function(){
         if($('#paylist').css('display')=='block'){
+            $(this).css({'backgroundImage':'url(../../assets/trueme/images/common/arrow_up.png)'});
             $('#paylist').slideUp(config.alimTime);
         }else{
+            $(this).css({'backgroundImage':'url(../../assets/trueme/images/common/arrow_down.png)'});
             $('#paylist').slideDown(config.alimTime);
         }
     });

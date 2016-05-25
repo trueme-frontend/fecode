@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zn-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>文案详情</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- style -->
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/maker/css/wenan/wenan.css"/>
+    <!-- 模板js文件 -->
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+    <script type="text/javascript" src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
+    <script type="text/javascript" src="/assets/maker/js/function/function.js"></script>
+    <!--<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>-->
+</head>
+<body class="bg-cc">
+<header>
+    <div class="m-header g-border-b">
+        <div class="header-left"><a href="javascript:void(0)" onclick="goBack();" class="back"></a></div>
+        我的文案
+    </div>
+</header>
+<div class="wrapper padding-wrapper wenan" id="container">
+    <!-- 文章模块 -->
+    <div class="wenan-list" v-for="item in datas.contentList">
+        <!-- 主图 -->
+        <div class="center">
+            <img :src="item.mainUrl|qiniuImgFilter">
+        </div>
+        <h4>【 时尚之星JOEYLIAN粉饼 】甜、美、靓、多彩时尚五合一</h4>
+        <p class="wenan-p">今天回家，明天别下雨，我要游泳游泳游泳今天回家，明天别下雨，我要游泳游泳游泳今天回家，明天别下雨，我要游泳游泳游泳今天回家，明天别下雨，我要游泳游泳游泳今天回家，明天别下雨雨，明天别下雨</p>
+        <p class="wenan-fy margin-bottom-sm">查看全部</p>
+        <div class="center">
+            <img :src="item.mainUrl|qiniuImgFilter">
+        </div>
+        <p class="wenan-p">时尚之星JOEYLIAN粉饼 甜、美、靓、多彩时尚五合一</p>
+        <div class="pro">
+            <div class="img"><img :src="item.mainUrl|qiniuImgFilter"></div>
+            <div class="con"><span>¥452</span><del>¥552</del><p>CHINFIE</p></div>
+            <div class="pro-btn"><a href="#">加入购物车</a></div>
+        </div>
+    </div>
+</div>
+<!-- footer -->
+<style>
+<style type="text/css">footer{}
+footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 7.5rem;
+    height: .98rem;
+    margin: 0 auto;
+    background-color: #fff;
+}
+footer ul {
+    display: table;
+    width: 100%;
+}
+footer ul li {
+    display: table-cell;
+    text-align: center;
+}
+footer ul li i {
+    display: inline-block;
+    width: .4rem;
+    height: .4rem;
+    margin-top: .1rem;
+    margin-bottom: 0;
+    background: url("/assets/maker/images/common/maker-nav.png") no-repeat;
+    background-size: 1.75rem auto;
+}
+footer ul li p{
+    margin-top: -.1rem;
+}
+footer ul li i.ma1 {
+    background-position: 0 0;
+}
+footer ul li i.ma2 {
+    background-position: -.72rem 0;
+}
+footer ul li i.ma3 {
+    background-position: -1.28rem 0;
+    width: .5rem;
+}
+footer ul li.active a{
+    color: #fd4a4a;
+}
+footer ul li.active i.ma1 {
+    background-position: 0 bottom;
+}
+footer ul li.active i.ma2 {
+    background-position: -.72rem bottom;
+}
+footer ul li.active i.ma3 {
+    background-position: -1.28rem bottom;
+}</style>
+<!-- html -->
+<footer class="g-border-t">
+    <ul class="fixed-bar">
+        <li><a href="/maker/index/index.html"><i class="ma1"></i><p>创客</p></a></li>
+        <li><a href="/maker/wenan/hotWenAn.html"><i class="ma2"></i><p>内容</p></a></li>
+        <li><a href="/maker/team/term.html"><i class="ma3"></i><p>团队</p></a></li>
+    </ul>
+</footer>
+
+<script>
+    //首页底部导航增加active样式
+    $(function(){
+        var linkArr = ['/maker/index/index.html',['/maker/wenan/hotWenAn.html','/maker/wenan/keepWenAn.html','/maker/wenan/shareWenAn.html'],'/maker/team/term.html'];
+        for(var i=0; i<linkArr.length; i++){
+            if(typeof(linkArr[i])=='object'){
+                for(var j=0; j<linkArr[i].length; j++){
+                    if(location.href.indexOf(linkArr[i][j]) > -1){
+                        $('.fixed-bar li').removeClass('active');
+                        $('.fixed-bar li').eq(i).addClass('active');
+                        $('.fixed-bar li').eq(i).on('click', function(){
+                            return false;
+                        })
+                    }
+                }
+            }else{
+                if(location.href.indexOf(linkArr[i]) > -1){
+                    $('.fixed-bar li').removeClass('active');
+                    $('.fixed-bar li').eq(i).addClass('active');
+                    $('.fixed-bar li').eq(i).on('click', function(){
+                        return false;
+                    })
+                }
+            };
+        };
+    });
+</script>
+
+</style>
+<!-- script -->
+<!--<script type="text/javascript" src="../../assets/maker/js/wenan/hotWenAn.js?__inline"></script>-->
+<script>
+    win.hideLoading();
+</script>
+</body>
+</html>

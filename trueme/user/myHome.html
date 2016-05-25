@@ -15,6 +15,11 @@
         #container {
             display: none;
         }
+        .popup .content{padding: 0;}
+        .popup .content .pop-header{height: .7rem; line-height: .7rem; text-align: center; font-size: .26rem; color: rgba(0,0,0,0.8);}
+        .popup .content .pop-tel{height: 1.8rem; line-height: 1.8rem; font-size: .3rem; color: #000;}
+        .popup .content .pop-btn{height: .7rem; line-height: .7rem; text-align: center; font-size: .26rem; color: #fff; background-color: #fd4a4a;}
+        .popup .content .pop-btn input{width: 100%; height: 100%; color: #fff;}
     </style>
     
 </head>
@@ -82,8 +87,8 @@
         <ul class="user-list">
             <li><a href="#">升级创客</a></li>
             <li class="jumpCheck" data-link="../address/addressManage.html"><div>收货地址管理</div></li>
-            <li><a href="#">客服中心</a></li>
-            <li><a href="#">关于我们</a></li>
+            <li v-on:click="showService"><a href="#">客服中心</a></li>
+            <li><a href="aboutUs.html">关于我们</a></li>
             <li class="logout" v-show="isLogin"><div class="logout-btn" v-on:click="logout">退出登陆</div></li>
         </ul>
         <!--底部菜单-->
@@ -94,7 +99,7 @@
             <li class="active"><a href="/index.html"><span id="img1" class="index-sprite sprite-icon_home_1"></span><span class="menu">首页</span></a></li>
             <!-- <li><a href="javascript:void(0);"><span id="img2" class="index-sprite sprite-icon_categ_1"></span><span class="menu">分类</span></a></li> -->
             <li>
-                <a href="javascript:void(0);"><span id="img3" class="index-sprite sprite-icon_guest_1"></span><span class="menu">创客</span></a>
+                <a href="/maker/index/index.html"><span id="img3" class="index-sprite sprite-icon_guest_1"></span><span class="menu">创客</span></a>
             </li>
             <li><a href="/trueme/cart/cart_new.html"><span id="img4" class="index-sprite sprite-icon_cart_1 "></span><span class="menu">购物车</span></a></li>
             <li><a href="/trueme/user/myHome.html"><span id="img5" class="index-sprite sprite-icon_user_1"></span><span class="menu">我的</span></a></li>
@@ -241,32 +246,51 @@ var vm = new Vue({
     },
     ready: function () {
         var that = this;
-        $('.jumpCheck').on('click', function(){
-            if($.cookie('cuserid') && ($.cookie('cuserid') != "")){
-                location.href = $(this).data('link');
+        $.AJAX({
+            type: "POST",
+            url: config.basePath + 'user/svIsLogined',
+            code: true,
+            pageSet: true,
+            success: function(o){
+                that.isLogin = true;
+                $('.user-box').removeClass('logout');
+                $.AJAX({
+                    type: "POST",
+                    url: config.basePath + 'user/svuser/getusercenterinfo',
+                    success: function(o){
+                        that.userInfo = o.data.userCenterInfo;
+                        $('#container').show();
+                        $('.jumpCheck').on('click', function(){
+                            location.href = $(this).data('link');
+                        });
+                    }
+                });
+            },
+            error: function(){
+                that.isLogin = false;
+                $('#container').show();
             }
-        });
-        // $.cookie('userId', 1);
-        if($.cookie('cuserid') && ($.cookie('cuserid') != "")){
-            that.isLogin = true;
-            $('.user-box').removeClass('logout');
-            $.AJAX({
-                type: "POST",
-                url: config.basePath + 'user/svuser/getusercenterinfo?userId=' + $.cookie('cuserid'),
-                success: function(o){
-                    // debugger;
-                    that.userInfo = o.data.userCenterInfo;
-                    $('#container').show();
-            	}
-            });
-        }else{
-            that.isLogin = false;
-            $('#container').show();
-        }
+        })
+        // if($.cookie('cuserid') && ($.cookie('cuserid') != "")){
+        //     that.isLogin = true;
+        //     $('.user-box').removeClass('logout');
+        //     $.AJAX({
+        //         type: "POST",
+        //         url: config.basePath + 'user/svuser/getusercenterinfo',
+        //         success: function(o){
+        //             // debugger;
+        //             that.userInfo = o.data.userCenterInfo;
+        //             $('#container').show();
+        //     	}
+        //     });
+        // }else{
+        //     that.isLogin = false;
+        //     $('#container').show();
+        // }
     },
     methods: {
         login: function(){
-            wx.w.getWeiXinCode();
+            trueme.w.getWeiXinCode();
         },
         logout: function(){
             win.showLoading();
@@ -277,13 +301,23 @@ var vm = new Vue({
                     location.reload();
                 }
             });
+        },
+        showService: function(){
+            Popup.customHtml({
+                header:'弹出页面',
+                style:'width:80%',
+                closeBut:false,
+                html:'<div class="pop-header g-border-b">萃美客服电话</div>\
+                  <div class="pop-tel">0755-2691-0969</div>\
+                  <div class="pop-btn"><input type=button style=height:30px value=确定 onclick=closeThisPopup(this) /></div>'
+            });
         }
         // jumpPage: function(e){
         //     var jumpLink = $(e.target).data('link');
         //     if($.cookie('cuserid') && ($.cookie('cuserid') != "")){
         //         location.href = jumpLink;
         //     }else{
-        //         wx.w.getWeiXinCode();
+        //         trueme.w.getWeiXinCode();
         //     }
         // }
     }

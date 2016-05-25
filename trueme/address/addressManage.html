@@ -66,13 +66,13 @@
                     <!-- <div class="select-box">
                         <span class="select" v-bind:class="{'selected' : item.status }"></span>
                     </div> -->
-                    <a class="edit-box" v-bind:href="'addressEdit.html?userId=' + cookieUser + '&id=' + item.id">
+                    <a class="edit-box" v-bind:href="'addressEdit.html?id=' + item.id">
                         <span class="edit"></span>
                     </a>
                 </li>
             </ul>
             <div class="new-btn-box">
-                <a class="new-btn" href="addressNew.html?userId=1">新增收货地址</a>
+                <a class="new-btn" href="addressNew.html">新增收货地址</a>
             </div>
         </div>
 	</div>
@@ -80,7 +80,6 @@
         var vm = new Vue({
             el: '#container',
             data: {
-                cookieUser: $.cookie('cuserid'),
                 userAddress: []
             },
             ready: function(){
@@ -90,7 +89,7 @@
                     sessionStorage.removeItem('saveAndUseAddress');
                 }
                 $.AJAX({
-                    url: config.basePath + 'user/svuseraddress/getUserAddressList?userId=' + $.cookie('cuserid'),
+                    url: config.basePath + 'user/svuseraddress/getUserAddressList',
                     success: function(o){
                         // debugger;
                         that.userAddress = o.data.userAddressList;

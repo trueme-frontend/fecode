@@ -148,7 +148,7 @@
                     </div>
                 </div>
             </div>
-            <div class="recommend see-more hot-see-more" v-show="!empty">
+            <div class="recommend see-more hot-see-more hide">
                 <div class="recommend-title"><span>为你推荐</span></div>
                 <!-- hot 看了又看 -->
                 
@@ -171,39 +171,61 @@
 <div id="appHot">
 <ul class="more-list">
     <li v-for="item in hotSaleList">
-        <div class="more-img">
-            <img :src="item.imgMainUrl|qiniuImgFilter 2 350 350"/>
-        </div>
-        <p class="more-name" v-text="item.skuTitle">达瓦达瓦发我</p>
-        <div class="more-price" v-text="'¥'+item.salePrice">&yen;180.99</div>
+        <a v-bind:href="'../ware/wareDetail.html?spuId=' + item.spuId">
+            <div class="more-img">
+                <img :src="item.imgMainUrl|qiniuImgFilter 2 350 350"/>
+            </div>
+            <p class="more-name" v-text="item.skuTitle"></p>
+            <div class="more-price" v-text="'¥'+item.salePrice"></div>
+        </a>
     </li>
 </ul>
 </div>
 
 <script type="text/javascript">
-//hut
-$(function(){
-    var vmmo = new Vue({
-        el: '#appHot',
-        data: {
-            hotSaleList:[],
-        },
-        ready: function(){
-            This=this;
-            //获取hot数据列表
-            $.AJAX({
-                type:'GET',
-                url:config.basePath+'product/svProduct/getHotSaleList',
-                data:{
-                    num:4,
-                },
-                success:function(data){
-                    vmmo.hotSaleList=data.data.hotSaleList;
-                },
-            });
-        },
-    }); 
-});
+// $(function(){
+//     var vmmo = new Vue({
+//         el: '#appHot',
+//         data: {
+//             hotSaleList:[],
+//         },
+//         ready: function(){
+//             This=this;
+//             //获取hot数据列表
+//             $.AJAX({
+//                 type:'GET',
+//                 url:config.basePath+'product/svProduct/getHotSaleList',
+//                 data:{
+//                     num:4,
+//                 },
+//                 success:function(data){
+//                     vmmo.hotSaleList=data.data.hotSaleList;
+//                 },
+//             });
+//         },
+//     }); 
+// });
+
+var mixin = {
+  methods: {
+    //获取hot数据列表
+    conflicting: function (json,num) {
+        var num=num||4
+      $.AJAX({
+            type:'GET',
+            url:config.basePath+'product/svProduct/getHotSaleList',
+            data:{
+                num:num,
+            },
+            success:function(data){
+                json.callback(data.data.hotSaleList);
+               //return data.data.hotSaleList;
+            },
+        });
+    },
+  },
+};
+
 </script>
 
             </div>
@@ -211,14 +233,14 @@ $(function(){
         </div>
 	</div>
     <script type="text/javascript">
-        //用户userId
-        var truemeUserId=$.cookie('cuserid')?$.cookie('cuserid'):''; 
         var myVue = new Vue({
             el: '#container',
+            mixins: [mixin],
             data: {
                 emptyLink: 'http://' + location.host,
                 idCardName: '',
                 idCardNum: '',
+                hotSaleList:[], //hut推荐
                 canSummitIdCard: false,
                 showDelete: false,
                 empty: false,
@@ -229,7 +251,7 @@ $(function(){
             ready: function(){
                 var that = this;
                 $.AJAX({
-                    url: config.basePath+"product/svProduct/getShopCartList?userId="+truemeUserId,
+                    url: config.basePath+"product/svProduct/getShopCartList",
                     success: function(o){
                         if(o.data.totalNum == 0){
                             that.empty = true;
@@ -238,6 +260,7 @@ $(function(){
                                 o.data.shopCartSkuList[key].showPrice = Math.round(o.data.shopCartSkuList[key].skuPrice * 100 * o.data.shopCartSkuList[key].skuNum)/100;
                             }
                             that.items = o.data.shopCartSkuList;
+                            $('.see-more').removeClass('hide');
                         }
                         $('#container').show();
                     }
@@ -254,11 +277,17 @@ $(function(){
                 },
                 deleteItem: function(e){
                     var skuId = $(e.target).parents('li').data('sku-id');
-                    var url = config.basePath+'product/svProduct/deleteShopCartSku?userId=' + truemeUserId + '&skuId=' + skuId;
+                    var $target = $(e.target);
+                    var url = config.basePath+'product/svProduct/deleteShopCartSku?skuId=' + skuId;
                     $.AJAX({
                         url: url,
                         success: function(){
-                            $(e.target).parents('li').remove();
+                            $target.parents('li').remove();
+                            Popup.alert({type: 'msg', title: '删除成功！', yes: function(){
+                                if($('.product-list li').length ==0){
+                                    location.reload();
+                                }
+                            }});
                         }
                     })
                 },
@@ -267,8 +296,7 @@ $(function(){
                     $(e.target).toggleClass('select-icon');
                     if($('.product-list > li').length == $('.product-list > li .select-icon').length){
                         $('.toobar .unselect-icon').addClass('select-icon');
-                    }
-                    if($('.product-list > li .select-icon').length == 0){
+                    }else{
                         $('.toobar .unselect-icon').removeClass('select-icon');
                     }
                     that.changeTotalPrice();
@@ -290,7 +318,7 @@ $(function(){
                 lessNum: function(e){
                     var that = this;
                     if(parseInt($(e.target).parent().find('.product-num').html()) == 1){
-                        T.layer.toast({'content':'亲，库存不能为零哦~'})
+                        T.layer.toast({'content':'亲，商品数量不能为零哦~'})
                         return;
                     }
                     var $parent = $(e.target).parent();
@@ -329,10 +357,9 @@ $(function(){
                 },
                 submit: function(){
                     var param = {};
-                    param.userId = 1;
                     param.totalPrice = parseFloat($('.final-total span i').text());
                     if(param.totalPrice == 0){
-                    	T.layer.toast({'content': '哈哈'});
+                    	Popup.miss({'title': '你还没有选择商品哦'});
                     	return false;
                     }
                     param.skuList = [];
@@ -350,12 +377,15 @@ $(function(){
                         success: function(o){
                             console.log(o);
                             sessionStorage.setItem('data', JSON.stringify(o.data));
-                            location.href = "../order/confirmOrder.html?userId=" + $.cookie('cuserid');
+                            location.href = "../order/confirmOrder.html";
                     	}
                     });
                 }
             }
         });
+        myVue.conflicting({callback:function(data){
+           myVue.hotSaleList=data;
+        }});
     </script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-.det-top { height: 1.3rem; margin-bottom: .2rem; line-height: .65rem; background-color: #fff; }
+.det-top { margin-bottom: .2rem; line-height: .65rem; background-color: #fff; }
+.det-top-h{height: 1.3rem;}
 .det-top .order-num { height: .65rem; border-bottom: 1px solid #f0f0f0; }
 .det-top .order-search .pull-left { padding-left: .35rem; background: url("/assets/trueme/images/order/car.png") no-repeat left center; background-size: .28rem auto; }
 .det-top .order-search .pull-right { padding-right: .2rem; font-size: .16rem; color: #ffbf17; background: url("/assets/trueme/images/common/arrow_right.png") no-repeat right center; background-size: .12rem auto; }

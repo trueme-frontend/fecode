@@ -1,10 +1,7 @@
-/*login.js*/
-win.hideLoading();
+/*wareDetail.js*/
 $(function () {
     //获取商品的spuId
    var shopSpuId=getQueryString('spuId')||1;
-   //用户userId
-   var truemeUserId=$.cookie('cuserid')?$.cookie('cuserid'):''; 
 
     //折叠
     $(".color-hd").click(function () {
@@ -26,11 +23,26 @@ $(function () {
 
     //banner
     var vm = new Vue({
-        el: '#bannerlist',
+        el: '#container',
+        mixins: [mixin],
         data: {
-            banner: [],
+            banner: [],   //banner图
+            hotSaleList:[], //hut推荐
+            spuDetail:[],  //商品spu详情图
+            spuDetailList:'', //获取SPU详情信息
+            spuTotalList:[], //
+            specifin:[], //商品规格
+            skuNum:0,  //购买的商品数量
+            skuTitle:'',  //购买商品的标题
+            skuId:'',  //商品的skuId
+            type:1,   //1为手机加入购物车 ，2为立即购买
+            shopingNum:1, //购买商品数量
+            getSkuStockInf:0,  //可购买的库存量
+            goodsPrice:0,  //商品价格 
+            hasCollected: false  //是否已收藏
         },
         ready: function(){
+            $('#container').removeClass('hide');
             $(window).on('scroll', function(){
                 var scrollTop = document.body.scrollTop;
                 var targetColor = 0.5 - scrollTop/(88*rem/100);
@@ -65,7 +77,7 @@ $(function () {
                     });
                 }
             });
-
+            var This=this;
             //加载banner图片
             $.AJAX({
                 type:'get',
@@ -76,27 +88,32 @@ $(function () {
                 success:function(data){
                     //渲染banner
                     vm.banner=data.data.spuMainImgList;
-                    setTimeout(function(){
-                        var bannerSwiper = new Swiper('.banner', {
-                            loop: true,
-                            direction: 'horizontal',
-                            autoplay: 2000,
-                            autoplayDisableOnInteraction : false,
-                            pagination : '.swiper-pagination',
-                        });
-                    },0);
+                    This.$nextTick(function(){
+                        setTimeout(function(){
+                            var bannerSwiper = new Swiper('.banner', {
+                                autoplay: 2000,
+                                autoplayDisableOnInteraction : false,
+                                visibilityFullFit: true,
+                                loop: true,
+                                pagination: '.swiper-pagination'
+                            });
+                        },0);
+                    });
                 },
             });
-        },
-    });
-    
-    //商品详情图
-    var details = new Vue({
-        el: '#detailsList',
-        data: {
-            spuDetail:[],
-        },
-        ready: function(){
+
+            //获取用户是否收藏该商品
+            $.AJAX({
+                type: "POST",
+                code: true,
+                url: config.basePath + 'user/sviscollectforgoods?spuId=' + shopSpuId,
+                error: function(o){
+                    if(o.code == 5300){
+                        This.hasCollected = true;
+                    }
+                }
+            });
+
             //加载商品详情图
             $.AJAX({
                 type:'get',
@@ -105,29 +122,9 @@ $(function () {
                     spuId:shopSpuId,
                 },
                 success:function(data){
-                    details.spuDetail=data.data.spuDetailImgList;
+                    This.spuDetail=data.data.spuDetailImgList;
                 }
             });
-
-        },
-    });
-
-    //获取SPU详情信息
-    var spuDetails = new Vue({
-        el: '#supMain',
-        data: {
-            spuDetailList:{}, //获取SPU详情信息
-            spuTotalList:[], //
-            specifin:[], //商品规格
-            skuNum:0,  //购买的商品数量
-            skuTitle:'',  //购买商品的标题
-            skuId:'',  //商品的skuId
-            type:1,   //1为手机加入购物车 ，2为立即购买
-            shopingNum:1, //购买商品数量
-            getSkuStockInf:0,  //可购买的库存量
-            goodsPrice:0,  //商品价格 
-        },
-        ready: function(){
 
             //获取SPU详情信息
             $.AJAX({
@@ -137,9 +134,10 @@ $(function () {
                     spuId:shopSpuId,
                 },
                 success:function(data){
-                    setTimeout(function(){$('#container').removeClass('hide');},0);
-                    spuDetails.spuDetailList=data.data.spuDetailInfo;
-                    spuDetails.goodsPrice=data.data.spuDetailInfo.salePrice
+                    $('.good-main').removeClass('hide');
+                    vm.getSkuStockInf=data.data.spuDetailInfo.totalStockNum; //可购买的商品库存
+                    vm.spuDetailList=data.data.spuDetailInfo; //商品详情数据
+                    vm.goodsPrice=data.data.spuDetailInfo.salePrice //商品价格
                 },
             });
 
@@ -151,18 +149,15 @@ $(function () {
                     spuId:shopSpuId,
                 },
                 success:function(data){
-                    spuDetails.specifin=data.data.getSpuStandardList;
-                     //选择
-                    console.log(data.data.getSpuStandardList)   
+                    vm.specifin=data.data.getSpuStandardList;
                 }
             });
-
         },
-        methods: {
+        methods:{
             //切换tab获得产品库存
             activeLi:function($event,skuId){
                 $($event.target).addClass("checked").siblings().removeClass("checked");
-                spuDetails.skuId=skuId;
+                vm.skuId=skuId;
                 //获取规格数量
                  $.AJAX({
                     url:config.basePath+'product/svProduct/getSkuStockInfo',
@@ -170,7 +165,7 @@ $(function () {
                         skuId:skuId,
                     },
                     success:function(data){
-                        spuDetails.getSkuStockInf=data.data.getSkuStockInfo.stockNum;
+                        vm.getSkuStockInf=data.data.getSkuStockInfo.stockNum;
                         //获得产品规格和价格
                         $.AJAX({ 
                             url:config.basePath+'product/svProduct/getSkuPriceInfo',
@@ -178,7 +173,7 @@ $(function () {
                                 skuId:skuId,
                             },
                             success:function(data){
-                                spuDetails.goodsPrice=data.data.getSkuStockInfo.salePrice;
+                                vm.goodsPrice=data.data.getSkuStockInfo.salePrice;
                             },
                         });//end
                     },
@@ -187,18 +182,18 @@ $(function () {
 
             //加入购物车
             joinShoppingCart:function(){
-                spuDetails.type=1;
+                vm.type=1;
             },
 
             //设置为立即购买
             payOrderNow:function(){
-                spuDetails.type=2;
+                vm.type=2;
             },
 
             //减少商品
             reduceShopNum:function(){
-                if(spuDetails.shopingNum>1){
-                    spuDetails.shopingNum--;
+                if(vm.shopingNum>1){
+                    vm.shopingNum--;
                 }else{
                     Popup.miss({title:'亲,商品数量最少为1件额！'});
                 }
@@ -206,21 +201,20 @@ $(function () {
 
             //增加商品
             addShopNum:function(){
-                spuDetails.shopingNum++;
+                vm.shopingNum++;
             },
 
             //开始购买或者加入购物车
             submitShopNow:function(){
-                if(spuDetails.type==1){
+                if(vm.type==1){
                     //加入购物车
                     $.AJAX({
                         type:'post',
                         url:config.basePath+'product/svProduct/addShopCart',
                         data:{
-                            userId:truemeUserId,  
-                            skuId:spuDetails.skuId||spuDetails.specifin[0].skuId, 
-                            skuNum:spuDetails.shopingNum, 
-                            skuTitle:spuDetails.spuDetailList.title,
+                            skuId:vm.skuId||vm.specifin[0].skuId, 
+                            skuNum:vm.shopingNum, 
+                            skuTitle:vm.spuDetailList.title,
                         },
                         success:function(data){
                             //取消弹出层
@@ -228,16 +222,15 @@ $(function () {
                             Popup.miss({title:'加入购物车成功！'}); 
                         },
                     });
-                }else if(spuDetails.type==2){
+                }else if(vm.type==2){
                     //立即购买 结算订单
-                    var price=spuDetails.goodsPrice*spuDetails.shopingNum;
-                    //var price=spuDetails.spuDetailList.salePrice*spuDetails.shopingNum;
+                    var price=vm.goodsPrice*vm.shopingNum;
+                    //var price=vm.spuDetailList.salePrice*vm.shopingNum;
                     var json={
-                        userId:truemeUserId,
                         totalPrice:price,
                         skuList:[{
-                            skuId:spuDetails.skuId||spuDetails.specifin[0].skuId,
-                            num:spuDetails.shopingNum,
+                            skuId:vm.skuId||vm.specifin[0].skuId,
+                            num:vm.shopingNum,
                         }],
                     };
                     $.AJAX({
@@ -245,24 +238,37 @@ $(function () {
                         success: function(o){
                             console.log(o);
                             sessionStorage.setItem('data', JSON.stringify(o.data));
-                            var href="../order/confirmOrder.html?userId=" + truemeUserId;
+                            var href="http://"+window.location.host+"/trueme/order/confirmOrder.html";
                             location.href = href;
                             sessionStorage.setItem('weixin-next-url', href);
-                        }
+                        },
                     });
                 }//end
             },
 
             //收藏商品
-            collection:function(){
-                wx.w.collection({
-                   userId:truemeUserId,
-                   spuId:shopSpuId, 
+            collection:function(event){
+                trueme.w.collection({
+                   spuId:shopSpuId,
+                   success: function(data){
+                        if(data.data.flag ==2){
+                            $('.store-icon').addClass('stored');
+                            Popup.miss({title:'收藏成功！'});
+                        }else{
+                            $('.store-icon').removeClass('stored');
+                            Popup.miss({title:'取消收藏成功！'});
+                        }
+                   }
                 });
             },
 
-        }
+        },
     });
+    
+    //获取hot推荐    
+    vm.conflicting({callback:function(data){
+       vm.hotSaleList=data;
+    }});
      
 });
 

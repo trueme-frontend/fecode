@@ -138,7 +138,7 @@ if(window.$){
 		var dataCode=parseInt(data.code);
 		if(dataCode==1000){
 			json.success(data);
-		}else if(dataCode==1004){
+		}else if(!json.pageSet && dataCode==1004){
 			if(window.location.href.indexOf(config.loginUrl) == -1){ 
 				sessionStorage.setItem("weixin-url", window.location.href); //记录没有登陆前的访问页面
 				win.location.href=config.loginUrl;
@@ -589,8 +589,12 @@ function getZero(num){
 }
 
 /*浏览器返回上一步*/
-function goBack(){
-  window.history.back()
+function goBack(url){
+	if(url){
+		window.location.href="http://"+window.location.host+'/'+url;
+	}else{
+		 window.history.go(-1);
+	}
 }
 
 /*检测是不是数组里面的值*/
@@ -624,6 +628,19 @@ function deleteJson(json,key){
 		}
 	}
 	return newJson;
+}
+
+/*根据某个val值删除当前数组的值*/
+function deleteArrItem(arr,val){
+	var newArr=[];
+	for(var i=0,len=arr.length;i<len;i++){
+		for(var j in arr[i]){
+			if(arr[i][j]==val){
+				newArr=arr.splice(i,1);
+			}
+		}
+	}
+	return newArr;
 }
 
 /*检测json 中是否有某个key值*/

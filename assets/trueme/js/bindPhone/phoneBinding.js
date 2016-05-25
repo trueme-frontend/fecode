@@ -21,13 +21,14 @@ var vm = new Vue({
             }
             This.disabled=true; //发送短信时按钮不可点击
             //短信定时器开始 
-            wx.w.getMsgTime(this,function(){
+            trueme.w.getMsgTime(this,function(){
                 This.disabled=false; //完成后按钮可点击 
             });
             //获取短信码
             $.AJAX({
                 type:'post',
                 url:config.basePath+'user/svSendPhoneCode',
+                code:true,
                 data:{
                     phone:This.phoneNo,
                 },
@@ -35,7 +36,11 @@ var vm = new Vue({
                     Popup.miss({title:'短信验证码发送成功!'});
                     //This.codeNo=data.code;
                     This.disabled=false; //完成后按钮可点击 
-                }
+                },
+                error:function(){
+                    This.getMsgText="发送验证码";
+                    Popup.alert({type:'msg',title:data.desc});
+                },
             });
         },
         //绑定手机
@@ -50,6 +55,7 @@ var vm = new Vue({
             //绑定手机
             $.AJAX({
                 type:'post',
+                code: true,
                 url:config.basePath+'user/svBindPhone',
                 data:{
                     uid:'1',
@@ -58,6 +64,10 @@ var vm = new Vue({
                 },
                 success:function(data){
                     window.location.href=config.prevUrl;
+                },
+                error: function(){
+                    $('input[name="userTestCode"]').val('');
+                    Popup.alert({'type':'msg', 'title':'验证失败！请重试'});
                 }
             });
 

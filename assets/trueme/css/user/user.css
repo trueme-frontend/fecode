@@ -57,6 +57,7 @@
 .msg-list li.img { height: 1.36rem; line-height: 1.36rem; }
 .msg-list li.img .img { display: inline-block; width: 1rem; height: 1rem; margin-top: .18rem; text-align: center; border-radius: 50%; overflow: hidden; }
 .msg-list li.img .img img { max-width: 1rem; max-height: 1rem; vertical-align: inherit; }
+.msg-list li a{display: block; width: 100%; height: 100%;}
 /*nickname*/
 .nickname { position: relative; width: 100%; height: 1.05rem; padding: 0 .25rem; line-height: 1.05rem; background-color: #fff; }
 .nickname input { width: 100%; height: .8rem; border: none; }

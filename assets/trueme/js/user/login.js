@@ -25,7 +25,7 @@ var vm = new Vue({
         //获得微信code
         getWxCode: function(id){
             //跳转获得微信code
-            wx.w.getWeiXinCode();
+            trueme.w.getWeiXinCode();
         }
     }
 });

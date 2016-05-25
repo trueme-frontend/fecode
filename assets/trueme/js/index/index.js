@@ -92,6 +92,7 @@ var vm = new Vue({
                     return false;
                 }
                 that.doingAjax = true;
+                win.showLoading();
                 var url = config.basePath+'content/svItemHome/getHotSkuInfo?topTypeId=' + that.nowTabId + '&hotSkuStartNum=' + that.items[that.nowTabId].hotSkuStartNum;
                 //请求数据
                 $.AJAX({
@@ -111,6 +112,10 @@ var vm = new Vue({
         });
     },
     methods: {
+        praise: function(e){
+            var that = this;
+            $(e.target).find('.praise_icon').addClass('praised');
+        },
         getNavData: function(e){
             var that = this;
             that.doingAjax = true;

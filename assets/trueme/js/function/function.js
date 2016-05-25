@@ -1,6 +1,6 @@
 
 /****************************************************定义函数*******************************************************************/
-window.wx={
+window.trueme={
   
 /*方法汇总
   getWeiXinCode -- 获取微信code
@@ -185,7 +185,7 @@ nowNum    :  当前加载数据的条数
 totalNum:总数据的条数
 callback  ：回调函数
 //调用案例
-wx.w.scrollGetData({
+trueme.w.scrollGetData({
     lastObj:$('#lastdiv'),
     callback:function(){    
         console.log("00")
@@ -229,7 +229,7 @@ deteleOrder:function(json){
     url:config.basePath+'order/svorder/delorder',
     data:{
         "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-        "orderId":json.orderId, //'P160519201459101012',//getQueryString('payOrderNo')
+        "orderId":json.orderId, 
     },
     success:function(data){
       Popup.miss({title:'删除订单成功!'});
@@ -265,9 +265,9 @@ collection:function(json){
           spuId:json.spuId,
       },
       success:function(data){
-          Popup.miss({title:'收藏成功！'}); 
+          // Popup.miss({title:'收藏成功！'}); 
           if(json.success){
-            json.success();
+            json.success(data);
           };
       },
   });

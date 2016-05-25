@@ -61,18 +61,18 @@
                             <span class="default-tag" v-show="item.status">默认</span>
                             <div class="user-address" v-text="item.province + item.city + item.area + item.address"></div>
                         </div>
-                        <a v-bind:href="'../order/confirmOrder.html?userId=' + cookieUser + '&id=' + item.id" class="confirm-choose-link"></a>
+                        <a v-bind:href="'../order/confirmOrder.html?id=' + item.id" class="confirm-choose-link"></a>
                     </div>
                     <div class="select-box">
-                        <span class="select" v-bind:class="{'selected' : item.status }"></span>
+                        <span class="select" v-bind:class="{'selected' : item.selectedId }"></span>
                     </div>
-                    <a class="edit-box" v-bind:href="'addressEdit.html?userId=' + cookieUser + '&id=' + item.id">
+                    <a class="edit-box" v-bind:href="'addressEdit.html?id=' + item.id">
                         <span class="edit"></span>
                     </a>
                 </li>
             </ul>
             <div class="new-btn-box">
-                <a class="new-btn" v-bind:href="'addressNew.html?userId=' + cookieUser">新增收货地址</a>
+                <a class="new-btn" href="addressNew.html">新增收货地址</a>
             </div>
         </div>
 	</div>
@@ -80,18 +80,29 @@
         var vm = new Vue({
             el: '#container',
             data: {
-                cookieUser: $.cookie('cuserid'),
                 userAddress: []
             },
             ready: function(){
                 var that = this;
+                var selectedId = getQueryString('id');
                 $('#container').show();
                 $.AJAX({
-                    url: config.basePath + 'user/svuseraddress/getUserAddressList?userId=' + $.cookie('cuserid'),
+                    url: config.basePath + 'user/svuseraddress/getUserAddressList',
                     success: function(o){
-                        // debugger;
+                        for(var i=0; i<o.data.userAddressList.length; i++){
+                            o.data.userAddressList[i].selectedId = false;
+                            if(!getQueryString('id')){
+                                if(o.data.userAddressList[i].status == 1){
+                                    o.data.userAddressList[i].selectedId = true;
+                                    break;
+                                }
+                            }
+                            if(o.data.userAddressList[i].id == getQueryString('id')){
+                                o.data.userAddressList[i].selectedId = true;
+                                break;
+                            }
+                        }
                         that.userAddress = o.data.userAddressList;
-                        console.log(that.userAddress.province);
                     }
                 });
                 // $(document).on('click', '.edit-box', function(){

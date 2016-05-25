@@ -1,0 +1,61 @@
+.ewm {
+    margin-top: 2.5rem;
+    margin-bottom: .5rem;
+}
+.ewm img {
+    max-width: 3.5rem;
+}
+.ewm-t {
+    font-size: .34rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.ewm-t i{
+    display: inline-block;
+    width: 1.2rem;
+    height: .35rem;
+    background: url("/assets/maker/images/index/zyz.png") no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+}
+.invite-btn {
+    padding: .08rem .5rem;
+    border-radius: 1rem;
+}
+.bg-h5 {
+    background: url("/assets/maker/images/index/bg-h5.png") no-repeat;
+    background-size: cover;
+}
+.transparent {
+    background-color: transparent;
+}
+.transparent .back {
+    background: url("/assets/maker/images/common/back-bei.png") no-repeat center;
+    background-size: .2rem auto;
+}
+.invite-h5-p {
+    margin-top: 4rem;
+    margin-bottom: .5rem;
+    text-align: center;
+    font-size: .5rem;
+    color: #fff;
+}
+.invite-h5-btn {
+    font-size: .3rem;
+    border-radius: 1rem;
+    background-color: rgba(255, 255, 255, .2);
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

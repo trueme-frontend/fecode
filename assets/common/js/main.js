@@ -24,6 +24,27 @@ Vue.filter('charAt', function (value,num) {
   	return value.charAt(num);
 });
 
+//limitTo过滤器
+Vue.filter('limitTo', function (value,num) {
+	var text="";
+	if(value.length<num){
+		text=value;
+	}else{
+		text=value.substring(0,num)+'···';
+	}
+  	return text;
+});
+
+//时间过滤器
+Vue.filter('Data', function (format,his) {
+	if(his){
+		return new Date(format).date('y-m-d h:i:s');
+	}else{
+		return new Date(format).date('y-m-d');
+	}
+});
+
+
 //图片七牛云过滤器
 Vue.filter('qiniuImgFilter', function (src,type,w,h) {  //?imageView2/0/w/300/h/200
 	if(type){
@@ -260,7 +281,7 @@ if(window.$){
 		var dataCode=parseInt(data.code);
 		if(dataCode==1000){
 			json.success(data);
-		}else if(dataCode==1004){
+		}else if(!json.pageSet && dataCode==1004){
 			if(window.location.href.indexOf(config.loginUrl) == -1){ 
 				sessionStorage.setItem("weixin-url", window.location.href); //记录没有登陆前的访问页面
 				win.location.href=config.loginUrl;
@@ -711,8 +732,12 @@ function getZero(num){
 }
 
 /*浏览器返回上一步*/
-function goBack(){
-  window.history.back()
+function goBack(url){
+	if(url){
+		window.location.href="http://"+window.location.host+'/'+url;
+	}else{
+		 window.history.go(-1);
+	}
 }
 
 /*检测是不是数组里面的值*/
@@ -746,6 +771,19 @@ function deleteJson(json,key){
 		}
 	}
 	return newJson;
+}
+
+/*根据某个val值删除当前数组的值*/
+function deleteArrItem(arr,val){
+	var newArr=[];
+	for(var i=0,len=arr.length;i<len;i++){
+		for(var j in arr[i]){
+			if(arr[i][j]==val){
+				newArr=arr.splice(i,1);
+			}
+		}
+	}
+	return newArr;
 }
 
 /*检测json 中是否有某个key值*/
@@ -926,6 +964,7 @@ PopLayer.prototype.iframe=function(json){
 
 //信息层
 PopLayer.prototype.alert=function(json){
+    var This = this;
     this.varLiang(json);
     var str='<div class="popup">';
 	str+=this.setting.maskHide?'<div class="mask" onclick="closeThisPopup(this)"></div>':'<div class="mask"></div>';
@@ -934,10 +973,14 @@ PopLayer.prototype.alert=function(json){
     	str+=this.setting.closeBut?'<div class="header_poup">'+this.setting.header+'</div>':'<div class="header_poup">'+this.setting.header+'<span onclick="closeThisPopup(this)"></span></div>';
     }
     str+='<div class="content">'+this.setting.title+'</div>';
-    str+='<div class="footer"><span class="yes yesok" onclick="closeThisPopup(this)">确定</span></div>';
+    // str+='<div class="footer"><span class="yes yesok" onclick="closeThisPopup(this)">确定</span></div>';
+    str+='<div class="footer"><span class="yes yesok">确定</span></div>';
     str+='</div></div>';
-	         
+	
     $('body').append(str);
+    $('span.yes').click(function(){
+        dosomePopup(this,This.setting.yes);
+    });
     middle(this.setting); //居中
 }
 //确认层

@@ -39,8 +39,9 @@
 
         <ul class="msg-list">
             <li class="img g-border-b">
-                <a href="userPhoto.html" class="pull-left">修改头像</a>
-                <a href="#" class="pull-right img"><img v-bind:src="userInfo.userPhoto || '../../assets/trueme/images/user/user.png'" alt="user"></a>
+                <a href="userPhoto.html">
+                <span class="pull-left">修改头像</span>
+                <div class="pull-right img"><img v-bind:src="userInfo.userPhoto || '../../assets/trueme/images/user/user.png'" alt="user"></div></a>
             </li>
             <li class="g-border-b">
                 <a href="userEditNickname.html">
@@ -59,7 +60,7 @@
                 <div class="pull-right"><span v-text="userInfo.register + '：'"></span><span v-text="userInfo.nickName"></span></div>
             </li>
             <li class="g-border-b">
-                <a href="phoneBinding.html">
+                <a href="../bindPhone/phoneBindingOver.html">
                     <div class="pull-left">手机绑定</div>
                     <div class="pull-right" v-text="userInfo.phone || '未设置'"></div>
                 </a>

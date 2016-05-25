@@ -91,7 +91,8 @@
                 var nowUrl = location.href;
                 var keyName = T.url.getParam('keyName');
                 that.queryString = keyName;
-                var url = T.url.setParam('keyName', keyName, 'http://182.254.243.100:8001/content/svItemHome/getSearchResultList');
+                var url = config.basePath + 'content/svItemHome/getSearchResultList';
+                url = T.url.setParam('keyName', keyName, url);
                 $.AJAX({
                     url: url,
                     success: function(o){

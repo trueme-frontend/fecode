@@ -24,7 +24,7 @@ if(code){
 		},
 		success:function(data){
 			//获取用户信息 判断是否绑定手机
-			wx.w.getUserInfor({
+			trueme.w.getUserInfor({
 				success:function(data){
 					if(parseInt(data.data.isBindPhone)){
 						//已经绑定手机 跳转到上一页面或者首页

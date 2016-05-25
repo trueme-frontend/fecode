@@ -9,7 +9,8 @@
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- 样式文件 -->
     <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <style type="text/css">.det-top { height: 1.3rem; margin-bottom: .2rem; line-height: .65rem; background-color: #fff; }
+    <style type="text/css">.det-top { margin-bottom: .2rem; line-height: .65rem; background-color: #fff; }
+.det-top-h{height: 1.3rem;}
 .det-top .order-num { height: .65rem; border-bottom: 1px solid #f0f0f0; }
 .det-top .order-search .pull-left { padding-left: .35rem; background: url("/assets/trueme/images/order/car.png") no-repeat left center; background-size: .28rem auto; }
 .det-top .order-search .pull-right { padding-right: .2rem; font-size: .16rem; color: #ffbf17; background: url("/assets/trueme/images/common/arrow_right.png") no-repeat right center; background-size: .12rem auto; }
@@ -101,8 +102,7 @@ var vm = new Vue({
       //获取物流信息
       $.AJAX({
         type:'post',
-        url:'http://192.168.0.101:8080/order/svqueryorder/ordertrans',
-        //url:config.basePath+'order/svqueryorder/ordertrans',
+        url:config.basePath+'order/svqueryorder/ordertrans',
         data:{
           "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
           "time": time(),

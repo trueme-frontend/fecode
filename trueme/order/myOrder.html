@@ -47,91 +47,27 @@
             <ul>
                 <li v-for="item in datas.orderList">
                     <div class="title">
-                        <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
-                        <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
+                        <span class="pull-left" v-text="item.orderDate"></span>
+                        <span class="pull-right text-main" v-text="item.orderStatus | orderStatusFilter"></span>
                     </div>
-                    <a href="orderDetails.html?orderId={{item.id}}">
-                    <div class="pro-box" v-for="citem in item.orderDetailDto">
-                        <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
-                        <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
-                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
+                    <div class="pro-box" v-for="citem in item.orderDetailDto" v-on:click="orderDetails(item.id)">
+                        <div class="img"><img :src="citem.skuIcon" ></div>
+                        <div class="name strong" v-text="citem.skuName"></div>
+                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice"></span><br><span v-text="'x '+ item.totalCount"></span></div>
                     </div>
-                    </a>
-                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
+                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'"></span>应付总额:<span class="text-main" v-text="item.payMoney"></span></div>
                     <div class="operation">
-                        <button v-if="item.orderStatus|stateBoolen '1,2,3' " v-on:click="deteleOrder(item.id)" type="button" class="btn btn-default">删除订单</button>
-                        <a v-if="item.orderStatus|stateBoolen '1' " class="btn btn-default" href="orderPayment.html?payOrderNo={{item.platPayNo}}">去付款</a>
-                        <button v-if="item.orderStatus|stateBoolen '2' " v-on:click="cancelOrder(item.id)" type="button" class="btn btn-default" >取消订单</button>
+                         <a v-if="item.orderStatus|stateBoolen '1,2' " class="btn btn-default btn-default" href="">联系卖家</a>
+                        <button v-if="item.orderStatus|stateBoolen '1,2,3,4,6,7,9' " v-on:click="deteleOrder(item.id)" type="button" class="btn btn-default">删除订单</button>
+                        <a v-if="item.orderStatus|stateBoolen '1' " class="btn btn-default btn-main badge" href="orderPayment.html?payOrderNo={{item.platPayNo}}">确定付款</a>
+                        <button v-if="item.orderStatus|stateBoolen '1,2' " v-on:click="cancelOrder(item.id)" type="button" class="btn btn-default" >取消订单</button>
                         <a v-if="item.orderStatus|stateBoolen '3' " class="btn btn-default" href="checkWuLi.html?orderId={{item.id}}">订单跟踪</a>
+                        <a v-if="item.orderStatus|stateBoolen '3' " class="btn btn-default" href="">确定收货</a>
                     </div>
                 </li>
             </ul>
         </div>
-       <!--  <div class="item" id="item2">
-            <div class="notice">关于香港物流的相关信息</div>
-            <ul>
-                <li v-for="item in datas1.orderList">
-                    <div class="title">
-                        <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
-                        <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
-                    </div>
-                    <div class="pro-box" v-for="citem in item.orderDetailDto">
-                        <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
-                        <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
-                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
-                    </div>
-                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
-                    <div class="operation">
-                        <button type="button" class="btn btn-default" v-on:click="deteleOrder(item.orderNo)">删除订单</button>
-                        <a class="btn btn-default" href="orderPayment.html?payOrderNo={{item.platPayNo}}">去付款</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="item" id="item3">
-            <div class="notice">关于香港物流的相关信息</div>
-            <ul>
-                <li v-for="item in datas2.orderList">
-                    <div class="title">
-                        <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
-                        <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
-                    </div>
-                    <div class="pro-box" v-for="citem in item.orderDetailDto">
-                        <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
-                        <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
-                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
-                    </div>
-                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
-                    <div class="operation">
-                        <button type="button" class="btn btn-default" v-on:click="deteleOrder(item.orderNo)">删除订单</button>
-                        <button type="button" class="btn btn-default" v-on:click="cancelOrder(item.orderNo)">取消订单</button>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <div class="item" id="item4">
-            <div class="notice">关于香港物流的相关信息</div>
-            <ul>
-                <li v-for="item in datas3.orderList">
-                    <div class="title">
-                        <span class="pull-left" v-text="item.orderDate">2016-5-20</span>
-                        <span class="pull-right" v-text="item.orderStatus | orderStatusFilter">待付款</span>
-                    </div>
-                    <div class="pro-box" v-for="citem in item.orderDetailDto">
-                        <div class="img"><img :src="citem.skuIcon" _src="../../assets/images/order/pro.png" alt="pro"></div>
-                        <div class="name strong" v-text="citem.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
-                        <div class="money text-right"><span class="strong" v-text="'¥'+citem.skuPrice">¥179.00</span><br>× 1</div>
-                    </div>
-                    <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'">共1件</span>应付总额:<span class="text-main" v-text="item.payMoney">179.00</span></div>
-                    <div class="operation">
-                        <button type="button" class="btn btn-default" v-on:click="deteleOrder(item.orderNo)">删除订单</button>
-                        <a class="btn btn-default" href="checkWuLi.html?orderNo={{item.orderNo}}">订单跟踪</a>
-                    </div>
-                </li>
-            </ul>
-        </div> -->
     </div>
-    <!-- <div style="margin-top:1000px;">00000</div> -->
     <div id="bottomscolltop"></div>
 </div>
 <!-- 模板js文件 -->
@@ -143,8 +79,6 @@
 win.hideLoading();
 //查询的订单状态  1.待付款 2.待发货3.已发货【配送中】4.已完成【已收货】5.退款中6.已取消7.已关闭8.退货中9. 已退款
 var stateOrder=0;  
-//用户userId
-var truemeUserId=$.cookie('cuserid'); 
 //当前的订单状态tab
 var orderstatestab=getQueryString('orderstates',true)?getQueryString('orderstates',true):0;
 
@@ -188,7 +122,6 @@ var vm = new Vue({
             This.queryMyOrderList(This.index);
            }
            //判断json是否为空 jQuery.isEmptyObject({})
-           
         });
 
         //获取数据列表
@@ -206,7 +139,6 @@ var vm = new Vue({
                   "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
                   "orderStatus":orderStatus,
                   "startNum":0,
-                  "userId":truemeUserId
               },
               success:function(data){
                 setTimeout(function(){$('#container').removeClass('hide');},100);
@@ -223,7 +155,7 @@ var vm = new Vue({
      scollGetMoreData:function(){
       var This=this;
       //滚动时执行
-      wx.w.scrollGetData({  
+      trueme.w.scrollGetData({  
           lastObj:$('#bottomscolltop'),
           bottomTop:700,
           callback:function(){
@@ -234,7 +166,6 @@ var vm = new Vue({
                   "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
                   "orderStatus":This.index,
                   "startNum":This.datasList['data'+This.index]['startNum'],
-                  "userId":truemeUserId
                 },
                 success:function(data){
                   //判断是否还需要滚动获取数据 向数组里push数据
@@ -242,11 +173,8 @@ var vm = new Vue({
                     config.scrollbegin=true; //可以再次滚动
                     This.datasList['data'+This.index]['data'].orderList=(This.datasList['data'+This.index]['data'].orderList).concat(data.data.orderList);
                     This.datas=This.datasList['data'+This.index]['data'];
-                    //This.datas.orderList = This.datas.orderList.concat(data.data.orderList);
                   }
                   This.datasList['data'+This.index]['startNum']=data.data.startNum;
-                  //This[startNumStr]=data.data.startNum;
-                  
                 },
            });  
           },
@@ -255,27 +183,39 @@ var vm = new Vue({
 
       //取消订单
       cancelOrder:function(orderNo){
-        wx.w.cancelOrder({
-          orderId:orderNo,  //'P160519201459101012'
-          success:function(data){
-            //获取数据列表
-            This.queryMyOrderList(This.index); 
-          }
+        Popup.confirm({type:'msg',title:'确认取消订单吗？',yes:function(){
+              trueme.w.cancelOrder({
+                orderId:orderNo,  
+                success:function(data){
+                  vm.datasList['data'+vm.index]['data'].orderList=deleteArrItem(vm.datasList['data'+vm.index]['data'].orderList,orderNo);
+                  //获取数据列表
+                  // vm.queryMyOrderList(vm.index); 
+                }
+              });
+          },
         });
       },
 
       //删除订单
       deteleOrder:function(orderNo){
-        wx.w.deteleOrder({
-          orderId:orderNo,  //'P160519201459101012'
-          success:function(data){
-            //获取数据列表
-            This.queryMyOrderList(This.index); 
-          }
+        Popup.confirm({type:'msg',title:'确认删除订单吗？',yes:function(){
+              trueme.w.deteleOrder({
+                orderId:orderNo,  
+                success:function(data){
+                  //获取数据列表
+                  vm.datasList['data'+vm.index]['data'].orderList=deleteArrItem(vm.datasList['data'+vm.index]['data'].orderList,orderNo);
+
+                  // vm.queryMyOrderList(vm.index); 
+                }
+              });
+          },
         });
       },
 
-      
+      //订单详情
+      orderDetails:function(orderId){
+        window.location.href="orderDetails.html?orderId="+orderId;
+      },
        
     }
 });

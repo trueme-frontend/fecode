@@ -18,7 +18,7 @@
 .special .itemList { padding: 0 0.25rem; margin-top: 0.3rem; }
 .special .itemList li { width: 50%; padding: 0 0.05rem; float: left; overflow: hidden; margin-bottom: 0.2rem; }
 .special .itemList li img { width: 100%; height: 3.4rem; }
-.special .itemList li h1 { white-space: nowrap; text-align: center; font-size: 0.24rem; margin: 0.15rem 0; }
+.special .itemList li h1 { white-space: nowrap; text-align: center; font-size: 0.24rem; margin: 0.15rem 0; overflow: hidden; text-overflow: ellipsis;}
 .special .itemList li .price { font-size: 0.25rem; }
 </style>
     <!-- 内部样式 -->
@@ -27,12 +27,12 @@
 <div class="container padding-horizontal-0">
     <div  class="special" >
         <div class="m-header">
-            <div class="header-left"><a onclick="goBack()" href="javascript:void(0)" class="back"></a></div>
+            <div class="header-left"><a onclick="goBack('/index.html')" href="javascript:void(0)" class="back"></a></div>
             <span v-text="datas.spuHomeTitle"></span>
         </div>
         <div class="hide" :class="{ show: datas }">
             <div class="banner">
-                <a href=""><img src="{{datas.spuHomeImgUrl}}" _src="../../assets/trueme/images/special/sp-banner.jpg"></a>
+                <a href="/trueme/ware/wareDetail.html?spuId={{datas.spuId}}"><img :src="datas.spuHomeImgUrl | qiniuImgFilter"></a>
             </div> 
             <div class="title">
                 <div class="default">默认排序</div>
@@ -41,9 +41,11 @@
             <div class="itemList" id="itemList">
                 <ul>
                     <li v-for="item in datas.skuInfoList">
-                        <img :src="item.imgMainUrl" _src="../../assets/trueme/images/special/sp-item.jpg">
-                        <h1 v-text="item.skuTitle">Aptamil德国爱他美 婴儿奶粉 4段/1+ 600克/盒 3盒 新...</h1>
-                        <div class="price text-center text-main" v-text="'￥'+item.salePrice">￥138</div>
+                        <a href="/trueme/ware/wareDetail.html?spuId={{datas.spuId}}">
+                        <img :src="item.imgMainUrl | qiniuImgFilter 2 350 350">
+                        <h1 v-text="item.skuTitle"></h1>
+                        <div class="price text-center text-main" v-text="'￥'+item.salePrice"></div>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -86,7 +88,7 @@ var vm = new Vue({
        //滚动获得更多数据
        scollGetMoreData:function(){
         var This=this;
-        wx.w.scrollGetData({  
+        trueme.w.scrollGetData({  
             lastObj:$('#bottomscolltop'),
             callback:function(){ 
               $.AJAX({

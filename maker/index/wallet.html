@@ -17,9 +17,31 @@
         我的钱包
     </div>
 </header>
-<div class="wrapper">
-
+<div class="wrapper padding-wrapper">
+    <div class="text-center">总收入金额(元)<br>¥20000.00</div>
+    <hr>
+    <div class="row text-center">
+        <div class="col-xs-4">¥1000.00 <br>今日收入</div>
+        <div class="col-xs-4">¥200.00 <br>可提现收入</div>
+        <div class="col-xs-4">¥500.00 <br>未入账收入</div>
+    </div>
+    <hr>
+    <h3>收入明细</h3>
+    <ul class="srmx">
+        <li><a href="walletMakerIncome.html"><div class="pull-left">创客收入</div><div class="pull-right">¥200.00</div></a></li>
+        <li><a href="walletTeamIncome.html"><div class="pull-left">团队收入</div><div class="pull-right">¥200.00</div></a></li>
+        <li><a href="walletWithdrawCashRecord.html"><div class="pull-left">提现记录</div><div class="pull-right">¥200.00</div></a></li>
+    </ul>
+    <hr>
+    <div class="container"><a href="withdrawCash.html" class="btn btn-default btn-block">我要提现</a></div>
 </div>
+<footer class="g-border-t">
+    <ul>
+        <li class="active"><a href="index.html"><i class="ma1"></i><p>创客</p></a></li>
+        <li><a href="#"><i class="ma2"></i><p>内容</p></a></li>
+        <li><a href="#"><i class="ma3"></i><p>团队</p></a></li>
+    </ul>
+</footer>
 <!-- 模板js文件 -->
 <script type="text/javascript">/*resize.js*/
 !function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>

@@ -15,6 +15,7 @@ var vm = new Vue({
        createTime:'', //生成订单的倒计时时间
        openId:'',  //用户的openId
        isSubmitPay:false, //是否可支付状态
+       payNo:getQueryString('payOrderNo'), //支付订单号
     },
     ready: function () {
         var This=this;
@@ -24,16 +25,18 @@ var vm = new Vue({
             url:config.basePath+'order/svorder/querypay', 
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "payNo":getQueryString('payOrderNo'), // 'P160519201459101012'
+                "payNo":This.payNo, // 'P160519201459101012'
             },
             success:function(data){
                 This.payOrderNo=data.data.payOrderNo; //预支付订单号
                 This.openId=data.data.openId;  //openId
                 This.needPay=data.data.needPay;
                 //生成订单时间
+                var timespe=(data.data.expireTime-data.data.createTime)/1000; //时间差
+                // var timespe=(10000)/1000; //时间差
                 var timer=setInterval(function(){
-                    var timespe=data.data.expireTime-time(); //时间差
-                    This.createTime=formatSeconds(timespe/1000);
+                    This.createTime=formatSeconds(timespe);
+                    timespe--;
                     if(timespe<=0){
                         clearInterval(timer);
                         This.createTime='00:00';
@@ -104,16 +107,19 @@ var vm = new Vue({
         
         //取消订单
         cancelOrder:function(){
-          $.AJAX({
-            type:'post',
-            url:config.basePath+'order/svorder/cancleorderpayno',
-            data:{
-                "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "payNo":getQueryString('payOrderNo'), //'P160519201459101012',//getQueryString('payOrderNo')
-            },
-            success:function(data){
-               //跳转到订单列表
-               window.location.href="myOrder.html";
+          Popup.confirm({type:'msg',title:'确认取消订单吗？',yes:function(){
+              $.AJAX({
+                type:'post',
+                url:config.basePath+'order/svorder/cancleorderpayno',
+                data:{
+                    "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
+                    "payNo":vm.payNo, //'P160519201459101012',//getQueryString('payOrderNo')
+                },
+                success:function(data){
+                   //跳转到订单列表
+                   window.location.href="myOrder.html";
+                },
+              });
             },
           });
         },
@@ -125,7 +131,7 @@ var vm = new Vue({
             url:config.basePath+'order/svorder/closeorder',
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "payNo":getQueryString('payOrderNo'),//getQueryString('payOrderNo')
+                "payNo":vm.payNo,//getQueryString('payOrderNo')
             },
             success:function(data){
               //跳转到订单列表

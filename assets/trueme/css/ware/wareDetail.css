@@ -8,12 +8,13 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 .header .header-icon { position: absolute; top: 50%; left: 50%; background-image: url('/assets/trueme/images/ware/ware_detail_spirite.png'); background-repeat: no-repeat; }
 .header .header-back { position: relative; display: block; width: .88rem; height: .88rem; }
 .header .header-back .back-arrow { margin-top: -.19rem; margin-left: -.105rem; width: .21rem; height: .38rem; background-position: 0 0; background-size: 1.04rem .38rem; }
-.header .header-cart { position: absolute; top: 0; right: .88rem; width: .88rem; height: .88rem; }
+.header .header-cart { position: absolute; top: 0; right: 0; width: 1.08rem; height: .88rem; }
 .header .header-cart .header-cart-icon { margin-top: -.19rem; margin-left: -.225rem; width: .45rem; height: .38rem; background-position: -.21rem 0; background-size: 1.04rem .38rem; }
 .header .header-set { position: absolute; top: 0; right: 0; width: .88rem; height: .88rem; }
 .header .header-set .header-set-icon { margin-top: -.19rem; margin-left: -.19rem; width: .38rem; height: .38rem; background-position: -.66rem 0; background-size: 1.04rem .38rem; }
 /**/
-.banner { width: 100%; overflow: hidden; }
+.banner { width: 7.5rem; }
+.banner .img-box{width: 7.5rem; height: 6.22rem;}
 .banner img { display: block; width: 7.5rem; height: 6.22rem; }
 /**/
 .good-main { padding: .06rem .2rem 0; background-color: #fff; }
@@ -48,7 +49,8 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 .too-bar { position: relative; position: fixed; height: .88rem; left: 0; right: 0;bottom: 0;}
 .too-bar .too-wrap {   max-width: 7.5rem; margin: 0 auto; height: .88rem; background-color: #fff; }
 .too-wrap .store-btn { float: left; width: 1.4rem; height: .88rem; text-align: center; }
-.too-wrap .store-btn .store-icon { display: inline-block; margin-top: .12rem; width: .41rem; height: .39rem; background: url('/assets/trueme/images/ware/store_icon.png') no-repeat 0 0; background-size: cover; }
+.too-wrap .store-btn .store-icon { display: inline-block; margin-top: .12rem; width: .41rem; height: .39rem; background-image: url('/assets/trueme/images/ware/store_icon.png');background-repeat:  no-repeat; background-position:  0 0; background-size: cover; }
+.too-wrap .store-btn .store-icon.stored{background-image: url('/assets/trueme/images/ware/store_done_icon.png');}
 .too-wrap .store-btn .store-text { margin-top: -.14rem; font-size: .22rem; color: #a4a4a4; }
 .too-wrap .too-btn { overflow: hidden; text-align: center; line-height: .88rem; font-size: .36rem; color: #fff; }
 .too-wrap .too-btn .add-btn { float: left; width: 3.1rem; height: .88rem; background-color: #ff9292; }

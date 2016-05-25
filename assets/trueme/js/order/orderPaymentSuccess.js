@@ -55,7 +55,10 @@ var vm = new Vue({
         }
     },
     methods: {
-        
+        //完成后跳转
+        toNewUrl:function(){
+            window.location.href="myOrder.html";
+        }
     }
 });
 

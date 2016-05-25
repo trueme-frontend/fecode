@@ -20,12 +20,13 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 .header .header-icon { position: absolute; top: 50%; left: 50%; background-image: url('/assets/trueme/images/ware/ware_detail_spirite.png'); background-repeat: no-repeat; }
 .header .header-back { position: relative; display: block; width: .88rem; height: .88rem; }
 .header .header-back .back-arrow { margin-top: -.19rem; margin-left: -.105rem; width: .21rem; height: .38rem; background-position: 0 0; background-size: 1.04rem .38rem; }
-.header .header-cart { position: absolute; top: 0; right: .88rem; width: .88rem; height: .88rem; }
+.header .header-cart { position: absolute; top: 0; right: 0; width: 1.08rem; height: .88rem; }
 .header .header-cart .header-cart-icon { margin-top: -.19rem; margin-left: -.225rem; width: .45rem; height: .38rem; background-position: -.21rem 0; background-size: 1.04rem .38rem; }
 .header .header-set { position: absolute; top: 0; right: 0; width: .88rem; height: .88rem; }
 .header .header-set .header-set-icon { margin-top: -.19rem; margin-left: -.19rem; width: .38rem; height: .38rem; background-position: -.66rem 0; background-size: 1.04rem .38rem; }
 /**/
-.banner { width: 100%; overflow: hidden; }
+.banner { width: 7.5rem; }
+.banner .img-box{width: 7.5rem; height: 6.22rem;}
 .banner img { display: block; width: 7.5rem; height: 6.22rem; }
 /**/
 .good-main { padding: .06rem .2rem 0; background-color: #fff; }
@@ -60,7 +61,8 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 .too-bar { position: relative; position: fixed; height: .88rem; left: 0; right: 0;bottom: 0;}
 .too-bar .too-wrap {   max-width: 7.5rem; margin: 0 auto; height: .88rem; background-color: #fff; }
 .too-wrap .store-btn { float: left; width: 1.4rem; height: .88rem; text-align: center; }
-.too-wrap .store-btn .store-icon { display: inline-block; margin-top: .12rem; width: .41rem; height: .39rem; background: url('/assets/trueme/images/ware/store_icon.png') no-repeat 0 0; background-size: cover; }
+.too-wrap .store-btn .store-icon { display: inline-block; margin-top: .12rem; width: .41rem; height: .39rem; background-image: url('/assets/trueme/images/ware/store_icon.png');background-repeat:  no-repeat; background-position:  0 0; background-size: cover; }
+.too-wrap .store-btn .store-icon.stored{background-image: url('/assets/trueme/images/ware/store_done_icon.png');}
 .too-wrap .store-btn .store-text { margin-top: -.14rem; font-size: .22rem; color: #a4a4a4; }
 .too-wrap .too-btn { overflow: hidden; text-align: center; line-height: .88rem; font-size: .36rem; color: #fff; }
 .too-wrap .too-btn .add-btn { float: left; width: 3.1rem; height: .88rem; background-color: #ff9292; }
@@ -96,16 +98,13 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
     <script type="text/javascript">/*resize.js*/
 !function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
     <script type="text/javascript" src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="/assets/common/js/swiper-3.3.1.jquery.min.js"></script>
     <script type="text/javascript" src="/assets/common/js/T.js"></script>
     <script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
-    <script type="text/javascript" src="/assets/common/js/swiper-3.3.1.jquery.min.js"></script>
-    <script>/*login.js*/
-win.hideLoading();
+    <script>/*wareDetail.js*/
 $(function () {
     //获取商品的spuId
    var shopSpuId=getQueryString('spuId')||1;
-   //用户userId
-   var truemeUserId=$.cookie('cuserid')?$.cookie('cuserid'):''; 
 
     //折叠
     $(".color-hd").click(function () {
@@ -127,11 +126,26 @@ $(function () {
 
     //banner
     var vm = new Vue({
-        el: '#bannerlist',
+        el: '#container',
+        mixins: [mixin],
         data: {
-            banner: [],
+            banner: [],   //banner图
+            hotSaleList:[], //hut推荐
+            spuDetail:[],  //商品spu详情图
+            spuDetailList:'', //获取SPU详情信息
+            spuTotalList:[], //
+            specifin:[], //商品规格
+            skuNum:0,  //购买的商品数量
+            skuTitle:'',  //购买商品的标题
+            skuId:'',  //商品的skuId
+            type:1,   //1为手机加入购物车 ，2为立即购买
+            shopingNum:1, //购买商品数量
+            getSkuStockInf:0,  //可购买的库存量
+            goodsPrice:0,  //商品价格 
+            hasCollected: false  //是否已收藏
         },
         ready: function(){
+            $('#container').removeClass('hide');
             $(window).on('scroll', function(){
                 var scrollTop = document.body.scrollTop;
                 var targetColor = 0.5 - scrollTop/(88*rem/100);
@@ -166,7 +180,7 @@ $(function () {
                     });
                 }
             });
-
+            var This=this;
             //加载banner图片
             $.AJAX({
                 type:'get',
@@ -177,27 +191,32 @@ $(function () {
                 success:function(data){
                     //渲染banner
                     vm.banner=data.data.spuMainImgList;
-                    setTimeout(function(){
-                        var bannerSwiper = new Swiper('.banner', {
-                            loop: true,
-                            direction: 'horizontal',
-                            autoplay: 2000,
-                            autoplayDisableOnInteraction : false,
-                            pagination : '.swiper-pagination',
-                        });
-                    },0);
+                    This.$nextTick(function(){
+                        setTimeout(function(){
+                            var bannerSwiper = new Swiper('.banner', {
+                                autoplay: 2000,
+                                autoplayDisableOnInteraction : false,
+                                visibilityFullFit: true,
+                                loop: true,
+                                pagination: '.swiper-pagination'
+                            });
+                        },0);
+                    });
                 },
             });
-        },
-    });
-    
-    //商品详情图
-    var details = new Vue({
-        el: '#detailsList',
-        data: {
-            spuDetail:[],
-        },
-        ready: function(){
+
+            //获取用户是否收藏该商品
+            $.AJAX({
+                type: "POST",
+                code: true,
+                url: config.basePath + 'user/sviscollectforgoods?spuId=' + shopSpuId,
+                error: function(o){
+                    if(o.code == 5300){
+                        This.hasCollected = true;
+                    }
+                }
+            });
+
             //加载商品详情图
             $.AJAX({
                 type:'get',
@@ -206,29 +225,9 @@ $(function () {
                     spuId:shopSpuId,
                 },
                 success:function(data){
-                    details.spuDetail=data.data.spuDetailImgList;
+                    This.spuDetail=data.data.spuDetailImgList;
                 }
             });
-
-        },
-    });
-
-    //获取SPU详情信息
-    var spuDetails = new Vue({
-        el: '#supMain',
-        data: {
-            spuDetailList:{}, //获取SPU详情信息
-            spuTotalList:[], //
-            specifin:[], //商品规格
-            skuNum:0,  //购买的商品数量
-            skuTitle:'',  //购买商品的标题
-            skuId:'',  //商品的skuId
-            type:1,   //1为手机加入购物车 ，2为立即购买
-            shopingNum:1, //购买商品数量
-            getSkuStockInf:0,  //可购买的库存量
-            goodsPrice:0,  //商品价格 
-        },
-        ready: function(){
 
             //获取SPU详情信息
             $.AJAX({
@@ -238,9 +237,10 @@ $(function () {
                     spuId:shopSpuId,
                 },
                 success:function(data){
-                    setTimeout(function(){$('#container').removeClass('hide');},0);
-                    spuDetails.spuDetailList=data.data.spuDetailInfo;
-                    spuDetails.goodsPrice=data.data.spuDetailInfo.salePrice
+                    $('.good-main').removeClass('hide');
+                    vm.getSkuStockInf=data.data.spuDetailInfo.totalStockNum; //可购买的商品库存
+                    vm.spuDetailList=data.data.spuDetailInfo; //商品详情数据
+                    vm.goodsPrice=data.data.spuDetailInfo.salePrice //商品价格
                 },
             });
 
@@ -252,18 +252,15 @@ $(function () {
                     spuId:shopSpuId,
                 },
                 success:function(data){
-                    spuDetails.specifin=data.data.getSpuStandardList;
-                     //选择
-                    console.log(data.data.getSpuStandardList)   
+                    vm.specifin=data.data.getSpuStandardList;
                 }
             });
-
         },
-        methods: {
+        methods:{
             //切换tab获得产品库存
             activeLi:function($event,skuId){
                 $($event.target).addClass("checked").siblings().removeClass("checked");
-                spuDetails.skuId=skuId;
+                vm.skuId=skuId;
                 //获取规格数量
                  $.AJAX({
                     url:config.basePath+'product/svProduct/getSkuStockInfo',
@@ -271,7 +268,7 @@ $(function () {
                         skuId:skuId,
                     },
                     success:function(data){
-                        spuDetails.getSkuStockInf=data.data.getSkuStockInfo.stockNum;
+                        vm.getSkuStockInf=data.data.getSkuStockInfo.stockNum;
                         //获得产品规格和价格
                         $.AJAX({ 
                             url:config.basePath+'product/svProduct/getSkuPriceInfo',
@@ -279,7 +276,7 @@ $(function () {
                                 skuId:skuId,
                             },
                             success:function(data){
-                                spuDetails.goodsPrice=data.data.getSkuStockInfo.salePrice;
+                                vm.goodsPrice=data.data.getSkuStockInfo.salePrice;
                             },
                         });//end
                     },
@@ -288,18 +285,18 @@ $(function () {
 
             //加入购物车
             joinShoppingCart:function(){
-                spuDetails.type=1;
+                vm.type=1;
             },
 
             //设置为立即购买
             payOrderNow:function(){
-                spuDetails.type=2;
+                vm.type=2;
             },
 
             //减少商品
             reduceShopNum:function(){
-                if(spuDetails.shopingNum>1){
-                    spuDetails.shopingNum--;
+                if(vm.shopingNum>1){
+                    vm.shopingNum--;
                 }else{
                     Popup.miss({title:'亲,商品数量最少为1件额！'});
                 }
@@ -307,21 +304,20 @@ $(function () {
 
             //增加商品
             addShopNum:function(){
-                spuDetails.shopingNum++;
+                vm.shopingNum++;
             },
 
             //开始购买或者加入购物车
             submitShopNow:function(){
-                if(spuDetails.type==1){
+                if(vm.type==1){
                     //加入购物车
                     $.AJAX({
                         type:'post',
                         url:config.basePath+'product/svProduct/addShopCart',
                         data:{
-                            userId:truemeUserId,  
-                            skuId:spuDetails.skuId||spuDetails.specifin[0].skuId, 
-                            skuNum:spuDetails.shopingNum, 
-                            skuTitle:spuDetails.spuDetailList.title,
+                            skuId:vm.skuId||vm.specifin[0].skuId, 
+                            skuNum:vm.shopingNum, 
+                            skuTitle:vm.spuDetailList.title,
                         },
                         success:function(data){
                             //取消弹出层
@@ -329,16 +325,15 @@ $(function () {
                             Popup.miss({title:'加入购物车成功！'}); 
                         },
                     });
-                }else if(spuDetails.type==2){
+                }else if(vm.type==2){
                     //立即购买 结算订单
-                    var price=spuDetails.goodsPrice*spuDetails.shopingNum;
-                    //var price=spuDetails.spuDetailList.salePrice*spuDetails.shopingNum;
+                    var price=vm.goodsPrice*vm.shopingNum;
+                    //var price=vm.spuDetailList.salePrice*vm.shopingNum;
                     var json={
-                        userId:truemeUserId,
                         totalPrice:price,
                         skuList:[{
-                            skuId:spuDetails.skuId||spuDetails.specifin[0].skuId,
-                            num:spuDetails.shopingNum,
+                            skuId:vm.skuId||vm.specifin[0].skuId,
+                            num:vm.shopingNum,
                         }],
                     };
                     $.AJAX({
@@ -346,24 +341,37 @@ $(function () {
                         success: function(o){
                             console.log(o);
                             sessionStorage.setItem('data', JSON.stringify(o.data));
-                            var href="../order/confirmOrder.html?userId=" + truemeUserId;
+                            var href="http://"+window.location.host+"/trueme/order/confirmOrder.html";
                             location.href = href;
                             sessionStorage.setItem('weixin-next-url', href);
-                        }
+                        },
                     });
                 }//end
             },
 
             //收藏商品
-            collection:function(){
-                wx.w.collection({
-                   userId:truemeUserId,
-                   spuId:shopSpuId, 
+            collection:function(event){
+                trueme.w.collection({
+                   spuId:shopSpuId,
+                   success: function(data){
+                        if(data.data.flag ==2){
+                            $('.store-icon').addClass('stored');
+                            Popup.miss({title:'收藏成功！'});
+                        }else{
+                            $('.store-icon').removeClass('stored');
+                            Popup.miss({title:'取消收藏成功！'});
+                        }
+                   }
                 });
             },
 
-        }
+        },
     });
+    
+    //获取hot推荐    
+    vm.conflicting({callback:function(data){
+       vm.hotSaleList=data;
+    }});
      
 });
 
@@ -373,101 +381,58 @@ $(function () {
 </head>
 <body>
 <div class="wrapper">
-    <div id="container" class="hide">
+    <div id="container">
         <div class="header">
             <div class="header-back">
-                <span class="header-icon back-arrow" onclick="goBack()"></span>
+                <span class="header-icon back-arrow" onclick="goBack('index.html')"></span>
             </div>
             <div class="header-cart">
                 <!-- <span class="header-icon header-cart-icon"></span> -->
                 <a class="header-icon header-cart-icon" href="/trueme/cart/cart_new.html"></a>
             </div>
-            <div class="header-set">
+            <!-- <div class="header-set">
                 <span class="header-icon header-set-icon"></span>
-            </div>
+            </div> -->
         </div>
-        <div>
-            <!-- banner -->
-            <div class="banner swiper-container" id="bannerlist">
-                <div class="swiper-wrapper">
-                    <div v-for="item in banner" class="swiper-slide">
+        
+        <!-- banner -->
+        <div class="banner swiper-container">
+            <div class="swiper-wrapper">
+                <div v-for="item in banner" class="swiper-slide">
+                    <div class="img-box">
                         <img v-bind:src="item.imgMainUrl | qiniuImgFilter"/>
                     </div>
                 </div>
-                <div class="swiper-pagination"></div>
             </div>
-            <div id="supMain">
-                <!-- 商品主信息 -->
-                <div class="good-main" id="spuDetails">
-                    <h3 class="name" v-text="spuDetailList.title">令牌翅膀报白哦</h3>
-                    <!-- <p class="des" v-text="spuDetailList.spuDetailInfo.slogan">【佛法金额分开无法可谓】打我打五分达瓦达瓦达瓦达瓦</p> -->
-                    <div class="price"><span class="now-price" v-text="'¥'+goodsPrice">&yen;209.00</span><span class="old-price" v-text="'¥'+spuDetailList.markedPrice">&yen;540.39</span></div>
-                    <div class="sell-info g-border-tb">
-                        <!-- <div class="praise-info "><span class="praise-info-text">好评率--(0人)</span></div> -->
-                        <span class="sell-num" v-text="'销量'+spuDetailList.saleCount+'件'"></span>
-                        <span class="store-num" v-text="'收藏'+spuDetailList.collectNum+'人'">收藏745人</span>
-                        <span class="postage">运费：包邮</span>
-                    </div>
-                    <div class="tags">
-                        <span>7天退货</span>
-                        <span>退货补贴</span>
-                        <span>先行赔付</span>
-                    </div>
-                </div>
-                <!-- 弹出层 -->
-                <div class="shopCart-box">
-                    <div class="masked"></div>
-                    <div class="shopCart-con">
-                        <div class="money padding-horizontal g-border-b">
-                            <div class="pull-left"><span class="text-main" v-text="'¥'+goodsPrice">¥180.00</span> <span v-text="getSkuStockInf | getSkuStockInFilter"></span></div>
-                            <a href="javascript:void (0)" id="close_box" class="pull-right"></a>
-                        </div>
-                        <div class="color-z">
-                            <div class="color-hd padding-horizontal g-border-b">
-                                <div class="pull-left">规格</div>
-                                <div class="pull-right text-main">请选择 <i></i></div>
-                            </div>
-                            <div class="color-bd padding-horizontal g-border-b">
-                                <div class="color-bd-c padding-vertical g-border-b">
-                                    <ul>
-                                        <li v-on:click="activeLi($event,items.skuId)" v-for="items in specifin" v-text="items.skuDesc" :class="{'checked':$index==0}">黑色</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="num padding-horizontal g-border-b">
-                            <div class="pull-left">数量</div>
-                            <div class="pull-right">
-                                <span class="left" v-on:click="reduceShopNum()">-</span>
-                                <input type="number" value="{{shopingNum}}">
-                                <span class="right" v-on:click="addShopNum()">+</span>
-                            </div>
-                        </div>
-                        <button class="box-btn" v-on:click="submitShopNow()">确 定</button>
-                    </div>
-                </div>
-                
-                <!-- 底部导航 -->
-                <div class="too-bar">
-                    <div class="too-wrap g-border-t">
-                        <div class="store-btn"><span class="store-icon"></span>
-                            <p class="store-text" v-on:click="collection">收藏</p></div>
-                        <div class="too-btn">
-                            <div class="add-btn" v-on:click="joinShoppingCart">加入购物车</div>
-                            <div class="buy-btn" v-on:click="payOrderNow">立即购买</div>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="swiper-pagination"></div>
+        </div>
+        <!-- 商品主信息 -->
+        <div class="good-main hide">
+            <h3 class="name" v-text="spuDetailList.title"></h3>
+            <!-- <p class="des" v-text="spuDetailList.spuDetailInfo.slogan">【佛法金额分开无法可谓】打我打五分达瓦达瓦达瓦达瓦</p> -->
+            <div class="price"><span class="now-price" v-text="'¥'+goodsPrice"></span><span class="old-price" v-text="'¥'+spuDetailList.markedPrice"></span></div>
+            <div class="sell-info g-border-tb">
+                <!-- <div class="praise-info "><span class="praise-info-text">好评率--(0人)</span></div> -->
+                <span class="sell-num" v-text="'销量'+spuDetailList.saleCount+'件'"></span>
+                <span class="store-num" v-text="'收藏'+spuDetailList.collectNum+'人'">收藏745人</span>
+                <span class="postage">运费：包邮</span>
             </div>
-            <!-- 商品详情 -->
-            <div class="detail" id="detailsList">
-                <h3>商品详情</h3>
-                <div class="detail-img" v-for="item1 in spuDetail">
-                    <img :src="item1.detailImage | qiniuImgFilter"/>
-                </div>
+            <div class="tags">
+                <span>7天退货</span>
+                <span>退货补贴</span>
+                <span>先行赔付</span>
             </div>
         </div>
+
+        <!-- 商品详情 -->
+        <div class="detail" id="detailsList">
+            <h3>商品详情</h3>
+            <div class="detail-img" v-for="item1 in spuDetail">
+                <img :src="item1.detailImage | qiniuImgFilter"/>
+            </div>
+        </div>
+
+        <!-- 看了又看 -->
         <div class="see-more">
             <h3>看了又看</h3>
             <!-- hot 看了又看 -->
@@ -491,47 +456,112 @@ $(function () {
 <div id="appHot">
 <ul class="more-list">
     <li v-for="item in hotSaleList">
-        <div class="more-img">
-            <img :src="item.imgMainUrl|qiniuImgFilter 2 350 350"/>
-        </div>
-        <p class="more-name" v-text="item.skuTitle">达瓦达瓦发我</p>
-        <div class="more-price" v-text="'¥'+item.salePrice">&yen;180.99</div>
+        <a v-bind:href="'../ware/wareDetail.html?spuId=' + item.spuId">
+            <div class="more-img">
+                <img :src="item.imgMainUrl|qiniuImgFilter 2 350 350"/>
+            </div>
+            <p class="more-name" v-text="item.skuTitle"></p>
+            <div class="more-price" v-text="'¥'+item.salePrice"></div>
+        </a>
     </li>
 </ul>
 </div>
 
 <script type="text/javascript">
-//hut
-$(function(){
-    var vmmo = new Vue({
-        el: '#appHot',
-        data: {
-            hotSaleList:[],
-        },
-        ready: function(){
-            This=this;
-            //获取hot数据列表
-            $.AJAX({
-                type:'GET',
-                url:config.basePath+'product/svProduct/getHotSaleList',
-                data:{
-                    num:4,
-                },
-                success:function(data){
-                    vmmo.hotSaleList=data.data.hotSaleList;
-                },
-            });
-        },
-    }); 
-});
+// $(function(){
+//     var vmmo = new Vue({
+//         el: '#appHot',
+//         data: {
+//             hotSaleList:[],
+//         },
+//         ready: function(){
+//             This=this;
+//             //获取hot数据列表
+//             $.AJAX({
+//                 type:'GET',
+//                 url:config.basePath+'product/svProduct/getHotSaleList',
+//                 data:{
+//                     num:4,
+//                 },
+//                 success:function(data){
+//                     vmmo.hotSaleList=data.data.hotSaleList;
+//                 },
+//             });
+//         },
+//     }); 
+// });
+
+var mixin = {
+  methods: {
+    //获取hot数据列表
+    conflicting: function (json,num) {
+        var num=num||4
+      $.AJAX({
+            type:'GET',
+            url:config.basePath+'product/svProduct/getHotSaleList',
+            data:{
+                num:num,
+            },
+            success:function(data){
+                json.callback(data.data.hotSaleList);
+               //return data.data.hotSaleList;
+            },
+        });
+    },
+  },
+};
+
 </script>
 
         </div>
-        <div style="height: .88rem;"></div>    
+
+        <!-- 底部导航 -->
+        <div class="too-bar">
+            <div class="too-wrap g-border-t">
+                <div class="store-btn" v-on:click="collection($event)"><span v-bind:class="['store-icon', hasCollected ? 'stored' : '']"></span>
+                    <p class="store-text">收藏</p></div>
+                <div class="too-btn">
+                    <div class="add-btn" v-on:click="joinShoppingCart">加入购物车</div>
+                    <div class="buy-btn" v-on:click="payOrderNow">立即购买</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 弹出层 -->
+        <div class="shopCart-box">
+            <div class="masked"></div>
+            <div class="shopCart-con">
+                <div class="money padding-horizontal g-border-b">
+                    <div class="pull-left"><span class="text-main" v-text="'¥'+goodsPrice">¥180.00</span> <span v-text="getSkuStockInf | getSkuStockInFilter"></span></div>
+                    <a href="javascript:void (0)" id="close_box" class="pull-right"></a>
+                </div>
+                <div class="color-z">
+                    <div class="color-hd padding-horizontal g-border-b active">
+                        <div class="pull-left">规格</div>
+                        <div class="pull-right text-main">请选择 <i></i></div>
+                    </div>
+                    <div class="color-bd padding-horizontal g-border-b" style="display:block">
+                        <div class="color-bd-c padding-vertical g-border-b">
+                            <ul>
+                                <li v-on:click="activeLi($event,items.skuId)" v-for="items in specifin" v-text="items.skuDesc" :class="{'checked':$index==0}">黑色</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="num padding-horizontal g-border-b">
+                    <div class="pull-left">数量</div>
+                    <div class="pull-right">
+                        <span class="left" v-on:click="reduceShopNum()">-</span>
+                        <input type="number" v-bind:value="shopingNum">
+                        <span class="right" v-on:click="addShopNum()">+</span>
+                    </div>
+                </div>
+                <button class="box-btn" v-on:click="submitShopNow()">确 定</button>
+            </div>
+        </div>
+        <div style="height: .88rem;"></div>  
+
     </div>
-    
 </div>
-
-
 </body>
 </html>

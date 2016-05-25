@@ -26,8 +26,7 @@ var vm = new Vue({
       //获取物流信息
       $.AJAX({
         type:'post',
-        url:'http://192.168.0.101:8080/order/svqueryorder/ordertrans',
-        //url:config.basePath+'order/svqueryorder/ordertrans',
+        url:config.basePath+'order/svqueryorder/ordertrans',
         data:{
           "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
           "time": time(),

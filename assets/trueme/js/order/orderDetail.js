@@ -12,7 +12,7 @@ win.hideLoading();
 var vm = new Vue({
     el: '#container',
     data: {
-       orderDetails:'',  //订单详情数据
+       datas:'',  //订单详情数据
        oderId:getQueryString('orderId'),
     },
     ready: function () {
@@ -26,7 +26,7 @@ var vm = new Vue({
           "orderId": This.oderId,
         },
         success:function(data){
-          This.orderDetails=data.data
+          This.datas=data.data
         },
       }); 
       

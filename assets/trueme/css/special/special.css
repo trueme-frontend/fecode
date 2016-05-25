@@ -7,5 +7,5 @@
 .special .itemList { padding: 0 0.25rem; margin-top: 0.3rem; }
 .special .itemList li { width: 50%; padding: 0 0.05rem; float: left; overflow: hidden; margin-bottom: 0.2rem; }
 .special .itemList li img { width: 100%; height: 3.4rem; }
-.special .itemList li h1 { white-space: nowrap; text-align: center; font-size: 0.24rem; margin: 0.15rem 0; }
+.special .itemList li h1 { white-space: nowrap; text-align: center; font-size: 0.24rem; margin: 0.15rem 0; overflow: hidden; text-overflow: ellipsis;}
 .special .itemList li .price { font-size: 0.25rem; }

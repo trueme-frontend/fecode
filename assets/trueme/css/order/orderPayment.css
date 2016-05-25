@@ -9,7 +9,10 @@
 .orderPayment .center{margin-top:0.2rem;background: #fff;overflow: hidden;}
 .orderPayment .center .tit{padding:0 0.2rem;height:0.8rem;border-bottom:solid 1px #e0e0e0;line-height: 0.8rem;position: relative;}
 .orderPayment .center .tit .pull-right{padding-right:0.4rem;}
-.orderPayment .center .tit span#slide{display: block;position: absolute;right:0.2rem;top:0.2rem;width:0.4rem;height:0.4rem;background:url('/assets/trueme/images/common/arrow_up.png') no-repeat center right;
+.orderPayment .center .tit span#slide{display: block;position: absolute;right:0.2rem;top:0.2rem;width:0.4rem;height:0.4rem;
+	background-image:url('/assets/trueme/images/common/arrow_down.png');
+	background-repeat: no-repeat;
+	background-position: center right;
 	background-size: 80%;
 }
 .orderPayment .center .paylist{overflow: hidden;}

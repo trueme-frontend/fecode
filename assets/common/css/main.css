@@ -798,6 +798,16 @@ img {
     margin-left: 0;
 }
 /*padding*/
+.padding-wrapper{
+    padding-top: .88rem;
+    padding-bottom: .98rem;
+}
+.padding-wrapper-bottom{
+    padding-bottom: .98rem;
+}
+.padding-wrapper-top{
+    padding-top: .88rem;
+}
 .padding {
     padding: .25rem;
 }
@@ -1128,6 +1138,9 @@ a.text-f0f0f0 {
 }
 .text-xxxl {
     font-size: .64rem;
+}
+.strong{
+    font-weight: 700;
 }
 .bg-cc {
     background-color: #f0f0f0;

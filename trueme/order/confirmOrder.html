@@ -113,14 +113,14 @@
                 </div>
                 确认订单
             </div>
-            <a class="addr-empty" v-show="addrEmpty" href="../address/addressNew.html?userId=1">
+            <a class="addr-empty" v-show="addrEmpty" href="../address/addressNew.html">
                 <div class="addr-empty-info">
                     <!-- <span class="addr-empty-icon"></span> -->
                     请新建收货地址以确保商品顺利到达
                 </div>
                 <div class="addr-empty-bottom"></div>
             </a>
-            <a class="addr-show" v-show="addrShow" href="../address/addressList.html?userId=1">
+            <a class="addr-show" v-show="addrShow" v-bind:href="'../address/addressList.html' +(selectedAddrId ? ('?id=' + selectedAddrId) : '')">
                 
                 <div class="addr-user-info">
                     <p class="addr-user-main"><span class="addr-user-name" v-text="defaultAddress.linkman"></span><span class="addr-user-tel" v-text="defaultAddress.phone"></span><span class="default-tag" v-show="defaultAddress.status">默认</span></p>
@@ -212,6 +212,7 @@
         var vm = new Vue({
             el: '#container',
             data: {
+                selectedAddrId: getQueryString('id'),
                 canSummitIdCard: false,
                 addrEmpty: false,
                 addrShow: false,
@@ -225,15 +226,12 @@
                 var that = this;
                 $('#container').show();
                 sessionStorage.setItem('saveAndUseAddress','1');
-                if(T.url.getParam('id')){
-                    url = config.basePath + 'user/svuseraddress/getUserAddressById?userId=' + $.cookie('cuserid') + '&id=' + T.url.getParam('id');
+                if(selectedAddrId){
+                    url = config.basePath + 'user/svuseraddress/getUserAddressById?id=' + selectedAddrId;
                 }else{
-                    url = config.basePath + 'user/svuseraddress/getUserAddress?userId=' + $.cookie('cuserid');
+                    url = config.basePath + 'user/svuseraddress/getUserAddress';
                 }
                 $.AJAX({
-                    // type: "POST",
-                    // url: 'http://192.168.0.100:8080/user/svuseraddress/getUserAddress?userId=1',
-                    // url: config.basePath + 'user/svuseraddress/getUserAddress?userId=1',
                     url: url,
                     success: function(o){
                         if(o.data.userAddress == null){
@@ -244,10 +242,10 @@
                         }
                     }
                 });
-                if(sessionStorage.getItem('data') == ""){
-                    alert('你大爷哈哈哈');
-                    return false;
-                }
+                // if(sessionStorage.getItem('data') == ""){
+                //     alert('你大爷哈哈哈');
+                //     return false;
+                // }
                 var data = JSON.parse(sessionStorage.getItem('data'));
                 that.totalSkuPrice = data.totalSkuPrice;
                 that.isEntrance = data.isEntrance;
@@ -284,7 +282,7 @@
                         $('.idCardDialog').remove();
                         $.AJAX({
                         	type: "POST",
-                        	url: config.basePath + 'user/svuser/addCardid?userId=' + $.cookie('cuserid'),
+                        	url: config.basePath + 'user/svuser/addCardid',
                         	success: function(){
                         		that.payAjax();
                         	},
@@ -308,7 +306,7 @@
                     if(that.isEntrance){
                         $.AJAX({
                             type: "POST",
-                            url: config.basePath + 'user/svuser/checkcardid?userId=' + $.cookie('cuserid'),
+                            url: config.basePath + 'user/svuser/checkcardid',
                             success: function(){
                             	that.payAjax();
                             },
@@ -333,7 +331,6 @@
                     param.receiptInfo = '';
                     param.needPay = parseFloat($('.too-price i').text());
                     param.totalFree = 0;
-                    param.userId = T.url.getParam('userId', location.href);
                     param.transFee = 0;
                     param.goodsList = that.uuid.split(',');
                     console.log(JSON.stringify(param));

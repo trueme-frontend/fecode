@@ -28,7 +28,7 @@ var vm = new Vue({
        //滚动获得更多数据
        scollGetMoreData:function(){
         var This=this;
-        wx.w.scrollGetData({  
+        trueme.w.scrollGetData({  
             lastObj:$('#bottomscolltop'),
             callback:function(){ 
               $.AJAX({

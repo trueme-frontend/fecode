@@ -11,7 +11,7 @@
         !function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);
     </script>
 <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="/assets/trueme/css/main/base.css" /> 
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css" /> 
 <!-- 内部样式 -->
     <style>
         html{background-color: #f0f0f0;}
@@ -85,14 +85,14 @@
                 <li class="edit-box g-border-b">
                     <label for="userTel">手机号</label>
                     <div class="input-box">
-                        <input type="number" name="userTel" autocomplete="true" v-bind:value="userAddress.phone" />
+                        <input type="number" name="userTel" autocomplete="true" maxlength="11" v-bind:value="userAddress.phone" />
                     </div>
                 </li>
                 <li v-on:click="chooseAddr" class="edit-box g-border-b">
                     <!-- <a href="addAddress.html"> -->
                         <label>所在地区</label>
                         <div class="input-box">
-                            <div class="chooseAddrBox" name="userAddressMain" v-text="userAddress.province + userAddress.city + userAddress.area"></div>
+                            <div class="chooseAddrBox" name="userAddressMain" v-text="userAddressBefore"></div>
                             <span class="address-arrow"></span>
                             <input type="hidden" name="province" v-bind:value="userAddress.province" />
                             <input type="hidden" name="city" v-bind:value="userAddress.city" />
@@ -149,6 +149,7 @@
             el: '#container',
             data: {
                 userAddress: [],
+                userAddressBefore: '',
                 saveAndUse: false,
                 province: ["北京市", "天津市", "上海市", "重庆市", "河北省", "山西省", "内蒙古", "辽宁省", "吉林省", "黑龙江省", "江苏省", "浙江省", "安徽省", "福建省", "江西省", "山东省", "河南省", "湖北省", "湖南省", "广东省", "广西", "海南省", "四川省", "贵州省", "云南省", "西藏", "陕西省", "甘肃省", "青海省", "宁夏", "新疆", "香港", "澳门", "台湾省"]
             },
@@ -164,6 +165,7 @@
                     url: config.basePath + 'user/svuseraddress/getUserAddressById?id=' + id,
                     success: function(o){
                         that.userAddress = o.data.userAddress;
+                        that.userAddressBefore = o.data.userAddress.province + o.data.userAddress.city + o.data.userAddress.area;
                         // debugger;
                     }
                 });
@@ -195,29 +197,35 @@
                     $('.dialog').hide();
                 },
                 setDefault: function(){
+                    var that = this;
+                    if(that.userAddress.status ==1){
+                        return false;
+                    }
                 	$('.set-default .select-icon').toggleClass('selected');
                 },
                 submit: function(){
                     var that = this;
                     var userName = $.trim($('input[name="userName"]').val());
                     if(userName == ""){
-                        Popup.alert({type:'msg',style:'width:80%',title:'请求超时，请刷新重试!'});
-                        T.layer.msg({'content':'名字不能为空',btn:['确认']});
+                        Popup.alert({type:'msg',style:'width:80%',title:'名字不能为空!'});
                         return false;
                     }
                     var userTel = $.trim($('input[name="userTel"]').val());
-                    if(userTel == ""){
-                        T.layer.msg({'content':'联系方式不能为空',btn:['确认']});
+                    // if(userTel == ""){
+                    //     Popup.alert({'type':'msg', 'haveHeader':false, 'title':'联系方式不能为空'});
+                    // }
+                    if(!regCombination('m').test(userTel)){
+                        Popup.alert({'type':'msg', 'haveHeader':false, 'title':'手机号码格式不对'});
                         return false;
                     }
                     var userAddressDetail = $.trim($('input[name="userAddressDetail"]').val());
                     if(userAddressDetail == ""){
-                        T.layer.msg({'content':'详细地址不能为空',btn:['确认']});
+                        Popup.alert({'type':'msg', 'haveHeader':false, 'title':'详细地址不能为空'});
                         return false;
                     }
                     var userAddressMain = $.trim($('div[name="userAddressMain"]').text());
                     if(userAddressMain == ""){
-                        T.layer.msg({'content':'所在地区不能为空',btn:['确认']});
+                        Popup.alert({'type':'msg', 'haveHeader':false, 'title':'所在地区不能为空'});
                         return false;
                     }
                     var userProvince = $.trim($('input[type="hidden"][name="province"]').val());
@@ -225,7 +233,6 @@
                     var userArea = $.trim($('input[type="hidden"][name="area"]').val());
                     var param = {};
                     param.id = parseInt(T.url.getParam('id', location.href));
-                    param.userId = parseInt(T.url.getParam('userId', location.href));
                     param.province = userProvince;
                     param.cardId = '';
                     param.city = userCity;
@@ -251,21 +258,26 @@
                         success: function(o){
                             if(that.saveAndUse){
                                 sessionStorage.removeItem('saveAndUseAddress');
-                                location.href = "../order/confirmOrder.html?userId=" + $.cookie('cuserid');
+                                location.href = "../order/confirmOrder.html?id=" + getQueryString('id');
                             }else{
-                                location.href = 'addressList.html?userId=' + $.cookie('cuserid');
+                                location.href = 'addressManage.html';
                             }
                         }
                     })
                 },
                 addrDelete: function(){
+                    var that = this;
                     var id = T.url.getParam('id', location.href);
-                    var userId = T.url.getParam('userId', location.href);
                     $.AJAX({
                         type: "POST",
-                        url: config.basePath + "user/svuseraddress/deleteUserAddress?userId=" + userId + '&id=' + id,
+                        url: config.basePath + "user/svuseraddress/deleteUserAddress?id=" + id,
                         success: function(o){
-                            location.href = 'addressList.html?userId=1';
+                            if(that.saveAndUse){
+                                sessionStorage.removeItem('saveAndUseAddress');
+                                location.href = "addressList.html";
+                            }else{
+                                location.href = 'addressManage.html';
+                            }
                         }
                     })
                 }

@@ -65,7 +65,7 @@
             ready: function(){
                 var that = this;
                 $.AJAX({
-                    url: 'http://182.254.243.100:8001/content/svItemHome/getHotSearchKey',
+                    url: config.basePath + 'content/svItemHome/getHotSearchKey',
                     success: function(o){
                         that.hotList = o.data.hotSearchKeyList;
                     },

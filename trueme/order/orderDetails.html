@@ -9,7 +9,8 @@
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- 样式文件 -->
     <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <style type="text/css">.det-top { height: 1.3rem; margin-bottom: .2rem; line-height: .65rem; background-color: #fff; }
+    <style type="text/css">.det-top { margin-bottom: .2rem; line-height: .65rem; background-color: #fff; }
+.det-top-h{height: 1.3rem;}
 .det-top .order-num { height: .65rem; border-bottom: 1px solid #f0f0f0; }
 .det-top .order-search .pull-left { padding-left: .35rem; background: url("/assets/trueme/images/order/car.png") no-repeat left center; background-size: .28rem auto; }
 .det-top .order-search .pull-right { padding-right: .2rem; font-size: .16rem; color: #ffbf17; background: url("/assets/trueme/images/common/arrow_right.png") no-repeat right center; background-size: .12rem auto; }
@@ -44,32 +45,32 @@
     <!-- 内部样式 -->
 </head>
 <body class="bg-cc">
-<div class="wrapper">
+<div class="wrapper" id="container">
     <div class="m-header">
-        <div class="header-left"><a href="javascript:void(0)" onclick="goBack();" class="back"></a></div>
+        <div class="header-left"><a onclick="goBack();" href="javascript:void(0)" class="back"></a></div>
         订单详情
     </div>
-    <div class="det-top padding-horizontal">
+    <div class="det-top padding-horizontal" :class="{'det-top-h':datas.order.orderStatus==2||datas.order.orderStatus==3}">
         <div class="order-num">
-            <div class="pull-left strong">订单号：<span v-text="orderDetails.orderNo"></span>18802633043</div>
-            <div class="pull-right text-main" v-text="orderDetails.orderStatus|orderStatusFilter">已完成</div>
+            <div class="pull-left strong">订单号：<span v-text="datas.order.orderNo|limitBy"></span></div>
+            <div class="pull-right text-main" v-text="datas.order.orderStatus|orderStatusFilter">已完成</div>
         </div>
-        <div class="order-search">
+        <div class="order-search" v-if="datas.order.orderStatus|stateBoolen '2,3'">
             <div class="pull-left">感谢您在萃美购物，欢迎您再次光临！</div>
             <a href="checkWuLiu.html?orderId={{oderId}}" class="pull-right">查看物流</a>
         </div>
     </div>
     <div class="det-top padding-horizontal">
-        <div class="order-num strong" v-text="orderDetails.receiver">收货人名</div>
-        <div class="order-add" v-text="orderDetails.address">广东深圳市南山区大冲国际中心5号楼803</div>
+        <div class="order-num strong" v-text="datas.order.receiver">收货人名</div>
+        <div class="order-add" v-text="datas.order.address">广东深圳市南山区大冲国际中心5号楼803</div>
     </div>
     <ul class="ware">
-        <li v-for="item in orderDetails.orderDetailDto">
-            <div class="title strong" v-text="item.supplierName">萃美</div>
+        <li v-for="item in datas.order.orderDetailDto">
+            <div class="title strong" v-text="datas.order.supplierName">萃美</div>
             <div class="pro-box">
-                <div class="img"><img src="../../assets/images/order/pro.png" alt="pro"></div>
+                <div class="img"><img :src="item.skuIcon|qiniuImgFilter 2 60 60" _src="../../assets/images/order/pro.png" alt="pro"></div>
                 <div class="name strong" v-text="item.skuName">2件装丨Baby Ddrops婴儿维生素D3滴剂400IU 90滴/甁 2甁</div>
-                <div class="money text-right"><span class="strong" v-text="'¥'+item.skuPrice">¥179.00</span><br><span v-text="'×'+item.skuNum"></span> 1</div>
+                <div class="money text-right"><span class="strong" v-text="'¥'+item.skuPrice">¥179.00</span><br><span v-text="'×'+item.skuNum"></span></div>
             </div>
             <div class="operation">
                 <button type="button" class="btn btn-default btn-block"><i class="service"></i>联系客服</button>
@@ -103,7 +104,6 @@
 <script type="text/javascript">/*resize.js*/
 !function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
 <script type="text/javascript" src="/assets/common/js/main.js"></script>
-<script type="text/javascript" src="../../assets/trueme/js/vue-plug/filter.js"></script>
 <script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
 <script type="text/javascript">/*login.js*/
 win.hideLoading();
@@ -119,7 +119,7 @@ win.hideLoading();
 var vm = new Vue({
     el: '#container',
     data: {
-       orderDetails:'',  //订单详情数据
+       datas:'',  //订单详情数据
        oderId:getQueryString('orderId'),
     },
     ready: function () {
@@ -133,7 +133,7 @@ var vm = new Vue({
           "orderId": This.oderId,
         },
         success:function(data){
-          This.orderDetails=data.data
+          This.datas=data.data
         },
       }); 
       

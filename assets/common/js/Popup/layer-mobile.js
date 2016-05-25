@@ -111,6 +111,7 @@ PopLayer.prototype.iframe=function(json){
 
 //信息层
 PopLayer.prototype.alert=function(json){
+    var This = this;
     this.varLiang(json);
     var str='<div class="popup">';
 	str+=this.setting.maskHide?'<div class="mask" onclick="closeThisPopup(this)"></div>':'<div class="mask"></div>';
@@ -119,10 +120,14 @@ PopLayer.prototype.alert=function(json){
     	str+=this.setting.closeBut?'<div class="header_poup">'+this.setting.header+'</div>':'<div class="header_poup">'+this.setting.header+'<span onclick="closeThisPopup(this)"></span></div>';
     }
     str+='<div class="content">'+this.setting.title+'</div>';
-    str+='<div class="footer"><span class="yes yesok" onclick="closeThisPopup(this)">确定</span></div>';
+    // str+='<div class="footer"><span class="yes yesok" onclick="closeThisPopup(this)">确定</span></div>';
+    str+='<div class="footer"><span class="yes yesok">确定</span></div>';
     str+='</div></div>';
-	         
+	
     $('body').append(str);
+    $('span.yes').click(function(){
+        dosomePopup(this,This.setting.yes);
+    });
     middle(this.setting); //居中
 }
 //确认层

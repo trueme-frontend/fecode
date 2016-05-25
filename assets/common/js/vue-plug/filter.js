@@ -4,6 +4,27 @@ Vue.filter('charAt', function (value,num) {
   	return value.charAt(num);
 });
 
+//limitTo过滤器
+Vue.filter('limitTo', function (value,num) {
+	var text="";
+	if(value.length<num){
+		text=value;
+	}else{
+		text=value.substring(0,num)+'···';
+	}
+  	return text;
+});
+
+//时间过滤器
+Vue.filter('Data', function (format,his) {
+	if(his){
+		return new Date(format).date('y-m-d h:i:s');
+	}else{
+		return new Date(format).date('y-m-d');
+	}
+});
+
+
 //图片七牛云过滤器
 Vue.filter('qiniuImgFilter', function (src,type,w,h) {  //?imageView2/0/w/300/h/200
 	if(type){

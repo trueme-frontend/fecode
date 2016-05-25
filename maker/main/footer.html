@@ -1,0 +1,92 @@
+
+<style type="text/css">footer{}
+footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 7.5rem;
+    height: .98rem;
+    margin: 0 auto;
+    background-color: #fff;
+}
+footer ul {
+    display: table;
+    width: 100%;
+}
+footer ul li {
+    display: table-cell;
+    text-align: center;
+}
+footer ul li i {
+    display: inline-block;
+    width: .4rem;
+    height: .4rem;
+    margin-top: .1rem;
+    margin-bottom: 0;
+    background: url("/assets/maker/images/common/maker-nav.png") no-repeat;
+    background-size: 1.75rem auto;
+}
+footer ul li p{
+    margin-top: -.1rem;
+}
+footer ul li i.ma1 {
+    background-position: 0 0;
+}
+footer ul li i.ma2 {
+    background-position: -.72rem 0;
+}
+footer ul li i.ma3 {
+    background-position: -1.28rem 0;
+    width: .5rem;
+}
+footer ul li.active a{
+    color: #fd4a4a;
+}
+footer ul li.active i.ma1 {
+    background-position: 0 bottom;
+}
+footer ul li.active i.ma2 {
+    background-position: -.72rem bottom;
+}
+footer ul li.active i.ma3 {
+    background-position: -1.28rem bottom;
+}</style>
+<!-- html -->
+<footer class="g-border-t">
+    <ul class="fixed-bar">
+        <li><a href="/maker/index/index.html"><i class="ma1"></i><p>创客</p></a></li>
+        <li><a href="/maker/wenan/hotWenAn.html"><i class="ma2"></i><p>内容</p></a></li>
+        <li><a href="/maker/team/term.html"><i class="ma3"></i><p>团队</p></a></li>
+    </ul>
+</footer>
+
+<script>
+    //首页底部导航增加active样式
+    $(function(){
+        var linkArr = ['/maker/index/index.html',['/maker/wenan/hotWenAn.html','/maker/wenan/keepWenAn.html','/maker/wenan/shareWenAn.html'],'/maker/team/term.html'];
+        for(var i=0; i<linkArr.length; i++){
+            if(typeof(linkArr[i])=='object'){
+                for(var j=0; j<linkArr[i].length; j++){
+                    if(location.href.indexOf(linkArr[i][j]) > -1){
+                        $('.fixed-bar li').removeClass('active');
+                        $('.fixed-bar li').eq(i).addClass('active');
+                        $('.fixed-bar li').eq(i).on('click', function(){
+                            return false;
+                        })
+                    }
+                }
+            }else{
+                if(location.href.indexOf(linkArr[i]) > -1){
+                    $('.fixed-bar li').removeClass('active');
+                    $('.fixed-bar li').eq(i).addClass('active');
+                    $('.fixed-bar li').eq(i).on('click', function(){
+                        return false;
+                    })
+                }
+            };
+        };
+    });
+</script>
+

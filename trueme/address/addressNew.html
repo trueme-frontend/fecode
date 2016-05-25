@@ -11,7 +11,7 @@
         !function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);
     </script>
 <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="/assets/trueme/css/main/base.css" /> 
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css" /> 
 <!-- 内部样式 -->
     <style>
         html{background-color: #f0f0f0;}
@@ -85,7 +85,7 @@
                 <li class="edit-box g-border-b">
                     <label for="userTel">手机号</label>
                     <div class="input-box">
-                        <input type="number" name="userTel" autocomplete="true" />
+                        <input type="number" name="userTel" autocomplete="true" maxlength="11" />
                     </div>
                 </li>
                 <li v-on:click="chooseAddr" class="edit-box g-border-b">
@@ -153,6 +153,7 @@
             },
             ready: function(){
                 var that = this;
+                win.hideLoading();
                 $('#container').show();
                 if(sessionStorage.getItem('saveAndUseAddress')){
                     that.saveAndUse = true;
@@ -191,30 +192,31 @@
                     var that = this;
                     var userName = $.trim($('input[name="userName"]').val());
                     if(userName == ""){
-                        Popup.alert({type:'msg',style:'width:80%',title:'请求超时，请刷新重试!'});
-                        T.layer.msg({'content':'名字不能为空',btn:['确认']});
+                        Popup.alert({type:'msg',style:'width:80%',title:'名字不能为空!'});
                         return false;
                     }
                     var userTel = $.trim($('input[name="userTel"]').val());
-                    if(userTel == ""){
-                        T.layer.msg({'content':'联系方式不能为空',btn:['确认']});
+                    // if(userTel == ""){
+                    //     Popup.alert({'type':'msg', 'haveHeader':false, 'title':'联系方式不能为空'});
+                    // }
+                    if(!regCombination('m').test(userTel)){
+                        Popup.alert({'type':'msg', 'haveHeader':false, 'title':'手机号码格式不对'});
                         return false;
                     }
                     var userAddressDetail = $.trim($('input[name="userAddressDetail"]').val());
                     if(userAddressDetail == ""){
-                        T.layer.msg({'content':'详细地址不能为空',btn:['确认']});
+                        Popup.alert({'type':'msg', 'haveHeader':false, 'title':'详细地址不能为空'});
                         return false;
                     }
                     var userAddressMain = $.trim($('div[name="userAddressMain"]').text());
                     if(userAddressMain == ""){
-                        T.layer.msg({'content':'所在地区不能为空',btn:['确认']});
+                        Popup.alert({'type':'msg', 'haveHeader':false, 'title':'所在地区不能为空'});
                         return false;
                     }
                     var userProvince = $.trim($('input[type="hidden"][name="province"]').val());
                     var userCity = $.trim($('input[type="hidden"][name="city"]').val());
                     var userArea = $.trim($('input[type="hidden"][name="area"]').val());
                     var param = {};
-                    param.userId = parseInt($.cookie('cuserid'));
                     param.province = userProvince;
                     param.city = userCity;
                     param.cardId = '';
@@ -233,9 +235,9 @@
                         success: function(o){
                             if(that.saveAndUse){
                                 sessionStorage.removeItem('saveAndUseAddress');
-                                location.href = "../order/confirmOrder.html?userId=" + $.cookie('cuserid');
+                                location.href = "../order/confirmOrder.html?id=" + o.data.addressId;
                             }else{
-                                location.href = 'addressList.html?userId=' + $.cookie('cuserid');
+                                location.href = 'addressManage.html';
                             }
                         }
                     })
