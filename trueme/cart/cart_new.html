@@ -11,7 +11,7 @@
         !function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);
     </script>
 <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css" /> 
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css" /> 
 <!-- 内部样式 -->
     <style>
         html{background-color: #f2f2f2;}
@@ -19,7 +19,7 @@
         .hide{display: none;}
         .header{position: relative; height:.88rem; line-height:.88rem; text-align:center; font-size: .36rem; color:#2c2c2c; background-color: #fff;}
         .header .header-back-box{position: absolute; top: 0; left: 0; width: .88rem; height: .88rem;}
-        .header .header-back{position:absolute; top:50%; left: .32rem; margin-top: -.2rem; width:.24rem; height: .4rem; background:url('../../assets/trueme/images/common/header_back.png') no-repeat 0 0; background-size: cover;}
+        .header .header-back{position:absolute; top:50%; left: .32rem; margin-top: -.2rem; width:.24rem; height: .4rem; background:url('/assets/trueme/images/common/header_back.png') no-repeat 0 0; background-size: cover;}
         .header .header-edit{position: absolute; top: 0; right: 0; padding: 0 .36rem; font-size:.34rem;}
 
         .cart-empty{ margin-top: 3.84rem; }
@@ -28,7 +28,7 @@
         .product-list{margin-bottom: .2rem; overflow:hidden;}
         .product-list > li{ overflow:hidden; background-color:#fff;}
         .product-list > li .product-title{position:relative; padding-left:.73rem; height:.7rem; line-height:.72rem;}
-        .unselect-icon{position: absolute; top: 50%; left:.18rem; width: .39rem; height:.39rem; background:url('../../assets/trueme/images/main/select_icon.png') no-repeat 0 -.39rem; background-size: .39rem .78rem; transform: translateY(-50%); -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); -ms-transform: translateY(-50%); -o-transform: translateY(-50%);}
+        .unselect-icon{position: absolute; top: 50%; left:.18rem; width: .39rem; height:.39rem; background:url('/assets/trueme/images/main/select_icon.png') no-repeat 0 -.39rem; background-size: .39rem .78rem; transform: translateY(-50%); -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); -ms-transform: translateY(-50%); -o-transform: translateY(-50%);}
         .select-icon{background-position: 0 0;}
         .product-list > li .product-info{ overflow: hidden;}
         .product-list > li:last-child .product-info:last-child{margin-bottom: 0;}
@@ -43,7 +43,7 @@
         .product-info .product-des .now-num{float: right; color: #4a4a4a;}
         .product-info .price-and-num{margin-top:.2rem; font-size: .2rem; color:#a4a4a4; line-height: .53rem; font-weight: bold; overflow:hidden;}
         .product-info .price-and-num .product-price{font-size: .3rem; color: #fd4a4a;}
-        .product-info .num-control{position:relative; float:right; width: 1.83rem; height:.53rem; background:url('../../assets/trueme/images/main/num_control.png') no-repeat 0 0; background-size: cover;}
+        .product-info .num-control{position:relative; float:right; width: 1.83rem; height:.53rem; background:url('/assets/trueme/images/main/num_control.png') no-repeat 0 0; background-size: cover;}
         .product-info .num-control .less-btn{position:absolute; top: 0; left: 0; bottom: 0; width: .58rem; z-index: 10;}
         .disabled::before{content: ''; position: absolute; top:.04rem; left: .04rem; right: .04rem; bottom:.04rem; opacity: 0.8; background-color:#fff;}
         .product-info .num-control .add-btn{position:absolute; top: 0; right: 0; bottom: 0; width: .58rem; z-index: 10;}
@@ -51,7 +51,7 @@
         .product-info .product-tax{margin-top:.05rem; font-size: .24rem; color: #4a4a4a; text-align:right; }
 
         .product-info .delete-icon{position: relative; float: right; right: -.1rem; width: .53rem; height: .53rem;}
-        .product-info .delete-icon span{position: absolute; top:50%; right: 50%; margin-top: -.19rem; margin-right: -.18rem; width: .36rem; height: .38rem; background: url('../../assets/trueme/images/cart/cart_delete.png') no-repeat 0 0; background-size: cover;}
+        .product-info .delete-icon span{position: absolute; top:50%; right: 50%; margin-top: -.19rem; margin-right: -.18rem; width: .36rem; height: .38rem; background: url('/assets/trueme/images/cart/cart_delete.png') no-repeat 0 0; background-size: cover;}
 
         .product-list > li .coast-count{text-align:right; padding:.3rem .5rem .2rem 0; font-size:.24rem; color:#2c2c2c;}
         .product-list > li .coast-count .coast-count-value{ float:right; min-width:1rem;}
@@ -79,10 +79,11 @@
 
 <!-- 模板js文件 -->
     
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-    <script src="../../assets/common/js/main.js"></script>
-    <script type="text/javascript" src="../../assets/common/js/T.js?_inline"></script>
-    <script src="../../assets/common/js/swiper-3.3.1.jquery.min.js"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+    <script src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="/assets/common/js/T.js?_inline"></script>
+    <script src="/assets/common/js/swiper-3.3.1.jquery.min.js"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -97,11 +98,11 @@
             </div>
             <div class="cart-empty" v-show="empty">
                 <a v-bind:href="emptyLink">
-                    <img src="../../assets/trueme/images/cart/cart_empty.png" alt="" />
+                    <img src="/assets/trueme/images/cart/cart_empty.png" alt="" />
                 </a>
             </div>
             <ul class="product-list" v-show="!empty">
-                <li v-for="item in items" v-bind:data-sku-id="item.skuId">
+                <li v-for="item in items" v-bind:data-sku-id="item.skuId" v-bind:data-share-id="item.makerId ? item.makerId : 0">
                     <div class="product-info g-border-b">
                         <div class="product-info-box">
                             <span class="unselect-icon" v-on:click="singleSelect"></span>
@@ -150,7 +151,83 @@
             <div class="recommend see-more hot-see-more hide">
                 <div class="recommend-title"><span>为你推荐</span></div>
                 <!-- hot 看了又看 -->
-                <link rel="import" href="../main/getHotSaleList.html?__inline">
+                
+<!-- 内部样式 -->
+<style>
+    .hot-see-more{background: #fff;overflow: hidden;margin-top:0.2rem;}
+    .hot-see-more .recommend-title{font-size:0.32rem; height: .92rem; line-height: .92rem; text-align: center; }
+    .hot-see-more .recommend-title span{position: relative; display: inline-block;}
+    .hot-see-more .recommend-title span::before{content:''; position: absolute; top:50%; left: -.36rem; margin-top: -1px; width: .36rem; height: 1px; background-color: #4a4a4a;}
+    .hot-see-more .recommend-title span::after{content:''; position: absolute; top:50%; right: -.36rem; margin-top: -1px; width: .36rem; height: 1px; background-color: #4a4a4a;}
+    .more-list { padding: 0 .15rem .2rem; }
+    .more-list li { float: left; margin : 0 .05rem .2rem; }
+    .more-list li .more-img { overflow: hidden; }
+    .more-list li .more-img img { display: block; width: 3.5rem; height: 3.5rem; }
+    .more-list li .more-name { margin-top: .06rem; line-height: .52rem; text-align: center; font-size: .24rem; color: #000; }
+    .more-list li .more-price { margin-bottom: .14rem; text-align: center; font-size: .24rem; color: #fd4a4a; }
+</style>
+ 
+<!-- html -->
+<div id="appHot">
+<ul class="more-list">
+    <li v-for="item in hotSaleList">
+        <a v-bind:href="'../ware/wareDetail.html?spuId=' + item.spuId">
+            <div class="more-img">
+                <img :src="item.imgMainUrl|qiniuImgFilter 2 350 350"/>
+            </div>
+            <p class="more-name" v-text="item.skuTitle"></p>
+            <div class="more-price" v-text="'¥'+item.salePrice"></div>
+        </a>
+    </li>
+</ul>
+</div>
+
+<script type="text/javascript">
+// $(function(){
+//     var vmmo = new Vue({
+//         el: '#appHot',
+//         data: {
+//             hotSaleList:[],
+//         },
+//         ready: function(){
+//             This=this;
+//             //获取hot数据列表
+//             $.AJAX({
+//                 type:'GET',
+//                 url:config.basePath+'product/svProduct/getHotSaleList',
+//                 data:{
+//                     num:4,
+//                 },
+//                 success:function(data){
+//                     vmmo.hotSaleList=data.data.hotSaleList;
+//                 },
+//             });
+//         },
+//     }); 
+// });
+
+var mixin = {
+  methods: {
+    //获取hot数据列表
+    conflicting: function (json,num) {
+        var num=num||4
+      $.AJAX({
+            type:'GET',
+            url:config.basePath+'product/svProduct/getHotSaleList',
+            data:{
+                num:num,
+            },
+            success:function(data){
+                json.callback(data.data.hotSaleList);
+               //return data.data.hotSaleList;
+            },
+        });
+    },
+  },
+};
+
+</script>
+
             </div>
             <div style="height: .88rem;"></div> 
         </div>
@@ -293,6 +370,7 @@
                         var obj = {};
                         obj.skuId = $('.product-list li .select-icon').eq(i).parents('li').data('sku-id');
                         obj.num = parseInt($('.product-list li .select-icon').eq(i).parents('li').find('input[name="numBox"]').val());
+                        obj.shareId = $('.product-list li .select-icon').eq(i).parents('li').data('share-id');
                         param.skuList.push(obj);
                     }
                     // var url = 'http://192.168.0.101:8080/product/svSettlement/settlement?param=' + JSON.stringify(param);

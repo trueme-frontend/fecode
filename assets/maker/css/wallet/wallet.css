@@ -4,7 +4,7 @@
     height: 3rem;
     padding-top: 1rem;
     text-align: center;
-    background: url("../../images/index/wenan-bg.png") no-repeat center;
+    background: url("/assets/maker/images/index/wenan-bg.png") no-repeat center;
     background-size: cover;
     font-size: .26rem;
     color: #fff;
@@ -46,7 +46,7 @@
     display: block;
     width: .2rem;
     height: 1rem;
-    background: url("../../../common/images/arrow_right.png") no-repeat center;
+    background: url("/assets/common/images/arrow_right.png") no-repeat center;
     background-size: .12rem;
 }
 .wallet-msg {
@@ -59,7 +59,7 @@
     width: .35rem;
     height: .35rem;
     margin-right: .1rem;
-    background: url("../../images/index/icon-gth-red.png") no-repeat center;
+    background: url("/assets/maker/images/index/icon-gth-red.png") no-repeat center;
     background-size: .3rem;
     vertical-align: middle;
 }
@@ -84,7 +84,7 @@
 }
 .record ul li .col-xs-2 {
     height: 1.3rem;
-    background: url("../../../trueme/images/order/wechat_icon.png") no-repeat center;
+    background: url("/assets/trueme/images/order/wechat_icon.png") no-repeat center;
     background-size: 1rem;
 }
 .record ul li .col-xs-7 {
@@ -141,7 +141,7 @@
 }
 .income-list li .list-top time {
     padding-left: .3rem;
-    background: url("../../images/index/time.png") no-repeat left center;
+    background: url("/assets/maker/images/index/time.png") no-repeat left center;
     background-size: .22rem auto;
     color: #aaa;
 }

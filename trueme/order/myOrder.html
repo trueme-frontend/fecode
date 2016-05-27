@@ -8,11 +8,37 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/order/myOrder.css?__inline"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <style type="text/css">.order-nav { width: 100%; height: 1rem; padding: 0 .25rem; line-height: 1rem; border-bottom: 1px solid #f0f0f0; background-color: #fff; }
+.order-nav li { display: inline-block; float: left; width: 25%; text-align: center; }
+.order-nav li a { padding: .1rem .2rem; }
+.order-nav li.on a { border-bottom: 3px solid #fb4a4a; }
+.notice { width: 100%; height: .6rem; padding: 0 .25rem 0 .7rem; margin: .2rem 0; line-height: .6rem; background: #fff url("/assets/trueme/images/order/notice.png") no-repeat .25rem center; background-size: .3rem auto; color: #737373; }
+.item { display: none; }
+.item.active { display: block; }
+.item ul li { padding: 0 .25rem; margin-bottom: .2rem; background-color: #fff; }
+.item ul li > div { width: 100%; }
+.item ul li > .title { height: .7rem; line-height: .7rem; border-bottom: 1px solid #f0f0f0; color: #737373; }
+.item ul li > .pro-box { width: 100%; height: 1.6rem; padding: .2rem 0; border-bottom: 1px solid #f0f0f0; }
+.item ul li > .pro-box .img { float: left; width: 1.1rem; height: 1.1rem; margin-right: .2rem; background-color: #737373; }
+.item ul li > .pro-box .img img { max-width: 1.1rem; min-width: 1.1rem; }
+.item ul li > .pro-box .name { float: left; width: 4.2rem; }
+.item ul li > .pro-box .money { float: right; width: 1.1rem; }
+.item ul li > .account { height: .7rem; line-height: .7rem; text-align: right; }
+.item ul li > .operation { height: 1rem; padding-top: .2rem; text-align: right; }
+
+.empty{position: absolute; top:50%; left:0; right: 0; bottom: 0; margin-top: -.5rem; width: 7.5rem; height: 2.7rem;}
+.empty img{display: block; width: 1.71rem; height: 1.71rem; margin: 0 auto;}
+.empty p{ text-align: center; margin-top: .64rem; font-size: .24rem; color: #4a4a4a; }
+</style>
     <!-- 内部样式 -->
     <style>
         #container{display:none;}
+       /* .popup .content{padding-top: .2rem;}
+        .popup .content .pop-header{height: .7rem; line-height: .7rem; text-align: center; font-size: .26rem; color: rgba(0,0,0,0.8);}
+        .popup .content .pop-tel{height: 1.8rem; line-height: 1.8rem; font-size: .3rem; color: #000;}
+        .popup .content .pop-btn{height: .7rem; line-height: .7rem; text-align: center; font-size: .26rem; color: #fff; background-color: #fd4a4a;}
+        .popup .content .pop-btn input{width: 100%; height: 100%; color: #fff;}*/
     </style>
 </head>
 <body class="bg-cc">
@@ -43,17 +69,17 @@
                     </div>
                     <div class="account"><span class="padding-right-lg" v-text="'共'+item.totalCount+'件'"></span>应付总额:<span class="text-main" v-text="item.payMoney"></span></div>
                     <div class="operation">
-                         <a v-if="item.orderStatus|stateBoolen '1,2' " class="btn btn-default btn-default" href="">联系卖家</a>
-                        <button v-if="item.orderStatus|stateBoolen '1,2,3,4,6,7,9' " v-on:click="deteleOrder(item.id)" type="button" class="btn btn-default">删除订单</button>
-                        <a v-if="item.orderStatus|stateBoolen '1' " class="btn btn-default btn-main badge" href="orderPayment.html?payOrderNo={{item.platPayNo}}">确定付款</a>
+                         <a v-if="item.orderStatus|stateBoolen '1,2' " class="btn btn-default btn-default" v-on:click="showSeller" href="javascript:void(0)">联系卖家</a>
+                        <button v-if="item.orderStatus|stateBoolen '1,3,4,6,7,9' " v-on:click="deteleOrder(item.id)" type="button" class="btn btn-default">删除订单</button>
                         <button v-if="item.orderStatus|stateBoolen '1,2' " v-on:click="cancelOrder(item.id)" type="button" class="btn btn-default" >取消订单</button>
+                        <a v-if="item.orderStatus|stateBoolen '1' " class="btn btn-default btn-main badge" v-bind:href="'orderPayment.html?payOrderNo=' + item.platPayNo + '&orderId=' + item.id">确定付款</a>
                         <a v-if="item.orderStatus|stateBoolen '3' " class="btn btn-default" href="checkWuLi.html?orderId={{item.id}}">订单跟踪</a>
                         <a v-if="item.orderStatus|stateBoolen '3' " class="btn btn-default" href="">确定收货</a>
                     </div>
                 </li>
             </ul>
             <div class="empty" v-show="empty">
-                <img src="../../assets/trueme/images/order/order_empty.png" alt="" />
+                <img src="/assets/trueme/images/order/order_empty.png" alt="" />
                 <p>啊哦，您还没有相关的订单~</p>
             </div>
         </div>
@@ -61,9 +87,189 @@
     <div id="bottomscolltop"></div>
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-<script type="text/javascript" src="../../assets/common/js/main.js"></script>
-<script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
-<script type="text/javascript" src="../../assets/trueme/js/order/myOrder.js?__inline"></script>
+<script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+<script type="text/javascript" src="/assets/common/js/main.js"></script>
+<script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
+<script type="text/javascript">/*** Created by HZH on 2016/5/19.*/
+//查询的订单状态  1.待付款 2.待发货3.已发货【配送中】4.已完成【已收货】5.退款中6.已取消7.已关闭8.退货中9. 已退款
+var stateOrder=0;  
+//当前的订单状态tab
+var orderstatestab=getQueryString('orderstates',true)?getQueryString('orderstates',true):0;
+
+//改变tab样式
+$(".order-nav li").eq(orderstatestab).addClass("on").siblings().removeClass("on");
+
+//vue begin
+var vm = new Vue({
+    el: '#container',
+    data: {
+      index:orderstatestab,   //初始table索引
+      datas:{}, //当前的列表数据
+      empty: false,
+      datasList:{
+        data0:{data:{},startNum:0,isNull:false},
+        data1:{data:{},startNum:0,isNull:false},
+        data2:{data:{},startNum:0,isNull:false},
+        data3:{data:{},startNum:0,isNull:false},
+      },  //数据列表
+    },
+    ready: function () {
+        var This=this;
+        //tab切换
+        $(".order-nav li").click(function () {
+           $(this).addClass("on").siblings().removeClass("on");
+           var $aid = $(this).children("a").attr("data");
+           if ($(this).hasClass("on")){
+               $($aid).addClass("active").siblings().removeClass("active");
+           }
+
+           //缓存数据
+           config.scrollbegin=true;
+           location.hash='#orderstates='+$(this).index(); 
+
+           This.index=$(this).index();
+           //切换table数据
+           if(This.datasList['data'+This.index]['isNull']){
+            This.empty = true;
+            This.datas = {};
+           }else{
+            This.empty = false;
+            This.datas=This.datasList['data'+This.index]['data'];
+           }
+           //数据为空时加载数据
+           if(jQuery.isEmptyObject(This.datasList['data'+This.index]['data']) && !This.datasList['data'+This.index]['isNull']){
+            win.showLoading();
+            //加载数据
+            This.queryMyOrderList(This.index);
+           }
+           //判断json是否为空 jQuery.isEmptyObject({})
+        });
+
+        //获取数据列表
+        This.queryMyOrderList(This.index);
+    },
+    methods: {
+      //查询我的订单列表
+      queryMyOrderList:function(orderStatus){
+        var This=this;
+        //请求我的订单数据列表
+        $.AJAX({
+              type:'post', 
+              url:config.basePath+'order/svqueryorder/orderlist',
+              data:{
+                  "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
+                  "orderStatus":orderStatus,
+                  "startNum":0,
+              },
+              success:function(data){
+                if(data.data.orderList.length == 0){
+                  This.empty = true;
+                  This.datasList['data'+This.index]['isNull'] = true;
+                  $('#container').show();
+                  return false;
+                }else{
+                  This.empty = false;
+                  This.datas=data.data;
+                  This.datasList['data'+This.index]['data']=data.data;
+                  This.datasList['data'+This.index]['startNum']=data.data.startNum||1;
+                  This.$nextTick(function(){
+                    $('#container').show();
+                  });
+                  //滚动拉去更多数据
+                  This.scollGetMoreData();
+                }
+              }
+        });
+      },
+      showSeller: function(){
+        // Popup.customHtml({
+        //     header:'弹出页面',
+        //     style:'width:80%',
+        //     maskHide:true,
+        //     closeBut:false,
+        //     html:'<div class="pop-header g-border-b">萃美客服电话</div>\
+        //       <div class="pop-tel">0755-2691-0969</div>\
+        //       <div class="pop-btn"><input type=button style=height:30px value=确定 onclick=closeThisPopup(this) /></div>'
+        // });
+      },
+
+      //滚动获得更多数据
+     scollGetMoreData:function(){
+      var This=this;
+      //滚动时执行
+      trueme.w.scrollGetData({  
+          lastObj:$('#bottomscolltop'),
+          bottomTop:700,
+          callback:function(){
+            $.AJAX({
+                type:'post',
+                url:config.basePath+'order/svqueryorder/orderlist',
+                data:{
+                  "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
+                  "orderStatus":This.index,
+                  "startNum":This.datasList['data'+This.index]['startNum'],
+                },
+                success:function(data){
+                  //判断是否还需要滚动获取数据 向数组里push数据
+                  if(data.data.orderList.length>0){
+                    config.scrollbegin=true; //可以再次滚动
+                    This.datasList['data'+This.index]['data'].orderList=(This.datasList['data'+This.index]['data'].orderList).concat(data.data.orderList);
+                    This.datas=This.datasList['data'+This.index]['data'];
+                  }
+                  This.datasList['data'+This.index]['startNum']=data.data.startNum;
+                },
+           });  
+          },
+      });
+     }, //end
+
+      //取消订单
+      cancelOrder:function(orderNo){
+        Popup.confirm({type:'msg', haveHeader : false, title:'确认取消订单吗？',yes:function(){
+              trueme.w.cancelOrder({
+                orderId:orderNo,  
+                success:function(data){
+                  vm.datasList['data'+vm.index]['data'].orderList=deleteArrItem(vm.datasList['data'+vm.index]['data'].orderList,orderNo);
+                  if(vm.datasList['data'+vm.index]['data'].orderList.length == 0){
+                    // location.reload();
+                    This.empty = true;
+                  }
+                  //获取数据列表
+                  // vm.queryMyOrderList(vm.index); 
+                }
+              });
+          },
+        });
+      },
+
+      //删除订单
+      deteleOrder:function(orderNo){
+        var This = this;
+        Popup.confirm({type:'msg', haveHeader : false, title:'确认删除订单吗？',yes:function(){
+              trueme.w.deteleOrder({
+                orderId:orderNo,  
+                success:function(data){
+                  //获取数据列表
+                  vm.datasList['data'+vm.index]['data'].orderList=deleteArrItem(vm.datasList['data'+vm.index]['data'].orderList,orderNo);
+                  if(vm.datasList['data'+vm.index]['data'].orderList.length == 0){
+                    // location.reload();
+                    This.empty = true;
+                  }
+                  // vm.queryMyOrderList(vm.index); 
+                }
+              });
+          },
+        });
+      },
+
+      //订单详情
+      orderDetails:function(orderId){
+        window.location.href="orderDetails.html?orderId="+orderId;
+      },
+       
+    }
+});
+</script>
 </body>
 </html>

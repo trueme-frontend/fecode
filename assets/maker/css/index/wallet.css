@@ -1,0 +1,8 @@
+@import url(/assets/maker/css/footer/footer.css);
+.srmx li {
+    width: 100%;
+    height: .8rem;
+    padding: 0 .25rem;
+    line-height: .8rem;
+}
+

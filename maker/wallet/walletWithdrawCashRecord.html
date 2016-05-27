@@ -7,9 +7,218 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/wallet/wallet.css?__inline"/>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <style type="text/css">
+.wallet-top-box {
+    position: relative;
+    height: 3rem;
+    padding-top: 1rem;
+    text-align: center;
+    background: url("/assets/maker/images/index/wenan-bg.png") no-repeat center;
+    background-size: cover;
+    font-size: .26rem;
+    color: #fff;
+}
+.wallet-top-box span {
+    font-size: .56rem;
+}
+.wallet-nav {
+    padding: .2rem 0;
+    font-size: .24rem;
+    color: #4a4a4a;
+    background-color: #fff;
+}
+.wallet-nav span {
+    font-size: .3rem;
+    color: #fd4a4a;
+}
+.wallet-list {
+    background-color: #fff;
+}
+.wallet-list h3 {
+    height: 1rem;
+    line-height: 1rem;
+    padding: 0 .2rem;
+}
+.srmx li {
+    width: 100%;
+    height: 1rem;
+    padding: 0 .2rem;
+    line-height: 1rem;
+}
+.srmx li .pull-right {
+    padding-right: .1rem;
+    font-size: .26rem;
+    color: #aaa;
+}
+.srmx li i {
+    float: right;
+    display: block;
+    width: .2rem;
+    height: 1rem;
+    background: url("/assets/common/images/arrow_right.png") no-repeat center;
+    background-size: .12rem;
+}
+.wallet-msg {
+    padding: .2rem 0;
+    font-size: .24rem;
+    color: #aaa;
+}
+.wallet-msg .col-xs-1 {
+    display: inline-block;
+    width: .35rem;
+    height: .35rem;
+    margin-right: .1rem;
+    background: url("/assets/maker/images/index/icon-gth-red.png") no-repeat center;
+    background-size: .3rem;
+    vertical-align: middle;
+}
+/**/
+.record {
+    margin-top: .2rem;
+    background-color: #fff;
+}
+.record h3 {
+    height: .7rem;
+    line-height: .7rem;
+    padding: 0 .2rem;
+    font-size: .26rem;
+    color: #494949;
+}
+.record ul {
+    max-height: 3.9rem;
+    overflow-y: auto;
+}
+.record ul li {
+    height: 1.3rem;
+}
+.record ul li .col-xs-2 {
+    height: 1.3rem;
+    background: url("/assets/trueme/images/order/wechat_icon.png") no-repeat center;
+    background-size: 1rem;
+}
+.record ul li .col-xs-7 {
+    padding-top: .1rem;
+}
+.record ul li .col-xs-7 span {
+    font-size: .32rem;
+    font-weight: 700;
+}
+.record ul li .col-xs-7 p {
+    font-size: .26rem;
+    color: #4a4a4a;
+    line-height: .8;
+}
+.record ul li .col-xs-7 small {
+    font-size: .22rem;
+    color: #aaa;
+}
+.record ul li .col-xs-3 {
+    font-size: .24rem;
+    color: #fd4a4a;
+    text-align: right;
+    line-height: 1.3rem;
+}
+/**/
+.income-title {
+    height: .7rem;
+    margin-top: .2rem;
+    padding: 0 .2rem;
+    line-height: .7rem;
+    font-size: .26rem;
+    color: #4a4a4a;
+    background-color: #fff;
+}
+.income-list {
+    max-height: 5.2rem;
+    overflow: scroll;
+}
+.income-list li {
+    width: 100%;
+    padding: 0 .2rem .15rem;
+    background-color: #fff;
+    margin-bottom: .2rem;
+    overflow: hidden;
+}
+.income-list li:last-child {
+    margin-bottom: 0;
+}
+.income-list li .list-top {
+    height: .7rem;
+    line-height: .7rem;
+    font-size: .22rem;
+    color: #4a4a4a;
+}
+.income-list li .list-top time {
+    padding-left: .3rem;
+    background: url("/assets/maker/images/index/time.png") no-repeat left center;
+    background-size: .22rem auto;
+    color: #aaa;
+}
+.income-list li .list-top .s2 {
+    float: right;
+    color: #fd4a4a;
+}
+.income-list li .list-con {
+    padding-top: .2rem;
+}
+.income-list li .list-con .img {
+    float: left;
+    height: 1.1rem;
+    width: 1.1rem;
+    background: #aaa;
+    overflow: hidden;
+}
+.income-list li .list-con .img img {
+    width: 100%;
+    max-width: 1.1rem;
+}
+.income-list li .list-con .con {
+    float: left;
+    max-width: 5.8rem;
+    margin-left: .2rem;
+}
+.income-list li .list-con .con .col-xs-10 {
+    font-size: .22rem;
+    color: #000;
+}
+.income-list li .list-con .con .col-xs-2 {
+    font-size: .24rem;
+    color: #aaa;
+    text-align: right;
+}
+.income-list li .list-con .con .col-xs-2 small {
+    font-size: .2rem;
+}
+.income-list li .list-con .con p .ss1 {
+    font-size: .26rem;
+    font-weight: 700;
+    color: #fd4a4a;
+    margin-right: .3rem;
+}
+.income-list li .list-con .con p .ss2 {
+    font-size: .26rem;
+    color: #fd4a4a;
+}
+.income-list li .list-con .con p time {
+    float: right;
+    font-size: .22rem;
+    color: #aaa;
+}
+.income-list li .list-btn button {
+    padding: .005rem .1rem;
+    font-size: .2rem;
+    color: #fff;
+    background-color: #fd4a4a;
+}
+.income-list li .list-btn button.h {
+    background-color: #fd854a;
+}
+
+
+</style>
 </head>
 <body class="bg-cc">
 <header>
@@ -53,7 +262,137 @@
     <div id="scrollbottom"></div>
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript" src="../../assets/common/js/main.js"></script>
-<script type="text/javascript" src="../../assets/maker/js/wallet/withdrawCashRecord.js?__inline"></script>
+<script type="text/javascript" src="/assets/common/js/main.js"></script>
+<script type="text/javascript">/*体现*/
+//limitTo过滤器
+Vue.filter('stateFilter', function (value) {
+    var text="";
+    switch (value){
+        case 'UNCHECK':
+            text='未审核';
+            break;
+        case 'WAITPAY':
+            text='已审核未支付';
+            break;
+        case 'PAYOVER':
+            text='已支付';
+            break;
+        case 'INVALID':
+            text='已作废';
+            break;            
+    }
+    return text;
+});
+
+//
+$(document).ready(function(){
+    var vm = new Vue({
+        el: '#container',
+        data: {
+            totayStartNum:0,   //今日StartNum
+            historyStartNum:0,  //历史StartNum
+            scrollbegintop:true, //top是否滚动
+            scrollbeginbottom:true, //bottom是否滚动
+            todayDatas:[], //todayDatas
+            historyDatas:[], //historyDatas
+        },
+        ready: function(){
+            var This = this;
+
+            //查看今日提现记录
+            $.AJAX({
+                type:'post',
+                url: config.basePath+"maker/svWithdraw/withdrawTodayRecord",
+                data:{
+                    startNum:0,
+                },
+                success: function(data){
+                   This.todayDatas=data.data.recordList;
+                   This.totayStartNum=data.data.startNum
+                },
+            });
+
+            //滚动获得更多今日记录
+            $("#record1").scroll(function() {
+                if($('#record1top').offset().top-$('#scrollTop').offset().top<50){
+                    if(This.scrollbegintop){
+                        win.showLoading();
+                        //执行ajax 获得申请提现页面所需数据
+                        $.AJAX({
+                            url: config.basePath+"maker/svWithdraw/withdrawTodayRecord",
+                            data:{
+                                startNum:This.totayStartNum,
+                            },
+                            success: function(data){
+                                //向数组里push数据
+                                if(data.data.recordList.length>0){
+                                  This.todayDatas.recordList = This.todayDatas.recordList.concat(data.data.recordList);
+                                }
+                                This.totayStartNum=data.data.startNum;
+                                //判断是否还需要滚动获取数据
+                                if(data.data.recordList.length>0){
+                                    config.scrollbegin=true; //可以再次滚动
+                                };
+                            },
+                        });
+                        This.scrollbegintop=false;
+                    }
+                };
+            });
+
+    
+            //查看历史提现记录
+            $.AJAX({
+                type:'post',
+                url: config.basePath+"maker/svWithdraw/withdrawOtherTimeRecord",
+                data:{
+                    startNum:0,
+                },
+                success: function(data){
+                   This.historyDatas=data.data.recordList;
+                   This.historyStartNum=data.data.startNum
+                },
+            });
+            //滚动获得更多历史记录
+            $("#record2").scroll(function() {
+                if($('#record1bottom').offset().top-$('#scrollbottom').offset().top<50){
+                    if(This.scrollbeginbottom){
+                        win.showLoading();
+                        //执行ajax 获得申请提现页面所需数据
+                        $.AJAX({
+                            type:'post',
+                            url: config.basePath+"maker/svWithdraw/withdrawOtherTimeRecord",
+                            data:{
+                                startNum:This.historyStartNum,
+                            },
+                            success: function(data){
+                               //向数组里push数据
+                                if(data.data.recordList.length>0){
+                                  This.historyDatas.recordList = This.historyDatas.recordList.concat(data.data.recordList);
+                                }
+                                This.historyStartNum=data.data.startNum;
+                                //判断是否还需要滚动获取数据
+                                if(data.data.recordList.length>0){
+                                    config.scrollbegin=true; //可以再次滚动
+                                }
+                            },
+                        });
+                        This.scrollbeginbottom=false;
+                    }
+                };
+            });
+
+
+        },
+        methods: {
+            
+        }
+    });
+
+});
+
+
+
+    </script>
 </body>
 </html>

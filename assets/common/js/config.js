@@ -1,4 +1,4 @@
-﻿/*-------------------------------------------后台配置------------------------------------------------*/ 
+/*-------------------------------------------后台配置------------------------------------------------*/ 
 window.config={
 	//登陆页面 
 	loginUrl:"/trueme/user/login.html", 
@@ -34,6 +34,9 @@ window.config={
     redirect_uri:'http://'+window.location.host+'/trueme/wx-code/wx-code.html',     
 
     //登录或者绑定手机等成功后 跳转到上一页面或者首页
-    prevUrl:getNextUrl(),                                             
+    prevUrl:getNextUrl(),     
+
+    //购买创客商品的spuId
+    spuId:8,                                        
                                                 
 };

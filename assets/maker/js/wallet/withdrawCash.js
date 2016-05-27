@@ -38,7 +38,8 @@ $(document).ready(function(){
                     },
                     success: function(data){
                        console.log(data)
-                       //跳转到体现详情页面
+                       //清空体现金额
+                       vm.money="";
                        Popup.alert({type:'msg',title:'申请提现成功!'});
                     },
                 });

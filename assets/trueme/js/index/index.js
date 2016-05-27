@@ -120,13 +120,14 @@ var vm = new Vue({
             $.AJAX({
                 type:'post',
                 url:config.basePath+'user/svUserProductCollect?spuId=' + praiseSpu,
-                code:true,
                 success:function(data){
                     if(data.data.flag ==2){
                         $targetIcon.addClass('praised');
+                        $(e.target).find('.praise_num').text(parseInt($(e.target).find('.praise_num').text()) + 1);
                         Popup.miss({title:'收藏成功！'});
                     }else{
                         $targetIcon.removeClass('praised');
+                        $(e.target).find('.praise_num').text(parseInt($(e.target).find('.praise_num').text()) - 1);
                         Popup.miss({title:'取消收藏成功！'});
                     }
                 },

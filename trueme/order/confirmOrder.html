@@ -7,21 +7,22 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css" /> 
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css" /> 
     <!-- 内部样式 -->
     <style>
         html{background-color: #f0f0f0;}
         #container{display:none;}
         .header{position:relative; line-height: .88rem; text-align: center; font-size: .36rem; color: #2c2c2c; background-color: #fff; z-index: 100;}
         .header .header-back-box{position: absolute; top: 0; left: 0; width: .88rem; height: .88rem;}
-        .header .header-back{position:absolute; top:50%; left: .32rem; margin-top: -.2rem; width:.24rem; height: .4rem; background:url('../../assets/trueme/images/common/header_back.png') no-repeat 0 0; background-size: cover;}
+        .header .header-back{position:absolute; top:50%; left: .32rem; margin-top: -.2rem; width:.24rem; height: .4rem; background:url('/assets/trueme/images/common/header_back.png') no-repeat 0 0; background-size: cover;}
 
         .addr-empty{display: block; background-color: #fff; overflow: hidden;}
         .addr-empty .addr-empty-info{height: 1.5rem; line-height: 1.5rem; font-size: .24rem; color: #000; text-align: center;}
         .addr-empty .addr-empty-info .addr-empty-icon{display: inline-block; width: .28rem; height: .28rem; background: url('../../assets/trueme/images/order/confirm_order_spirite.png') no-repeat -.31rem -.05rem; background-size: .8rem .38rem; vertical-align: top; margin-top: .6rem;}
-        .addr-empty .addr-empty-bottom{width: 100%; height: .02rem; background: url('../../assets/trueme/images/order/addr_empty_bottom.png') repeat-x 0 0; background-size: 1.8rem .02rem;}
+        .addr-empty .addr-empty-bottom{width: 100%; height: .02rem; background: url('/assets/trueme/images/order/addr_empty_bottom.png') repeat-x 0 0; background-size: 1.8rem .02rem;}
 
         .addr-show{display: block;position: relative; width: 7.5rem; min-height: 1.4rem; background-color: #fff; overflow: hidden;}
         .addr-show .addr-user-info{ height: 1.14rem; margin-right: .92rem; padding-top: .36rem; font-size: .24rem; color: #000;}
@@ -29,16 +30,16 @@
         .addr-show .addr-user-info .addr-user-main span{ margin-right: .3rem;}
         .addr-show .addr-user-info .addr-user-main .default-tag{display: inline-block; background-color: #fd4a4a; font-size: .16rem; color: #fff; padding: 0 .04rem; text-align: center; vertical-align: top; margin-top: .06rem;}
         .addr-show .addr-user-info .addr-text{margin-top: .08rem; color: #737373;}
-        .addr-text .locat-icon{display: inline-block; width: .24rem; height: .28rem; background: url('../../assets/trueme/images/order/locat_icon.png') no-repeat 0 0; background-size: cover; margin: 0 .18rem; vertical-align: top; margin-top: .04rem;}
-        .addr-show .addr-arrow-right{position: absolute; top:50%; right: .38rem; margin-top: -.12rem; width: .13rem; height: .24rem; background: url('../../assets/trueme/images/common/arrow_right.png') no-repeat 0 0; background-size: cover;}
+        .addr-text .locat-icon{display: inline-block; width: .24rem; height: .28rem; background: url('/assets/trueme/images/order/locat_icon.png') no-repeat 0 0; background-size: cover; margin: 0 .18rem; vertical-align: top; margin-top: .04rem;}
+        .addr-show .addr-arrow-right{position: absolute; top:50%; right: .38rem; margin-top: -.12rem; width: .13rem; height: .24rem; background: url('/assets/trueme/images/common/arrow_right.png') no-repeat 0 0; background-size: cover;}
 
 
         /*订单信息*/
         .order-info{background-color: #fff; margin-top: .2rem; margin-bottom: .26rem; overflow: hidden;}
         .order-info .order-title{padding:0 .4rem 0 .2rem; height:.8rem; line-height: .8rem; font-size: .24rem; color: #4a4a4a;}
         .order-info .order-title .total-cost{font-size: .24rem; color: #fd4a4a;}
-        .order-info .order-title .detail-btn{display: inline-block; float: right; font-size: .24rem; padding-right: .4rem; background-image: url('../../assets/trueme/images/common/arrow_up.png'); background-repeat: no-repeat; background-position: right center; background-size: .24rem .13rem;}
-        .order-info .order-title .hide-detail{background-image: url('../../assets/trueme/images/common/arrow_down.png');}
+        .order-info .order-title .detail-btn{display: inline-block; float: right; font-size: .24rem; padding-right: .4rem; background-image: url('/assets/trueme/images/common/arrow_up.png'); background-repeat: no-repeat; background-position: right center; background-size: .24rem .13rem;}
+        .order-info .order-title .hide-detail{background-image: url('/assets/trueme/images/common/arrow_down.png');}
         .order-info .package-list{overflow: hidden;}
         .package-list li .pro-list{overflow: hidden;}
         .package-list li .pro-list:last-child{border:none;}
@@ -65,12 +66,12 @@
 
         .pay-way, .get-time{ margin-bottom:.26rem; background-color: #fff; overflow: hidden;}
         .pay-way .pay-way-title, .get-time .get-time-title{ padding:0 .4rem 0 .2rem; height:.8rem; line-height: .8rem; font-size: .24rem; color: #4a4a4a; }
-        .pay-way .pay-way-title span ,.get-time .get-time-title span{display: inline-block; float: right; font-size: .24rem; padding-right: .4rem; background-image: url('../../assets/trueme/images/common/arrow_up.png'); background-repeat: no-repeat; background-position: right center; background-size: .24rem .13rem;}
+        .pay-way .pay-way-title span ,.get-time .get-time-title span{display: inline-block; float: right; font-size: .24rem; padding-right: .4rem; background-image: url('/assets/trueme/images/common/arrow_up.png'); background-repeat: no-repeat; background-position: right center; background-size: .24rem .13rem;}
         .pay-way .pay-way-list, .get-time .get-time-list{overflow: hidden;}
-        .pay-way .pay-way-list li{position: relative; margin-left: .18rem; padding-left: .54rem; padding-right: .34rem; height: .98rem; line-height: .98rem; background:url('../../assets/trueme/images/order/wechat_icon.png') no-repeat left center; background-size: .44rem .44rem;}
+        .pay-way .pay-way-list li{position: relative; margin-left: .18rem; padding-left: .54rem; padding-right: .34rem; height: .98rem; line-height: .98rem; background:url('/assets/trueme/images/order/wechat_icon.png') no-repeat left center; background-size: .44rem .44rem;}
         .get-time .get-time-list li{position: relative; margin-left: .2rem; padding-right: .34rem; height: .98rem; line-height: .98rem;}
         .pay-way .pay-way-list li:last-child, .get-time .get-time-list li:last-child{border:none;}
-        .pay-way .pay-way-list li .select-icon, .get-time .get-time-list li .select-icon{ position: absolute; top:50%; right: .34rem; margin-top:-.2rem; width: .4rem; height: .4rem; background: url('../../assets/trueme/images/order/order_select_icon.png') no-repeat 0 -.4rem; background-size: .4rem .8rem;}
+        .pay-way .pay-way-list li .select-icon, .get-time .get-time-list li .select-icon{ position: absolute; top:50%; right: .34rem; margin-top:-.2rem; width: .4rem; height: .4rem; background: url('/assets/trueme/images/order/order_select_icon.png') no-repeat 0 -.4rem; background-size: .4rem .8rem;}
         .pay-way .pay-way-list li .select-icon.selected, .get-time .get-time-list li .select-icon.selected{ background-position: 0 0; }
 
         .too-bar{position: relative; height: .98rem;}
@@ -104,10 +105,11 @@
     </style>
 
 <!-- 模板js文件 -->
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-    <script src="../../assets/common/js/main.js"></script>
-    <script type="text/javascript" src="../../assets/common/js/T.js?_inline"></script>
-    <script src="../../assets/common/js/swiper-3.3.1.jquery.min.js"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+    <script src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="/assets/common/js/T.js?_inline"></script>
+    <script src="/assets/common/js/swiper-3.3.1.jquery.min.js"></script>
 </head>
 <body>
 	<div class="wrapper">
@@ -228,7 +230,6 @@
             ready: function(){
                 var that = this;
                 $('#container').show();
-                sessionStorage.setItem('saveAndUseAddress','1');
                 if(that.selectedAddrId){
                     url = config.basePath + 'user/svuseraddress/getUserAddressById?id=' + that.selectedAddrId;
                 }else{

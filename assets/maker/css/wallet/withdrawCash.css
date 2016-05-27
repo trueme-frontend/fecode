@@ -14,7 +14,7 @@
     margin-right: .2rem;
     height: 1.1rem;
     line-height: 1;
-    background: url("../../../trueme/images/order/wechat_icon.png") no-repeat center;
+    background: url("/assets/trueme/images/order/wechat_icon.png") no-repeat center;
 }
 .wx-user p{
     margin-top: .2rem;
@@ -34,6 +34,8 @@
     border: none;
     font-size: .4rem;
     color: #fd4a4a;
+    height: 1.1rem;
+    line-height: 1.1rem;
 }
 .wx-money i{
     display: inline-block;

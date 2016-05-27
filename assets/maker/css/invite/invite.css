@@ -1,20 +1,22 @@
 .ewm {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     margin-bottom: .5rem;
 }
 .ewm img {
     max-width: 3.5rem;
+    padding: 0.2rem;
+    border: solid 1px #fd4a4a;
 }
 .ewm-t {
     font-size: .34rem;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 .ewm-t i {
     display: inline-block;
     width: 1.2rem;
     height: .35rem;
-    background: url("../../images/index/zyz.png") no-repeat;
+    background: url("/assets/maker/images/index/zyz.png") no-repeat;
     background-size: cover;
     vertical-align: middle;
 }
@@ -23,14 +25,14 @@
     border-radius: 1rem;
 }
 .bg-h5 {
-    background: url("../../images/index/bg-h5.png") no-repeat;
+    background: url("/assets/maker/images/index/bg-h5.png") no-repeat;
     background-size: cover;
 }
 .transparent {
     background-color: transparent;
 }
 .transparent .back {
-    background: url("../../images/common/back-bei.png") no-repeat center;
+    background: url("/assets/maker/images/common/back-bei.png") no-repeat center;
     background-size: .2rem auto;
 }
 .invite-h5-p {
@@ -48,7 +50,7 @@
 }
 /*选择推荐人*/
 #inviteReferrer {
-    display: none;
+    display: block;
 }
 .inviteReferrer-bg, .inviteReferrer-box {
     position: fixed;
@@ -86,6 +88,7 @@
     line-height: .89rem;
     font-size: .3rem;
     color: #4a4a4a;
+    overflow: hidden;
 }
 .referrer-list li {
     padding: 0 .2rem
@@ -95,7 +98,7 @@
     width: .4rem;
     height: .4rem;
     margin-top: .24rem;
-    background: url("../../../trueme/images/main/select_icon.png") no-repeat bottom center;
+    background: url("/assets/trueme/images/main/select_icon.png") no-repeat bottom center;
     background-size: .4rem auto;
     vertical-align: top;
 }
@@ -120,6 +123,18 @@
     font-size: .28rem;
 }
 
-
+.share {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    max-width: 7.5rem;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, .8) url("/assets/common/images/yuzaishangm.png") no-repeat 2.5rem .5rem;
+    background-size: 4.5rem auto;
+    z-index: 10000;
+}
 
 

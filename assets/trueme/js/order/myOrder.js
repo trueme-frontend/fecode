@@ -89,6 +89,17 @@ var vm = new Vue({
               }
         });
       },
+      showSeller: function(){
+        // Popup.customHtml({
+        //     header:'弹出页面',
+        //     style:'width:80%',
+        //     maskHide:true,
+        //     closeBut:false,
+        //     html:'<div class="pop-header g-border-b">萃美客服电话</div>\
+        //       <div class="pop-tel">0755-2691-0969</div>\
+        //       <div class="pop-btn"><input type=button style=height:30px value=确定 onclick=closeThisPopup(this) /></div>'
+        // });
+      },
 
       //滚动获得更多数据
      scollGetMoreData:function(){
@@ -122,7 +133,7 @@ var vm = new Vue({
 
       //取消订单
       cancelOrder:function(orderNo){
-        Popup.confirm({type:'msg',title:'确认取消订单吗？',yes:function(){
+        Popup.confirm({type:'msg', haveHeader : false, title:'确认取消订单吗？',yes:function(){
               trueme.w.cancelOrder({
                 orderId:orderNo,  
                 success:function(data){
@@ -142,7 +153,7 @@ var vm = new Vue({
       //删除订单
       deteleOrder:function(orderNo){
         var This = this;
-        Popup.confirm({type:'msg',title:'确认删除订单吗？',yes:function(){
+        Popup.confirm({type:'msg', haveHeader : false, title:'确认删除订单吗？',yes:function(){
               trueme.w.deteleOrder({
                 orderId:orderNo,  
                 success:function(data){

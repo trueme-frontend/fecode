@@ -256,7 +256,6 @@ collection:function(json){
   $.AJAX({
       type:'post',
       url:config.basePath+'user/svUserProductCollect',
-      code:true,
       data:{
           userId:json.userId,
           spuId:json.spuId,

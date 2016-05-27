@@ -8,13 +8,14 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- style -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/wenan/wenan.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/maker/css/wenan/wenan.css"/>
     <!-- 模板js文件 -->
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-    <script type="text/javascript" src="../../assets/common/js/main.js"></script>
-    <script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
-    <script type="text/javascript" src="../../assets/maker/js/function/function.js"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+    <script type="text/javascript" src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
+    <script type="text/javascript" src="/assets/maker/js/function/function.js"></script>
 </head>
 <body class="bg-cc">
 <header>
@@ -57,9 +58,199 @@
     <div id='bottomscolltop'></div>
 </div>
 <!-- footer -->
-<link rel="stylesheet" href="../main/footer.html?__inline">
+<style>
+<style type="text/css">footer{}
+footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 7.5rem;
+    height: .98rem;
+    margin: 0 auto;
+    background-color: #fff;
+}
+footer ul {
+    display: table;
+    width: 100%;
+}
+footer ul li {
+    display: table-cell;
+    text-align: center;
+}
+footer ul li i {
+    display: inline-block;
+    width: .4rem;
+    height: .4rem;
+    margin-top: .1rem;
+    margin-bottom: 0;
+    background: url("/assets/maker/images/common/maker-nav.png") no-repeat;
+    background-size: 1.75rem auto;
+}
+footer ul li p{
+    margin-top: -.1rem;
+}
+footer ul li i.ma1 {
+    background-position: 0 0;
+}
+footer ul li i.ma2 {
+    background-position: -.72rem 0;
+}
+footer ul li i.ma3 {
+    background-position: -1.28rem 0;
+    width: .5rem;
+}
+footer ul li.active a{
+    color: #fd4a4a;
+}
+footer ul li.active i.ma1 {
+    background-position: 0 bottom;
+}
+footer ul li.active i.ma2 {
+    background-position: -.72rem bottom;
+}
+footer ul li.active i.ma3 {
+    background-position: -1.28rem bottom;
+}</style>
+<!-- html -->
+<footer class="g-border-t">
+    <ul class="fixed-bar">
+        <li><a href="/maker/index/index.html"><i class="ma1"></i><p>创客</p></a></li>
+        <li><a href="/maker/wenan/wenan.html#wenanstates=1"><i class="ma2"></i><p>内容</p></a></li>
+        <li><a href="/maker/team/team.html"><i class="ma3"></i><p>团队</p></a></li>
+    </ul>
+</footer>
+
+<script>
+    //首页底部导航增加active样式
+    $(function(){
+        var linkArr = ['/maker/index/index.html','/maker/wenan/wenan.html#wenanstates=1','/maker/team/team.html'];
+        for(var i=0; i<linkArr.length; i++){
+            if(typeof(linkArr[i])=='object'){
+                for(var j=0; j<linkArr[i].length; j++){
+                    if(location.href.indexOf(linkArr[i][j]) > -1){
+                        $('.fixed-bar li').removeClass('active');
+                        $('.fixed-bar li').eq(i).addClass('active');
+                        $('.fixed-bar li').eq(i).on('click', function(){
+                            return false;
+                        })
+                    }
+                }
+            }else{
+                if(location.href.indexOf(linkArr[i]) > -1){
+                    $('.fixed-bar li').removeClass('active');
+                    $('.fixed-bar li').eq(i).addClass('active');
+                    $('.fixed-bar li').eq(i).on('click', function(){
+                        return false;
+                    })
+                }
+            };
+        };
+    });
+</script>
+
+</style>
 <!-- script -->
-<script type="text/javascript" src="../../assets/maker/js/wenan/keepWenAn.js?__inline"></script>
+<script type="text/javascript">
+/*hotwenan.html*/
+win.hideLoading()
+/*spacial.js*/
+var vm = new Vue({
+    el: '#container',
+    data: {
+       startNum:0, //分页起始页
+       datas:{}, //页面数据 
+    },
+    ready: function () {
+        var This=this;
+       //请求后台接口获取下单时间
+       $.AJAX({
+            type:'post', 
+            url:config.basePath+'content/svMakerContent/getUserCollectList',
+            data:{
+                startNum:This.startNum,
+            },
+            success:function(data){
+              This.datas=data.data;
+              This.startNum=data.data.startNum;
+              //滚动拉去更多数据
+              This.scollGetMoreData();
+            }
+       });
+    },
+    methods: {
+       //滚动获得更多数据
+       scollGetMoreData:function(){
+        var This=this;
+        trueme.w.scrollGetData({  
+            lastObj:$('#bottomscolltop'),
+            bottomTop:700,
+            callback:function(){ 
+              $.AJAX({
+                  type:'post',
+                  url:config.basePath+'content/svMakerContent/getUserCollectList',
+                  data:{
+                      startNum:This.startNum,
+                  },
+                  success:function(data){
+                    //向数组里push数据
+                    if(data.data.contentList.length>0){
+                      This.datas.contentList = This.datas.contentList.concat(data.data.contentList);
+                    }
+                    This.startNum=data.data.startNum;
+                    //判断是否还需要滚动获取数据
+                    if(data.data.contentList.length>0){
+                        config.scrollbegin=true; //可以再次滚动
+                    }
+                  }
+             });  
+            }
+        });
+       }, //end 
+
+       //收藏文案
+       collectionwenan:function(contentId){
+          maker.collectionWenAn({
+            contentId:contentId,
+          });
+       },
+       
+       //点赞
+       likeElectricity:function(contentId){
+          maker.likeElectricityWenAn({
+            contentId:contentId,
+          });
+       },
+
+       //获得分享的shareId
+       getShareIdWenAnDetails:function(contentId){
+          //根据contentId获得分享shareId
+          maker.shareContentSetback({
+            contentId:contentId,
+            success:function(data){
+                //调用页面查看次数接口
+                if(isShare){
+                  window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId+'&isShare=1'; 
+                }else{
+                  window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId; 
+                };
+            },
+          });
+       },
+       
+    }
+});
+
+
+
+
+
+
+
+
+
+</script>
 
 </body>
 </html>

@@ -158,18 +158,24 @@ var vm = new Vue({
 
      //获得分享的shareId
      getShareIdWenAnDetails:function(contentId,isShare){
+        //调用页面查看次数接口
+        if(isShare){
+          window.location.href='wenAnDetails.html?contentId='+contentId+'&isShare=1'; 
+        }else{
+          window.location.href='wenAnDetails.html?contentId='+contentId; 
+        };
         //根据contentId获得分享shareId
-        maker.shareContentSetback({
-          contentId:contentId,
-          success:function(data){
-              //调用页面查看次数接口
-              if(isShare){
-                window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId+'&isShare=1'; 
-              }else{
-                window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId; 
-              };
-          },
-        });
+        // maker.shareContentSetback({
+        //   contentId:contentId,
+        //   success:function(data){
+        //       //调用页面查看次数接口
+        //       if(isShare){
+        //         window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId+'&isShare=1'; 
+        //       }else{
+        //         window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId; 
+        //       };
+        //   },
+        // });
      },
 
 

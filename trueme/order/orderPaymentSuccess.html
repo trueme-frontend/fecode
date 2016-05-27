@@ -7,13 +7,29 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/order/orderPaymentSuccess.css?__inline"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <style type="text/css">/*phone-binding.css*/
+.header { position: relative; line-height: .88rem; text-align: center; font-size: .36rem; color: #2c2c2c; background-color: #fff; z-index: 100; border-bottom: 1px solid #e0e0e0; }
+.header a { display: block; width: 100%; height: 100%; background-image: url('/assets/trueme/images/user/user1.png'); background-repeat: no-repeat; background-size: 4.1rem auto; }
+.header .header-right-text{position: absolute;right:0.2rem;color:#aaa;}
+.orderPaymentSuccess{}
+.orderPaymentSuccess .top{overflow:hidden;height:7.78rem;background: #fff;}
+.orderPaymentSuccess .top .success-icon{width:100%;height:1.8rem;text-align:center;margin-top:1.6rem;}
+.orderPaymentSuccess .top .success-icon img{width:1.8rem;height:1.82rem;}
+.orderPaymentSuccess .top .title{margin-left:2.16rem;font-size:0.36rem;}
+.orderPaymentSuccess .top .title1{margin-top:0.8rem;}
+.orderPaymentSuccess .top .title2{margin-bottom:0.5rem;}
+.orderPaymentSuccess .top .butLink .btn{width:1.35rem;height:0.6rem;line-height:0.4rem;text-align: center;font-size:0.22rem;}
+.orderPaymentSuccess .top .butLink .btn:nth-child(1){margin-right:0.2rem;}
+.orderPaymentSuccess .top .p{margin-top:0.4rem;padding:0 0.62rem;color:#999;font-size:.22rem;}
+
+</style>
     <!-- 模板js文件 -->
-    <script type="text/javascript" src="../../assets/common/js/main.js"></script>
-    <script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
+    <script type="text/javascript" src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
    
 </head>
 <body class="bg-cc">
@@ -24,7 +40,7 @@
             订单支付
         </div>
         <div class="top">
-            <div class="success-icon"><img v-show="done" src="../../assets/trueme/images/order/paymentSuccess.png" alt="支付成功"></div>
+            <div class="success-icon"><img v-show="done" src="/assets/trueme/images/order/paymentSuccess.png" alt="支付成功"></div>
             <div class="title title1">支付方式：<span class="text-main">在线支付</span></div>
             <div class="title title2">订单金额：<span class="text-main">&yen;<span v-text="totalFee"></span></span></div>
             <div class="butLink text-center">
@@ -36,11 +52,161 @@
         <div class="see-more hot-see-more">
             <div class="recommend-title"><span>继续剁手</span></div>
             <!-- hot 看了又看 -->
-            <link rel="import" href="../main/getHotSaleList.html?__inline">
+            
+<!-- 内部样式 -->
+<style>
+    .hot-see-more{background: #fff;overflow: hidden;margin-top:0.2rem;}
+    .hot-see-more .recommend-title{font-size:0.32rem; height: .92rem; line-height: .92rem; text-align: center; }
+    .hot-see-more .recommend-title span{position: relative; display: inline-block;}
+    .hot-see-more .recommend-title span::before{content:''; position: absolute; top:50%; left: -.36rem; margin-top: -1px; width: .36rem; height: 1px; background-color: #4a4a4a;}
+    .hot-see-more .recommend-title span::after{content:''; position: absolute; top:50%; right: -.36rem; margin-top: -1px; width: .36rem; height: 1px; background-color: #4a4a4a;}
+    .more-list { padding: 0 .15rem .2rem; }
+    .more-list li { float: left; margin : 0 .05rem .2rem; }
+    .more-list li .more-img { overflow: hidden; }
+    .more-list li .more-img img { display: block; width: 3.5rem; height: 3.5rem; }
+    .more-list li .more-name { margin-top: .06rem; line-height: .52rem; text-align: center; font-size: .24rem; color: #000; }
+    .more-list li .more-price { margin-bottom: .14rem; text-align: center; font-size: .24rem; color: #fd4a4a; }
+</style>
+ 
+<!-- html -->
+<div id="appHot">
+<ul class="more-list">
+    <li v-for="item in hotSaleList">
+        <a v-bind:href="'../ware/wareDetail.html?spuId=' + item.spuId">
+            <div class="more-img">
+                <img :src="item.imgMainUrl|qiniuImgFilter 2 350 350"/>
+            </div>
+            <p class="more-name" v-text="item.skuTitle"></p>
+            <div class="more-price" v-text="'¥'+item.salePrice"></div>
+        </a>
+    </li>
+</ul>
+</div>
+
+<script type="text/javascript">
+// $(function(){
+//     var vmmo = new Vue({
+//         el: '#appHot',
+//         data: {
+//             hotSaleList:[],
+//         },
+//         ready: function(){
+//             This=this;
+//             //获取hot数据列表
+//             $.AJAX({
+//                 type:'GET',
+//                 url:config.basePath+'product/svProduct/getHotSaleList',
+//                 data:{
+//                     num:4,
+//                 },
+//                 success:function(data){
+//                     vmmo.hotSaleList=data.data.hotSaleList;
+//                 },
+//             });
+//         },
+//     }); 
+// });
+
+var mixin = {
+  methods: {
+    //获取hot数据列表
+    conflicting: function (json,num) {
+        var num=num||4
+      $.AJAX({
+            type:'GET',
+            url:config.basePath+'product/svProduct/getHotSaleList',
+            data:{
+                num:num,
+            },
+            success:function(data){
+                json.callback(data.data.hotSaleList);
+               //return data.data.hotSaleList;
+            },
+        });
+    },
+  },
+};
+
+</script>
+
         </div>
     </div>
     <div style="height: .88rem;"></div> 
 </div>
- <script type="text/javascript" src="../../assets/trueme/js/order/orderPaymentSuccess.js?__inline"></script>
+ <script type="text/javascript">/*login.js*/
+win.hideLoading();
+window.onload=function(){
+  setTimeout(function(){
+    Popup.loading({"title":"订单支付中，请稍后"}); 
+    },0)  
+};
+
+var vm = new Vue({
+    el: '#orderSuccess',
+    mixins: [mixin],
+    data: {
+        done: false,
+        hotSaleList:[], //hut推荐
+        totalFee: ''
+    },
+    ready: function () {
+        var that=this;
+        //请求后台接口获取下单时间
+        var time = 0;
+        var doingAjax = false;
+        var timer = setInterval(function(){
+            time += 1;
+            if(time >= 5){
+                clearInterval(timer);
+                return false;
+            }
+            if(!doingAjax){
+                getResult();
+            }
+        },2000);
+        function getResult(){
+            doingAjax = true;
+            $.AJAX({
+                type:'POST', 
+                url:config.basePath+'order/svpay/queryorderpay',
+                code : true,
+                data:{
+                    "payOrderNo": getQueryString('payOrderNo'),
+                },
+                success:function(o){
+                    clearInterval(timer);
+                    that.done = true;
+                    that.totalFee = o.data.totalFee/100;
+                    Popup.closeLoading();
+                },
+                error: function(o){
+                    if(time >= 4){
+                        Popup.closeLoading();
+                        Popup.alert({type:'msg',title:'请求超时，请刷新重试!'});
+                    }
+                },
+                complete: function(){
+                    doingAjax = false;
+                }
+            });
+        }
+    },
+    methods: {
+        //完成后跳转
+        toNewUrl:function(){
+            window.location.href="myOrder.html";
+        }
+    }
+});
+vm.conflicting({callback:function(data){
+    vm.hotSaleList=data;
+}});
+
+
+
+
+
+
+</script>
 </body>
 </html>

@@ -8,16 +8,392 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/swiper-3.3.1.min.css"/>
-    <link rel="stylesheet" href="../../assets/trueme/css/ware/wareDetail.css?__inline">
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/swiper-3.3.1.min.css"/>
+    <style>/*wareDetail.css*/
+html { background-color: #f0f0f0; }
+img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
+.swiper-container-horizontal>.swiper-pagination-bullets { left: 0; margin-left: 0 }
+.swiper-pagination-bullet { background-color: #fff; opacity: .5 }
+.swiper-pagination-bullet-active { background-color: #fd4a4a; opacity: .8 }
+.header { position: fixed; top: 0; left: 0; right: 0; width: 7.5rem; margin: 0 auto; height: .88rem; background: linear-gradient(#acacac, #fff); background: -webkit-linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0)); background: -o-linear-gradient(#acacac, #fff); background: -moz-linear-gradient(#acacac, #fff); }
+.header .header-icon { position: absolute; top: 50%; left: 50%; background-image: url('/assets/trueme/images/ware/ware_detail_spirite.png'); background-repeat: no-repeat; }
+.header .header-back { position: relative; display: block; width: .88rem; height: .88rem; }
+.header .header-back .back-arrow { margin-top: -.19rem; margin-left: -.105rem; width: .21rem; height: .38rem; background-position: 0 0; background-size: 1.04rem .38rem; }
+.header .header-cart { position: absolute; top: 0; right: 0; width: 1.08rem; height: .88rem; }
+.header .header-cart .header-cart-icon { margin-top: -.19rem; margin-left: -.225rem; width: .45rem; height: .38rem; background-position: -.21rem 0; background-size: 1.04rem .38rem; }
+.header .header-set { position: absolute; top: 0; right: 0; width: .88rem; height: .88rem; }
+.header .header-set .header-set-icon { margin-top: -.19rem; margin-left: -.19rem; width: .38rem; height: .38rem; background-position: -.66rem 0; background-size: 1.04rem .38rem; }
+/**/
+.banner { width: 7.5rem; }
+.banner .img-box{width: 7.5rem; height: 6.22rem;}
+.banner img { display: block; width: 7.5rem; height: 6.22rem; }
+/**/
+.good-main { padding: .06rem .2rem 0; background-color: #fff; }
+.good-main .name { font-size: .34rem; color: #000; margin-top:0.44rem; text-align: center; }
+.good-main .des { font-size: .24rem; color: #000; max-height: .72rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; }
+.good-main .price { margin: .18rem 0; text-align: center; }
+.good-main .price .now-price { font-size: .46rem; color: #fd4a4a; padding-right: .1rem; }
+.good-main .price .old-price { font-size: .26rem; color: #7b7b7b; }
+.good-main .sell-info { position: relative; height: 1.14rem; line-height: 1.14rem; text-align: center; font-size: .24rem; color: #7b7b7b; }
+.good-main .sell-info .praise-info { position: absolute; top: -.18rem; left: 0; right: 0; line-height: .36rem; font-size: .24rem; color: #7b7b7b; }
+.good-main .sell-info .praise-info .praise-info-text { display: inline-block; padding: 0 .2rem; background-color: #fff; }
+.good-main .sell-info .sell-num { float: left; }
+.good-main .sell-info .store-num { position: absolute; top: 0; left: 0; right: 0; bottom: 0; text-align: center; }
+.good-main .sell-info .postage { float: right; }
+.good-main .tags { line-height: .74rem; font-size: .22rem; color: #4a4a4a; }
+.good-main .tags span { padding-left: .3rem; background: url('/assets/trueme/images/ware/yes.png') no-repeat left center; background-size: .24rem .24rem; margin-right: .38rem; }
+/**/
+.detail { margin-top: .2rem; background-color: #fff; }
+.detail h3 { line-height: .9rem; font-size: .32rem; color: #4a4a4a; text-align: center; }
+.detail .detail-img { display: block; }
+.detail .detail-img img { width: 100%; }
+/**/
+.see-more { background-color: #fff; overflow: hidden; }
+.see-more h3 { line-height: .9rem; font-size: .32rem; color: #4a4a4a; text-align: center; }
+.see-more .more-list { padding: .2rem .15rem; }
+.see-more .more-list li { float: left; margin : 0 .05rem .2rem; }
+.see-more .more-list li .more-img { overflow: hidden; }
+.see-more .more-list li .more-img img { display: block; width: 3.5rem; height: 3.5rem; }
+.see-more .more-list li .more-name { margin-top: .06rem; line-height: .52rem; text-align: center; font-size: .24rem; color: #000; }
+.see-more .more-list li .more-price { margin-bottom: .14rem; text-align: center; font-size: .24rem; color: #fd4a4a; }
+/**/
+.zx { position: relative}
+.zx span{ position: relative; z-index: 5; background-color: #fff; padding: 0 .1rem; }
+.zx i{ display: block; position: absolute; top: 50%; left: 50%; width: 3rem; height: 1px; margin-left: -1.5rem; background-color: #000; z-index: 2 }
+/**/
+.too-bar { position: relative; position: fixed; height: .88rem; left: 0; right: 0;bottom: 0; z-index: 100;}
+.too-bar .too-wrap {   max-width: 7.5rem; margin: 0 auto; height: .88rem; background-color: #fff; z-index: 100;}
+.too-wrap .store-btn { float: left; width: 1.4rem; height: .88rem; text-align: center; }
+.too-wrap .store-btn .store-icon { display: inline-block; margin-top: .12rem; width: .41rem; height: .39rem; background-image: url('/assets/trueme/images/ware/store_icon.png');background-repeat:  no-repeat; background-position:  0 0; background-size: cover; }
+.too-wrap .store-btn .store-icon.stored{background-image: url('/assets/trueme/images/ware/store_done_icon.png');}
+.too-wrap .store-btn .store-text { margin-top: -.14rem; font-size: .22rem; color: #a4a4a4; }
+.too-wrap .too-btn { overflow: hidden; text-align: center; line-height: .88rem; font-size: .36rem; color: #fff; }
+.too-wrap .too-btn .add-btn { float: left; width: 3.1rem; height: .88rem; background-color: #ff9292; }
+.too-wrap .too-btn .buy-btn { background-color: #fd4a4a; overflow: hidden; }
+/*shopCart-box*/
+.masked { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,.4); z-index: 1000; opacity: 0; -webkit-transition: all .3s; transition: all .3s; }
+.shopCart-con { position: fixed; bottom: 0; left: 0; width: 100%; max-height: 8rem; background-color: #fff; z-index: 1002; overflow-y: auto; -webkit-transform: translateY(100%); transform: translateY(100%); -webkit-transition: all .5s; transition: all .5s; opacity: 0; }
+.shopCart-box.on .masked { display: block; opacity: 1; }
+.shopCart-box.on .shopCart-con { opacity: 1; -webkit-transform: translateY(0); transform: translateY(0); }
+.shopCart-con .money { height: 1.2rem; line-height: 1.2rem; }
+.shopCart-con .money .pull-right { display: block; width: 1rem; height: 100%; background: url("/assets/trueme/images/common/PopLayer-close.png") no-repeat right center; }
+.shopCart-con .box-btn { width: 100%; height: .88rem; line-height: .88rem; text-align: center; font-size: .28rem; color: #fff; background-color: #fd4a4a; }
+.color-hd { height: 1.2rem; line-height: 1.2rem; }
+.color-hd .pull-right i { display: inline-block; width: .4rem; height: .4rem; vertical-align: middle; background: url("/assets/trueme/images/common/arrow_up.png") no-repeat center; background-size: .35rem; -webkit-transform: rotate(0deg); -moz-transform: rotate(0deg); -ms-transform: rotate(0deg); -o-transform: rotate(0deg); transform: rotate(0deg); -webkit-transition: all .3s; -moz-transition: all .3s; -ms-transition: all .3s; -o-transition: all .3s; transition: all .3s; }
+.color-hd.active .pull-right i { -webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -ms-transform: rotate(180deg); -o-transform: rotate(180deg); transform: rotate(180deg); }
+.color-bd { display: none; }
+.color-bd >.money { height: .9rem; line-height: .5rem; padding: .25rem 0; }
+.color-bd-t { height: 1.6rem; padding: .25rem 0; }
+.color-bd-t .img { float: left; width: 1.1rem; height: 1.1rem; margin-right: .2rem; background-color: #e0e0e0; }
+.color-bd-t .img img { max-width: 1.1rem; min-width: 1.1rem; }
+.color-bd-c { min-height: 1.6rem; }
+.color-bd-c ul { width: 110%; margin-top: .2rem; }
+.color-bd-c ul li { float: left; padding:0 5px; font-size:12px; height: .5rem; margin-right: .25rem; margin-bottom: .25rem; line-height: .45rem; text-align: center; color: #333; border: 1px solid #e0e0e0; border-radius: .08rem; }
+.color-bd-c ul li.checked { color: #fd4a4a; border: 1px solid #fd4a4a; }
+.shopCart-con .num { height: 1rem; line-height: 1rem; overflow: hidden; }
+.num .pull-right { position: relative; height: .5rem; width: 1.8rem; margin-top: .25rem; border: 1px solid #e0e0e0; border-radius: .08rem; }
+.num .pull-right .left, .num .pull-right .right { display: block; position: absolute; top: 0; height: 100%; width: .5rem; text-align: center; line-height: .45rem; }
+.num .pull-right .left { left: 0; border-right: 1px solid #e0e0e0; }
+.num .pull-right .right { right: 0; border-left: 1px solid #e0e0e0; }
+.num .pull-right input { position: absolute; top: 0; left: .55rem; width: .7rem; height: .45rem; border: none; text-align: center; }
+</style>
     <!-- script -->
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-    <script type="text/javascript" src="../../assets/common/js/main.js"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+    <script type="text/javascript" src="/assets/common/js/main.js"></script>
     <!-- 模板js文件 -->
-    <script type="text/javascript" src="../../assets/common/js/T.js"></script>
-    <script type="text/javascript" src="../../assets/common/js/swiper-3.3.1.jquery.min.js"></script>
-    <script src="../../assets/trueme/js/ware/wareDetail.js?__inline"></script>
+    <script type="text/javascript" src="/assets/common/js/T.js"></script>
+    <script type="text/javascript" src="/assets/common/js/swiper-3.3.1.jquery.min.js"></script>
+    <script>/*wareDetail.js*/
+$(function () {
+    //获取商品的spuId
+   var shopSpuId=getQueryString('spuId')||1;
+
+    //折叠
+    $(".color-hd").click(function () {
+        $(this).toggleClass("active");
+        if ($(this).hasClass("active")) {
+            $(this).next(".color-bd").slideDown();
+        } else {
+            $(this).next(".color-bd").slideUp();
+        }
+    });
+   
+    //弹入弹出
+    $(".too-btn").click(function () {
+        $(".shopCart-box").addClass("on");
+    });
+    $("#close_box,.masked").click(function () {
+        $(".shopCart-box").removeClass("on");
+    });
+
+    //banner
+    var vm = new Vue({
+        el: '#container',
+        mixins: [mixin],
+        data: {
+            banner: [],   //banner图
+            hotSaleList:[], //hut推荐
+            spuDetail:[],  //商品spu详情图
+            spuDetailList:'', //获取SPU详情信息
+            spuTotalList:[], //
+            specifin:[], //商品规格
+            skuNum:0,  //购买的商品数量
+            skuTitle:'',  //购买商品的标题
+            skuId:'',  //商品的skuId
+            type:1,   //1为手机加入购物车 ，2为立即购买
+            shopingNum:1, //购买商品数量
+            getSkuStockInf:0,  //可购买的库存量
+            goodsPrice:0,  //商品价格 
+            hasCollected: false  //是否已收藏
+        },
+        ready: function(){
+            $('#container').removeClass('hide');
+            $(window).on('scroll', function(){
+                var scrollTop = document.body.scrollTop;
+                var targetColor = 0.5 - scrollTop/(88*rem/100);
+                var targetOpacity = (scrollTop/(88*rem/100) - 0.5)/0.5;
+                if(scrollTop <= 44*rem/100){
+                    $('.header-icon').css('backgroundImage','url("../../assets/trueme/images/ware/ware_detail_spirite.png")');
+                    $('.header').css({
+                        background: 'linear-gradient(rgba(0,0,0,'+ targetColor +'), rgba(0,0,0,0))'
+                    });
+                    $('.header').css({
+                        background: '-webkit-linear-gradient(rgba(0,0,0,'+ targetColor +'), rgba(0,0,0,0))'
+                    });
+                    $('.header').css({
+                        background: '-moz-linear-gradient(rgba(0,0,0,'+ targetColor +'), rgba(0,0,0,0))'
+                    });
+                    $('.header').css({
+                        background: '-o-linear-gradient(rgba(0,0,0,'+ targetColor +'), rgba(0,0,0,0))'
+                    });
+                }else if(scrollTop <= 88*rem/100){
+                    $('.header-icon').css('backgroundImage','url("../../assets/trueme/images/ware/ware_detail_spirite_black.png")');
+                    $('.header').css({
+                        background: 'linear-gradient(rgba(255,255,255,'+ targetOpacity +'), rgba(255,255,255,'+ targetOpacity +'))'
+                    });
+                    $('.header').css({
+                        background: '-webkit-linear-gradient(rgba(255,255,255,'+ targetOpacity +'), rgba(255,255,255,' +targetOpacity+ '))'
+                    });
+                    $('.header').css({
+                        background: '-moz-linear-gradient(rgba(0,0,0,'+ targetOpacity +'), rgba(0,0,0,0))'
+                    });
+                    $('.header').css({
+                        background: '-o-linear-gradient(rgba(0,0,0,'+ targetOpacity +'), rgba(0,0,0,0))'
+                    });
+                }
+            });
+            var This=this;
+            //加载banner图片
+            $.AJAX({
+                type:'get',
+                url:config.basePath+'product/svSpuImg/getSpuMain',
+                data:{
+                    spuId:shopSpuId,
+                },
+                success:function(data){
+                    //渲染banner
+                    vm.banner=data.data.spuMainImgList;
+                    This.$nextTick(function(){
+                        setTimeout(function(){
+                            var bannerSwiper = new Swiper('.banner', {
+                                autoplay: 2000,
+                                autoplayDisableOnInteraction : false,
+                                visibilityFullFit: true,
+                                loop: true,
+                                pagination: '.swiper-pagination'
+                            });
+                        },0);
+                    });
+                },
+            });
+
+            //获取用户是否收藏该商品
+            $.AJAX({
+                type: "POST",
+                code: true,
+                pageSet: true,
+                url: config.basePath + 'user/sviscollectforgoods?spuId=' + shopSpuId,
+                error: function(o){
+                    if(o.code == 1004){
+                        return false;
+                    }
+                    if(o.code == 5300){
+                        This.hasCollected = true;
+                    }
+                }
+            });
+
+            //加载商品详情图
+            $.AJAX({
+                type:'get',
+                url:config.basePath+'product/svSpuImg/getSpuDetail',
+                data:{
+                    spuId:shopSpuId,
+                },
+                success:function(data){
+                    $('.detail').removeClass('hide');
+                    $('.too-bar').removeClass('hide');
+                    This.spuDetail=data.data.spuDetailImgList;
+                }
+            });
+
+            //获取SPU详情信息
+            $.AJAX({
+                type:'get',
+                url:config.basePath+'product/svProduct/getSpuDetailInfo',
+                data:{
+                    spuId:shopSpuId,
+                },
+                success:function(data){
+                    $('.good-main').removeClass('hide');
+                    vm.getSkuStockInf=data.data.spuDetailInfo.totalStockNum; //可购买的商品库存
+                    vm.spuDetailList=data.data.spuDetailInfo; //商品详情数据
+                    vm.goodsPrice=data.data.spuDetailInfo.salePrice //商品价格
+                },
+            });
+
+            //获取商品规格
+            $.AJAX({
+                type:'get',
+                url:config.basePath+'product/svProduct/getSpuStandardList',
+                data:{
+                    spuId:shopSpuId,
+                },
+                success:function(data){
+                    vm.specifin=data.data.getSpuStandardList;
+                }
+            });
+        },
+        methods:{
+            //切换tab获得产品库存
+            activeLi:function($event,skuId){
+                $($event.target).addClass("checked").siblings().removeClass("checked");
+                vm.skuId=skuId;
+                //获取规格数量
+                 $.AJAX({
+                    url:config.basePath+'product/svProduct/getSkuStockInfo',
+                    data:{ 
+                        skuId:skuId,
+                    },
+                    success:function(data){
+                        vm.getSkuStockInf=data.data.getSkuStockInfo.stockNum;
+                        //获得产品规格和价格
+                        $.AJAX({ 
+                            url:config.basePath+'product/svProduct/getSkuPriceInfo',
+                            data:{ 
+                                skuId:skuId,
+                            },
+                            success:function(data){
+                                vm.goodsPrice=data.data.getSkuStockInfo.salePrice;
+                            },
+                        });//end
+                    },
+                });
+            },
+
+            //加入购物车
+            joinShoppingCart:function(){
+                vm.type=1;
+            },
+
+            //设置为立即购买
+            payOrderNow:function(){
+                vm.type=2;
+            },
+
+            //减少商品
+            reduceShopNum:function(){
+                if(vm.shopingNum>1){
+                    vm.shopingNum--;
+                }else{
+                    Popup.miss({title:'亲,商品数量最少为1件额！'});
+                }
+            },
+
+            //增加商品
+            addShopNum:function(){
+                vm.shopingNum++;
+            },
+
+            //开始购买或者加入购物车
+            submitShopNow:function(){
+                if(vm.type==1){
+                    //加入购物车
+                    var data = {
+                            skuId:vm.skuId||vm.specifin[0].skuId, 
+                            skuNum:vm.shopingNum, 
+                            skuTitle:vm.spuDetailList.title,
+                        };
+                    if(getQueryString('shareId')){
+                        data.shareId = parseInt(getQueryString('shareId'));
+                    }
+                    $.AJAX({
+                        type:'post',
+                        url:config.basePath+'product/svProduct/addShopCart',
+                        data:data,
+                        success:function(data){
+                            //取消弹出层
+                            $(".shopCart-box").removeClass("on");
+                            Popup.miss({title:'加入购物车成功！'}); 
+                        },
+                    });
+                }else if(vm.type==2){
+                    //立即购买 结算订单
+                    var price=vm.goodsPrice*vm.shopingNum;
+                    //var price=vm.spuDetailList.salePrice*vm.shopingNum;
+                    var json={
+                        totalPrice:price,
+                        skuList:[{
+                            skuId:vm.skuId||vm.specifin[0].skuId,
+                            num:vm.shopingNum,
+                            shareId: getQueryString('shareId') ? getQueryString('shareId') : '0'
+                        }],
+                    };
+                    $.AJAX({
+                        url:config.basePath+'product/svSettlement/settlement?param=' + JSON.stringify(json),
+                        success: function(o){
+                            console.log(o);
+                            sessionStorage.setItem('data', JSON.stringify(o.data));
+                            var href="http://"+window.location.host+"/trueme/order/confirmOrder.html";
+                            location.href = href;
+                            sessionStorage.setItem('weixin-next-url', href);
+                        }
+                    });
+                }//end
+            },
+
+            //收藏商品
+            collection:function(event){
+                trueme.w.collection({
+                   spuId:shopSpuId,
+                   success: function(data){
+                        if(data.data.flag ==2){
+                            $('.store-icon').addClass('stored');
+                            Popup.miss({title:'收藏成功！'});
+                        }else{
+                            $('.store-icon').removeClass('stored');
+                            Popup.miss({title:'取消收藏成功！'});
+                        }
+                   }
+                });
+            },
+
+        },
+    });
+    
+    //获取hot推荐    
+    vm.conflicting({callback:function(data){
+        $('.see-more').removeClass('hide');
+       vm.hotSaleList=data;
+    }});
+     
+});
+
+
+
+</script>
 </head>
 <body>
 <div class="wrapper">
@@ -134,7 +510,83 @@
         <div class="see-more">
             <h3>看了又看</h3>
              <!-- hot 看了又看 -->
-            <link rel="import" href="../main/getHotSaleList.html?__inline">
+            
+<!-- 内部样式 -->
+<style>
+    .hot-see-more{background: #fff;overflow: hidden;margin-top:0.2rem;}
+    .hot-see-more .recommend-title{font-size:0.32rem; height: .92rem; line-height: .92rem; text-align: center; }
+    .hot-see-more .recommend-title span{position: relative; display: inline-block;}
+    .hot-see-more .recommend-title span::before{content:''; position: absolute; top:50%; left: -.36rem; margin-top: -1px; width: .36rem; height: 1px; background-color: #4a4a4a;}
+    .hot-see-more .recommend-title span::after{content:''; position: absolute; top:50%; right: -.36rem; margin-top: -1px; width: .36rem; height: 1px; background-color: #4a4a4a;}
+    .more-list { padding: 0 .15rem .2rem; }
+    .more-list li { float: left; margin : 0 .05rem .2rem; }
+    .more-list li .more-img { overflow: hidden; }
+    .more-list li .more-img img { display: block; width: 3.5rem; height: 3.5rem; }
+    .more-list li .more-name { margin-top: .06rem; line-height: .52rem; text-align: center; font-size: .24rem; color: #000; }
+    .more-list li .more-price { margin-bottom: .14rem; text-align: center; font-size: .24rem; color: #fd4a4a; }
+</style>
+ 
+<!-- html -->
+<div id="appHot">
+<ul class="more-list">
+    <li v-for="item in hotSaleList">
+        <a v-bind:href="'../ware/wareDetail.html?spuId=' + item.spuId">
+            <div class="more-img">
+                <img :src="item.imgMainUrl|qiniuImgFilter 2 350 350"/>
+            </div>
+            <p class="more-name" v-text="item.skuTitle"></p>
+            <div class="more-price" v-text="'¥'+item.salePrice"></div>
+        </a>
+    </li>
+</ul>
+</div>
+
+<script type="text/javascript">
+// $(function(){
+//     var vmmo = new Vue({
+//         el: '#appHot',
+//         data: {
+//             hotSaleList:[],
+//         },
+//         ready: function(){
+//             This=this;
+//             //获取hot数据列表
+//             $.AJAX({
+//                 type:'GET',
+//                 url:config.basePath+'product/svProduct/getHotSaleList',
+//                 data:{
+//                     num:4,
+//                 },
+//                 success:function(data){
+//                     vmmo.hotSaleList=data.data.hotSaleList;
+//                 },
+//             });
+//         },
+//     }); 
+// });
+
+var mixin = {
+  methods: {
+    //获取hot数据列表
+    conflicting: function (json,num) {
+        var num=num||4
+      $.AJAX({
+            type:'GET',
+            url:config.basePath+'product/svProduct/getHotSaleList',
+            data:{
+                num:num,
+            },
+            success:function(data){
+                json.callback(data.data.hotSaleList);
+               //return data.data.hotSaleList;
+            },
+        });
+    },
+  },
+};
+
+</script>
+
         </div>
         <!-- 底部导航 -->
         <div class="too-bar">

@@ -37,7 +37,7 @@ body {
     left: 50%;
     top: 40%;
     margin: -55px 0 0 -60px;
-    background: url('../../images/user/icon-text.png') no-repeat center center;
+    background: url('/assets/trueme/images/user/icon-text.png') no-repeat center center;
     z-index: 2;
     background-size: 100%;
 }

@@ -7,11 +7,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/wallet/wallet.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/maker/css/wallet/wallet.css"/>
     <!-- script -->
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-    <script type="text/javascript" src="../../assets/common/js/main.js"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+    <script type="text/javascript" src="/assets/common/js/main.js"></script>
 </head>
 <body class="bg-cc">
 <header>
@@ -64,6 +65,32 @@
     </div>
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript" src="../../assets/maker/js/wallet/wallet.js?__inline"></script>
+<script type="text/javascript">
+/*创客index.js*/
+
+var vm = new Vue({
+    el: '#container',
+    data: {
+        datas: {}, //我的钱包数据
+    },
+    ready: function(){
+        var This = this;
+        $.AJAX({
+            type:'post',
+            url: config.basePath+"maker/svMaker/getWalletInfo",
+            success: function(data){
+               This.datas=data.data;
+               setTimeout(function(){
+                    $('#container').removeClass('hide'); 
+                }, config.containerShowTime);
+            },
+        });
+    },
+    methods: {
+        
+    }
+});
+
+    </script>
 </body>
 </html>

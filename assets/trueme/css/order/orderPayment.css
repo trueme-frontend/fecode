@@ -10,7 +10,7 @@
 .orderPayment .center .tit{padding:0 0.2rem;height:0.8rem;border-bottom:solid 1px #e0e0e0;line-height: 0.8rem;position: relative;}
 .orderPayment .center .tit .pull-right{padding-right:0.4rem;}
 .orderPayment .center .tit span#slide{display: block;position: absolute;right:0.2rem;top:0.2rem;width:0.4rem;height:0.4rem;
-	background-image:url('../../images/common/arrow_down.png');
+	background-image:url('/assets/trueme/images/common/arrow_down.png');
 	background-repeat: no-repeat;
 	background-position: center right;
 	background-size: 80%;
@@ -19,7 +19,7 @@
 .orderPayment .center .paylist li{position: relative;height:0.98rem;line-height:0.98rem;padding:0 0.2rem;}
 .orderPayment .center .paylist li img{width:0.4rem;margin-right:0.15rem;}
 .orderPayment .center .checko{position: absolute;right:0.2rem;width:0.4rem;height:0.4rem;top:0.3rem;background:#ccc;border-radius:100%;
-	background: url('../../images/order/order_select_icon.png') no-repeat;background-position: 0 -0.4rem;background-size:100% ;
+	background: url('/assets/trueme/images/order/order_select_icon.png') no-repeat;background-position: 0 -0.4rem;background-size:100% ;
 }
 .orderPayment .center .active{background-position: 0 0;}
 .orderPayment .bottom{position: fixed;left:0;bottom:0.2rem;width:100%;padding:0.2rem;}

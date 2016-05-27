@@ -4,7 +4,7 @@
     height: 3.5rem;
     padding-top: .88rem;
     text-align: center;
-    background: url("../../images/index/user-box-bg2.png") no-repeat center;
+    background: url("/assets/maker/images/index/user-box-bg2.png") no-repeat center;
     background-size: cover;
 }
 .top-box i {
@@ -14,7 +14,7 @@
     padding-left: .35rem;
     color: #aaa;
     font-size: .22rem;
-    background: url("../../images/team/icon1.png") no-repeat center left;
+    background: url("/assets/maker/images/team/icon1.png") no-repeat center left;
     background-size: .3rem;
 }
 .top-box h3{

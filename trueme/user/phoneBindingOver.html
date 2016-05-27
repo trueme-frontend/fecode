@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>手机号绑定</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1,minimum-scale=1,maximum-scale=1"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <!-- 样式文件 -->
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <style type="text/css">/*phone-binding.css*/
+.phone-binding-over .binding{margin:0.74rem 0;text-align:center;}
+.phone-binding-over .bind{margin:0.2rem 0.2rem 0;display:block;}
+.phone-binding-over .bind>button{width:100%;display:block;height:0.7rem;}
+
+
+
+
+</style>
+    <!-- 内部样式 -->
+</head>
+<body class="bg-cc">
+<div class="container padding-horizontal-0">
+    <div class="m-header">
+        <div class="header-left"><a href="javascript:void(0)" onclick="goBack();" class="back"></a></div>
+        手机号绑定
+    </div>
+    <div id="container" class="phone-binding-over">
+        <div class="binding">
+            <span>已绑定：</span><span class="text-lg" v-text=" '13476002863'  | asterisk"></span>
+        </div>   
+        <div class="bind">
+            <button class="btn btn-main">更换手机号</button>
+        </div>
+    </div>
+</div>
+<!-- 模板js文件 -->
+<script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+<script type="text/javascript" src="/assets/common/js/main.js"></script>
+<script type="text/javascript">/*login.js*/
+win.hideLoading();
+
+ $(function () {
+    $("#password").on("focus",function () {
+        $(this).next("span").addClass("focus");
+    });
+    $("#password").blur(function () {
+        $(this).next("span").removeClass("focus");
+    });
+});
+var vm = new Vue({
+    el: '#container',
+    data: {},
+    ready: function () {
+       
+    },
+    methods: {}
+});
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -19,42 +19,57 @@ var vm = new Vue({
     },
     ready: function () {
         var This=this;
-       //根据订单号 获取支付信息
-       $.AJAX({
-            type:'post', 
-            code: true,
-            url:config.basePath+'order/svorder/querypay', 
-            data:{
+        if(getQueryString('orderId')){
+            var url = config.basePath+'order/svorder/querypaybyid';
+            var data = {
+                "id": getQueryString('orderId'),
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-                "payNo":This.payNo, // 'P160519201459101012'
-            },
-            success:function(data){
-                This.payOrderNo=data.data.payOrderNo; //预支付订单号
-                This.openId=data.data.openId;  //openId
-                This.needPay=data.data.needPay;
-                //生成订单时间
-                var timespe=(data.data.expireTime-data.data.createTime)/1000; //时间差
-                // var timespe=(10000)/1000; //时间差
-                var timer=setInterval(function(){
-                    This.createTime=formatSeconds(timespe);
-                    timespe--;
-                    if(timespe<=0){
-                        clearInterval(timer);
-                        This.createTime='00:00';
-                        This.isSubmitPay=true;
-                        //调起关闭订单
-                        This.closeOrder();
-                    }
-                }, 1000);
-            },
-            error: function(data){
-                if(data.code == 4004){
-                    location.href = 'myOrder.html';
-                }else{
-                    Popup.alert({type:'msg',title: data.desc});
-                }
+                "payNo":This.payNo
             }
-       });
+            doAjax();
+        }else{
+            var url = config.basePath+'order/svorder/querypay';
+            var data = {
+                "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
+                "payNo":This.payNo
+            }
+            doAjax();
+        }
+        function doAjax(){
+            $.AJAX({
+                type:'post', 
+                code: true,
+                url: url, 
+                data: data,
+                success:function(data){
+                    This.payOrderNo=data.data.payOrderNo; //预支付订单号
+                    This.openId=data.data.openId;  //openId
+                    This.needPay=data.data.needPay;
+                    //生成订单时间
+                    var timespe=(data.data.expireTime-data.data.createTime)/1000; //时间差
+                    // var timespe=(10000)/1000; //时间差
+                    var timer=setInterval(function(){
+                        This.createTime=formatSeconds(timespe);
+                        timespe--;
+                        if(timespe<=0){
+                            clearInterval(timer);
+                            This.createTime='00:00';
+                            This.isSubmitPay=true;
+                            //调起关闭订单
+                            This.closeOrder();
+                        }
+                    }, 1000);
+                },
+                error: function(data){
+                    if(data.code == 4004){
+                        location.href = 'myOrder.html';
+                    }else{
+                        Popup.alert({type:'msg',title: data.desc});
+                    }
+                }
+            });
+        }
+       //根据订单号 获取支付信息
     },
     methods: {
         //H5掉起立即支付

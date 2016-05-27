@@ -1,5 +1,47 @@
-﻿
-__inline('config.js')   //引入 config.js 前端配置项
+
+/*-------------------------------------------后台配置------------------------------------------------*/ 
+window.config={
+	//登陆页面 
+	loginUrl:"/trueme/user/login.html", 
+
+	//登陆成功后需要跳转到的页面                                                       
+	homeUrl: "/index.html",    
+
+	//开发服务器 接口						
+	basePath:'http://dev.truemeee.com/',
+	//basePath:'http://192.168.0.101:8080/',
+
+	//container div显示的时间                                            
+	containerShowTime:10,  
+
+	//ajax 超时配置                                              
+	ajaxtimeout:8000,  
+
+	//发送短信的时间间隔
+	msgTime:60,
+
+    //商户公众号id
+    appId:'wx3c8059fedebed664',
+
+    //前端动画的时间
+    alimTime:200,
+
+    //滚动加载更多数据底部距离
+    bottomTop:600,
+    //初始时候可加载更多数据
+    scrollbegin:true,
+
+    //微信信任回调页面    
+    redirect_uri:'http://'+window.location.host+'/trueme/wx-code/wx-code.html',     
+
+    //登录或者绑定手机等成功后 跳转到上一页面或者首页
+    prevUrl:getNextUrl(),     
+
+    //购买创客商品的spuId
+    spuId:8,                                        
+                                                
+};
+   //引入 config.js 前端配置项
 
 /*------------------------ start jquery 相关  ------------------------*/
 if(window.$){
@@ -126,8 +168,10 @@ if(window.$){
 			}else{
 				Popup.alert({type:'msg',title:'用户未登陆,请登录!'});
 			}
-		}else if(dataCode==6001){
-			window.location.href="/trueme/ware/wareDetail.html?spuId=8";
+		}else if(dataCode==6001){ //没有注册创客
+			window.location.href="/trueme/ware/wareDetail.html?spuId="+config.spuId; 
+		}else if(dataCode==6006){ //创客没有选择推荐人，请先选择推荐人
+			window.location.href="/maker/invite/inviteVerifyOrder.html"; 
 		}else{
 			if(json.code){
 				json.error(data);
@@ -686,9 +730,160 @@ function getNextUrl(){
 		return sessionStorage.getItem("weixin-url")||'http://'+window.location.host+'/index.html';
 	}
 }
-
-
 /*------------------------ end 原生扩展  ------------------------*/
+
+
+/*------------------------------------微信jsdk相关------------------------------*/
+/*微信分享
+debug       是否是调试默还是
+request     是否需要请求 appId timestamp nonceStr signature
+	appId       appId    (必填：request为false时不填)
+	timestamp   时间戳  (必填：request为false时不填) 
+	nonceStr    随机字符串  (必填：request为false时不填)
+	signature   微信签名   (必填：request为false时不填) 
+title       微信分享标题  (必填) 
+desc        微信分享描述  (可填) 
+link        微信分享URL  (必填)
+mainUrl     微信分享图标 (可填)
+success     分享成功后执行   (可填)
+cancel       取消分享后执行   (可填) 
+*/
+function WeiXinShare(data) {
+	var setting={
+		debug:false,
+		request:false,
+		contentUrl:'',
+		appId :config.appId,
+		timestamp :time(),
+		nonceStr: randomString(),
+		signature :'',
+		title :'',
+		desc :'',       
+		link :'',       
+		mainUrl:'',   
+		success:function(){},     
+		cancel:function(){},    
+	};
+	var data=extend(setting,data);
+	if(!data.request){
+		//请求微信分享需要的相关参数
+		$.AJAX({
+	        type:'post', 
+	        url:config.basePath+'maker/svMaker/makerShare',
+	        data:{
+	            contentUrl:encodeURIComponent(window.location.href.split('#')[0]),                
+	        },
+	        success:function(data){
+	          //调用微信相关操作
+	          data=extend(data,data.data);
+	          WeiXinInFo(data.data); 
+	        },
+	    });
+	}else{
+		//掉起微信分享
+    	WeiXinInFo(data);	
+	};	
+};
+
+//掉起微信分享
+function WeiXinInFo(data){
+    wx.config({
+        debug: data.debug, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: data.appId, // 必填，公众号的唯一标识
+        timestamp: data.timestamp, // 必填，生成签名的时间戳
+        nonceStr: data.nonceStr, // 必填，生成签名的随机串
+        signature: data.signature,// 必填，签名，见附录1
+        jsApiList: [
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+        ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    //wx.ready
+    wx.ready(function () {
+       // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+       //分享给朋友
+       wx.onMenuShareAppMessage({
+           title: data.title, // 分享标题
+           desc: data.desc, // 分享描述
+           link: data.link,
+           imgUrl: data.mainUrl, // 分享图标
+           success: function () { 
+              // 用户确认分享后执行的回调函数
+              data.success()
+           },
+           cancel: function () { 
+               // 用户取消分享后执行的回调函数
+               data.cancel()
+           }
+      });
+
+      //分享给朋友圈
+      wx.onMenuShareTimeline({
+          title: data.title, // 分享标题
+          link: data.link, // 分享链接
+          imgUrl: data.mainUrl, // 分享图标
+          success: function () {
+              // 用户确认分享后执行的回调函数
+              data.success()
+          },
+          cancel: function () {
+              // 用户取消分享后执行的回调函数
+              data.cancel()
+          }
+      });
+
+      //分享到QQ
+      wx.onMenuShareQQ({
+        title:  data.title, // 分享标题
+        desc: data.desc, // 分享描述
+        link: data.link, // 分享链接
+        imgUrl: data.mainUrl, // 分享图标
+        success: function () { 
+           // 用户确认分享后执行的回调函数
+           data.success()
+        },
+        cancel: function () { 
+           // 用户取消分享后执行的回调函数
+           data.cancel()
+        }
+      });
+
+      //分享到腾讯微博
+      wx.onMenuShareWeibo({
+        title: data.title, // 分享标题
+        desc: data.desc, // 分享描述
+        link: data.link, // 分享链接
+        imgUrl: data.mainUrl, // 分享图标
+        success: function () { 
+           // 用户确认分享后执行的回调函数
+           data.success()
+        },
+        cancel: function () { 
+            // 用户取消分享后执行的回调函数
+            data.cancel()
+        }
+      });
+      
+      //分享到QQ空间
+      wx.onMenuShareQZone({
+        title: data.title, // 分享标题
+        desc: data.desc, // 分享描述
+        link: data.link, // 分享链接
+        imgUrl: data.mainUrl, // 分享图标
+        success: function () { 
+           // 用户确认分享后执行的回调函数
+           data.success()
+        },
+        cancel: function () { 
+            // 用户取消分享后执行的回调函数
+            data.cancel()
+        }
+      });
+    });
+};
 
 
 

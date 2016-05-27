@@ -7,16 +7,17 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+    <script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
     <!-- style -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/swiper-3.3.1.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/wenan/wenan.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/swiper-3.3.1.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/maker/css/wenan/wenan.css"/>
     <!-- 模板js文件 -->
-    <script type="text/javascript" src="../../assets/common/js/main.js"></script>
-    <script type="text/javascript" src="../../assets/common/js/swiper-3.3.1.jquery.min.js"></script>
-    <script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
-    <script type="text/javascript" src="../../assets/maker/js/function/function.js"></script>
+    <script type="text/javascript" src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="/assets/common/js/swiper-3.3.1.jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
+    <script type="text/javascript" src="/assets/maker/js/function/function.js"></script>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 </head>
 <body>
@@ -40,9 +41,9 @@
         <div class="block" v-for="item in datas.detailList">
             <div class="center" v-if="item.contentImgUrl"><img :src="item.contentImgUrl|qiniuImgFilter"></div>
             <p class="wenan-p" v-if="item.contentText" v-text="item.contentText"></p>
-            <a href="/trueme/ware/wareDetail.html?spuId={{iten.spuId}}">
+            <a href="/trueme/ware/wareDetail.html?spuId={{iten.spuId}}&shareId={{shareId}}">
                 <div class="pro">
-                    <a href="/trueme/ware/wareDetail.html?spuId={{item.spuId}}">
+                    <a href="/trueme/ware/wareDetail.html?spuId={{item.spuId}}&shareId={{shareId}}">
                         <div class="img" style="margin:0.2rem 0"><img :src="item.skuImgUrl|qiniuImgFilter 2 300 300"></div>
                         <div class="con"><span v-text="'¥'+item.salePrice"></span><del v-text="'¥'+item.salePrice"></del><p v-text="item.skuTitle"></p></div>
                      </a>
@@ -55,7 +56,7 @@
         <div class="swiper-container text-goods">
             <div class="swiper-wrapper">
                 <div class="swiper-slide text-center" v-for="item in datas.skuList">
-                    <a href="/trueme/ware/wareDetail.html?spuId={{item.spuId}}">
+                    <a href="/trueme/ware/wareDetail.html?spuId={{item.spuId}}&shareId={{shareId}}">
                         <div class="img"><img :src="item.skuImgUrl|qiniuImgFilter 2 300 300"></div>
                         <p v-text="item.skuTitle"></p>
                         <span v-text="item.salePrice"></span>
@@ -74,6 +75,157 @@
 <div id="weixinShare" class="share hide"></div>
 <!-- script -->
 <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script type="text/javascript" src="../../assets/maker/js/wenan/wenAnDetails.js?__inline"></script>
+<script type="text/javascript">/*wenAndetails.js*/
+$(function () {
+  $(".share").click(function () {
+      $(this).hide();
+  });
+  //是否需要提示弹出分享层
+  if(getQueryString('isShare')){
+    $('#weixinShare').removeClass('hide').addClass('show');
+  }
+  $('#isShare').click(function(){
+    $('#weixinShare').removeClass('hide').addClass('show');
+  });
+  //点击隐藏弹出层
+  $('#weixinShare').click(function(){
+    $(this).removeClass('show').addClass('hide');
+  });
+  //vue  
+  var vm = new Vue({
+      el: '#container',
+      data: {
+          contentId: getQueryString('contentId') || 1, //文字的contentId
+          shareId: getQueryString('shareId') || 1, //分享页的ID
+          datas: {},  //页面数据
+          isDianZhan:true,
+      },
+      ready: function () {
+        var This = this;
+
+        //调用页面查看次数接口
+        maker.addReadCountCallback({
+            shareId: This.shareId,
+        });
+
+       //请求文案详情内容信息
+       $.AJAX({
+            type:'post', 
+            url:config.basePath+'content/svMakerContent/getContentDetail',
+            data:{
+                contentId:This.contentId,
+                contentUrl:encodeURIComponent(window.location.href.split('#')[0]),
+            },
+            success:function(data){
+              This.datas=data.data;
+              //显示content主题内容
+              setTimeout(function(){
+                $('#container').removeClass('hide');
+                //执行swiper
+                var swiper = new Swiper('.swiper-container', {
+                  pagination: '.swiper-pagination',
+                  slidesPerView: 'auto',
+                  paginationClickable: true,
+                  spaceBetween: 0,
+                  freeMode: true
+                });
+              },config.containerShowTime);
+
+              //调用微信分享相关功能
+              WeiXinShare({
+                debug:false,
+                request:true,
+                appId :data.data.appId,
+                timestamp:data.data.timestamp,
+                nonceStr: data.data.nonceStr,
+                signature :data.data.signature,
+                title :data.data.title,
+                desc :data.data.title,       
+                link :window.location.href,       
+                mainUrl:data.data.mainUrl,   
+                success:function(){
+                    $(this).removeClass('show').addClass('hide');
+                    This.shareSuccess();
+                },     
+                cancel:function(){
+                  $(this).removeClass('show').addClass('hide');
+                },
+              });
+
+            },
+       });
+      },
+      methods: {
+        //加入购物车
+        joinShoppingCart: function (skuId, skuTitle) {
+            $.AJAX({
+                type: 'post',
+                url: config.basePath + 'product/svProduct/addShopCart',
+                data: {
+                    skuId: skuId,
+                    skuNum: 1,
+                    skuTitle: skuTitle,
+                },
+                success: function (data) {
+                    Popup.miss({title: '加入购物车成功！'});
+                },
+            });
+        },
+
+        //点赞
+        likeElectricityWenAn: function ($event) {
+          if(vm.isDianZhan){
+            maker.likeElectricityWenAn({
+                contentId: vm.contentId,
+                success: function (data) {
+                    Popup.miss({title:'点赞成功！'});
+                    vm.isDianZhan=false;
+                    $($event.target).parent('li').addClass('active');
+                },
+            });
+          };
+        },
+
+        //收藏
+        collectionWenAn: function () {
+            maker.collectionWenAn({
+                contentId: vm.contentId,
+                success: function (data) {
+                    console.log(data)
+                },
+            });
+        },
+
+        //用户分享成功后回调分享成功
+        shareSuccess:function(){
+           $.AJAX({
+                type: 'post',
+                url: config.basePath + 'content/svMakerContent/pushShare',
+                data: {
+                    shareId:vm.shareId,
+                },
+                success: function (data) {
+                    Popup.miss({title: '分享成功！'});
+                    $('#weixinShare').removeClass('hide').addClass('show');
+                },
+            });
+        },
+
+
+      }
+  });
+  
+  
+
+});
+
+
+
+
+
+
+
+
+</script>
 </body>
 </html>

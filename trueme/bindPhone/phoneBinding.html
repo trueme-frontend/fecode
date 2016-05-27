@@ -8,8 +8,27 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/bindPhone/phoneBinding.css?__inline"/>
+    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
+    <style type="text/css">/*phone-binding.css*/
+html{background-color: #f0f0f0; min-height: 100%;}
+.phone-binding{padding-bottom:10px;}
+.phone-binding .top{width:100%;height:0.64rem;line-height:0.64rem;padding-left:0.2rem;}
+.phone-binding .center{overflow: hidden;}
+.phone-binding .center .form{background:#fff;}
+.phone-binding .center .form label{display:block;height:1rem;line-height:1rem;position:relative;}
+.phone-binding .center .form label>input{border:none;width:100%;height:98%;padding:0 0.2rem;}
+.phone-binding .center .form label:nth-child(1){border-bottom: solid 1px #e0e0e0;}
+.phone-binding .center .form label:nth-child(1)>.text-sm{display: block;width:1.64rem;height:0.5rem;position: absolute;right:0.2rem;top:0.25rem;border:solid 1px #fd4a4a;line-height:0.5rem;
+	border-radius: 5px;text-align:center;color:#fd4a4a;
+}
+.phone-binding .center .bind{margin:0.45rem 0.2rem 0;display:block;}
+.phone-binding .center .bind>button{width:100%;display:block;height:0.72rem;}
+.phone-binding .bttom{position: absolute;max-width:740px;left:0;bottom: 0;color:#c3c3c3;margin:0.2rem;line-height:25px;z-index:-1}
+.phone-binding .bttom h1{margin-bottom:10px;}
+
+
+
+</style>
     <!-- 内部样式 -->
 </head>
 <body class="bg-cc">
@@ -44,9 +63,110 @@
     
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
-<script type="text/javascript" src="../../assets/common/js/main.js"></script>
-<script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
-<script type="text/javascript" src="../../assets/trueme/js/bindPhone/phoneBinding.js?__inline"></script>
+<script type="text/javascript">/*resize.js*/
+!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
+<script type="text/javascript" src="/assets/common/js/main.js"></script>
+<script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
+<script type="text/javascript">/*login.js*/
+win.hideLoading();
+
+var vm = new Vue({
+    el: '#container',
+    data: {
+        winHeight: $(window).height(),
+        phoneNo:'',  //手机号码
+        codeNo:'', //短信验证码
+        getMsgText:'发送验证码',
+        disabled:false, //初始可点击状态
+    },
+    ready: function () {
+        var that = this;
+        $('input').on('focus', function(){
+            $('.bttom').hide();
+        });
+        $(window).on('resize', function(){
+            if($(window).height() + 20 >= that.winHeight){
+                $('.bttom').show();
+            }else{
+                $('.bttom').hide();
+            }
+        });
+    },
+    methods: {
+        showHeight: function(){
+            alert(1);
+            alert($(window).height());
+        },
+        //获得手机验证码
+        getValiCode:function(){
+            This=this;
+            if(!regCombination('m').test(This.phoneNo)){
+                Popup.alert({type:'msg',title:'请输入正确的手机号！'});return false;
+            }
+            This.disabled=true; //发送短信时按钮不可点击
+            //获取短信码
+            $.AJAX({
+                type:'post',
+                url:config.basePath+'user/svSendPhoneCode',
+                code:true,
+                data:{
+                    phone:This.phoneNo,
+                },
+                success:function(data){
+                    //短信定时器开始 
+                    trueme.w.getMsgTime(This,function(){
+                        This.disabled=false; //完成后按钮可点击 
+                    });
+                    Popup.miss({title:'短信验证码发送成功!'});
+                    //This.codeNo=data.code;
+                    This.disabled=false; //完成后按钮可点击 
+                },
+                error:function(data){
+                    This.getMsgText="发送验证码";
+                    Popup.alert({type:'msg',title:data.desc});
+                    This.disabled=false;
+                },
+            });
+        },
+        //绑定手机
+        sublitPhoneBinding:function(){
+            This=this;
+            if(!regCombination('m').test(This.phoneNo)){
+                Popup.alert({type:'msg',title:'请输入正确的手机号！'});return false;
+            }
+            if(!regCombination('*').test(This.codeNo)){
+                Popup.alert({type:'msg',title:'请输入短信验证码！'});return false;
+            }
+            //绑定手机
+            $.AJAX({
+                type:'post',
+                code: true,
+                url:config.basePath+'user/svBindPhone',
+                data:{
+                    uid:'1',
+                    phone:This.phoneNo,
+                    code:This.codeNo,
+                },
+                success:function(data){
+                    window.location.href=config.prevUrl;
+                },
+                error: function(){
+                    $('input[name="userTestCode"]').val('');
+                    Popup.alert({'type':'msg', 'title':'验证失败！请重试'});
+                }
+            });
+
+
+
+        },
+    }
+});
+
+
+
+
+
+
+</script>
 </body>
 </html>
