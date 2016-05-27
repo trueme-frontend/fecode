@@ -1,48 +1,5 @@
-
-/*-------------------------------------------后台配置------------------------------------------------*/ 
-window.config={
-	//登陆页面 
-	loginUrl:"/trueme/user/login.html", 
-
-	//登陆成功后需要跳转到的页面                                                       
-	homeUrl: "/index.html",    
-
-	//开发服务器 接口						
-	basePath:'http://dev.truemeee.com/',
-	//basePath:'http://192.168.0.101:8080/',
-
-	//弹出框 消失层 的消失时间              
-	popLayerHideTime:1000,
-
-	//主模板display:block的时间                                            
-	contentTimeShow:200,  
-
-	//ajax 超时配置                                              
-	ajaxtimeout:8000,  
-
-	//发送短信的时间间隔
-	msgTime:60,
-
-    //商户公众号id
-    appId:'wx3c8059fedebed664',
-
-    //前端动画的时间
-    alimTime:200,
-
-    //滚动加载更多数据底部距离
-    bottomTop:600,
-    //初始时候可加载更多数据
-    scrollbegin:true,
-
-    //微信信任回调页面    
-    redirect_uri:'http://'+window.location.host+'/trueme/wx-code/wx-code.html',     
-
-    //登录或者绑定手机等成功后 跳转到上一页面或者首页
-    prevUrl:getNextUrl(),                                             
-                                                
-};
-   //引入 config.js 前端配置项
-
+﻿
+__inline('config.js')   //引入 config.js 前端配置项
 
 /*------------------------ start jquery 相关  ------------------------*/
 if(window.$){
@@ -136,6 +93,30 @@ if(window.$){
 	function error(data,json){
 		//判断code 并处理
 		var dataCode=parseInt(data.code);
+		// switch (dataCode){
+		// 	case 1000:
+		// 		json.success(data);
+		// 		break;
+		// 	case !json.pageSet && dataCode==1004:
+		// 		if(window.location.href.indexOf(config.loginUrl) == -1){ 
+		// 			sessionStorage.setItem("weixin-url", window.location.href); //记录没有登陆前的访问页面
+		// 			win.location.href=config.loginUrl;
+		// 		}else{
+		// 			Popup.alert({type:'msg',title:'用户未登陆,请登录!'});
+		// 		}
+		// 		break;	
+		// 	case 6001:	
+		// 		window.location.href="/trueme/ware/wareDetail.html?spuId=8";
+		// 		break;
+		// 	default:
+		// 		if(json.code){
+		// 			json.error(data);
+		// 		}else{
+		// 			//直接弹出错误信息
+		// 			Popup.alert({type:'msg',title:data.desc});
+		// 		}	
+		// };
+
 		if(dataCode==1000){
 			json.success(data);
 		}else if(!json.pageSet && dataCode==1004){
@@ -145,6 +126,8 @@ if(window.$){
 			}else{
 				Popup.alert({type:'msg',title:'用户未登陆,请登录!'});
 			}
+		}else if(dataCode==6001){
+			window.location.href="/trueme/ware/wareDetail.html?spuId=8";
 		}else{
 			if(json.code){
 				json.error(data);
@@ -404,6 +387,9 @@ function regCombination(type,numArr){
 			break;
 		case "id":   //"id":验证身份证
 			reg=new RegExp("^\\d{17}[\\dXx]$");
+			break;
+		case "money": //钱
+			reg=new RegExp("^[\\d\\.]+$");	
 			break;	
 		case "url":   //"url":"网址"
 			reg=new RegExp("^(\\w+:\\/\\/)?\\w+(\\.\\w+)+.*$");
@@ -636,11 +622,12 @@ function deleteArrItem(arr,val){
 	for(var i=0,len=arr.length;i<len;i++){
 		for(var j in arr[i]){
 			if(arr[i][j]==val){
-				newArr=arr.splice(i,1);
+				arr.splice(i,1);
+				newArr=arr;
+				return newArr;
 			}
 		}
 	}
-	return newArr;
 }
 
 /*检测json 中是否有某个key值*/

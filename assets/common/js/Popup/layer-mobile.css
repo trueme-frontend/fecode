@@ -13,7 +13,7 @@ iframe { display: block;}
 }
 .popup .maskMain{background:rgba(0,0,0,.6);color:#fff;}
 .popup .header_poup{height:30px;padding-left:20px;line-height:50px;position: relative;font-size:16px;}
-.popup .header_poup span{display:block;width:15px;height:15px;background: url('/assets/common/images/PopLayer-close.png') no-repeat top center;background-size:80% 80%;position: absolute;right:10px;top:15px;}
+.popup .header_poup span{display:block;width:15px;height:15px;background: url('../../images/PopLayer-close.png') no-repeat top center;background-size:80% 80%;position: absolute;right:10px;top:15px;}
 .popup .content{line-height:25px;text-align:center;padding:25px 20px 0;}
 .popup .content-no{padding-top:0;}
 .popup .footer{height:40px;width:100%;line-height: 40px;position: relative;border-top:solid 1px #e0e0e0;margin-top:20px;}
@@ -28,7 +28,7 @@ iframe { display: block;}
 .popup-loading{cursor: wait;}
 .popup-loading .main{min-width:150px;height:60px;padding:0 15px 0 5px;}
 .popup-loading .main .content{line-height:60px;}
-.popup-loading .main .content:before{content: "";display: block;width:40px;height:60px;background: url('/assets/common/images/loading.gif') no-repeat center center;float:left;
+.popup-loading .main .content:before{content: "";display: block;width:40px;height:60px;background: url('../../images/loading.gif') no-repeat center center;float:left;
 	background-size: 60%;
 }
 .popup-loading .content{text-align:center;}

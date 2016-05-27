@@ -7,41 +7,10 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
+    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <style type="text/css">.det-top { margin-bottom: .2rem; line-height: .65rem; background-color: #fff; }
-.det-top-h{height: 1.3rem;}
-.det-top .order-num { height: .65rem; border-bottom: 1px solid #f0f0f0; }
-.det-top .order-search .pull-left { padding-left: .35rem; background: url("/assets/trueme/images/order/car.png") no-repeat left center; background-size: .28rem auto; }
-.det-top .order-search .pull-right { padding-right: .2rem; font-size: .16rem; color: #ffbf17; background: url("/assets/trueme/images/common/arrow_right.png") no-repeat right center; background-size: .12rem auto; }
-.order-add { padding-left: .3rem; background: url("/assets/trueme/images/order/add.png") no-repeat left center; background-size: .22rem auto; }
-.ware li { padding: 0 .25rem; margin-bottom: .2rem; background-color: #fff; }
-.ware li > div { width: 100%; }
-.ware li > .title { height: .7rem; line-height: .7rem; border-bottom: 1px solid #f0f0f0; color: #737373; }
-.ware li > .pro-box { width: 100%; height: 1.6rem; padding: .2rem 0; border-bottom: 1px solid #f0f0f0; }
-.ware li > .pro-box .img { float: left; width: 1.1rem; height: 1.1rem; margin-right: .2rem; background-color: #737373; }
-.ware li > .pro-box .img img { max-width: 1.1rem; min-width: 1.1rem; }
-.ware li > .pro-box .name { float: left; width: 4.2rem; }
-.ware li > .pro-box .money { float: right; width: 1.1rem; }
-.ware li > .operation { height: 1rem; padding-top: .2rem; text-align: right; }
-.service { display: inline-block; width: .35rem; height: .35rem; margin-top: .015rem; font-size: 0; line-height: 1; background: url("/assets/trueme/images/order/service.png") no-repeat center; background-size: .28rem; vertical-align: top; }
-/*wu liu*/
-.tpl { height: 1.8rem; margin-bottom: .2rem; background-color: #fff; border-bottom: 1px solid #e0e0e0; }
-.tpl .img { float: left; width: 1.1rem; height: 1.1rem; margin-right: .2rem; border: 1px solid #737373; }
-.tpl .img img { width: 100%; }
-.tpl .right { float: left; }
-.tpl .right .zt { font-size: .26rem; }
-.tpl .right .ztt { color: #737373; font-size: .22rem; }
-.tpl-con { background-color: #fff; border-top: 1px solid #e0e0e0; }
-.tpl-con-box { margin-left: .2rem; padding-left: .25rem; padding-bottom: 2rem; border-left: 1px solid #e0e0e0; }
-.tpl-con-box li { position: relative; padding-bottom: .2rem; margin-bottom: .25rem; color: #737373; border-bottom: 1px solid #e0e0e0; }
-.tpl-con-box li i { display: block; position: absolute; top: .1rem; left: -.36rem; width: .2rem; height: .2rem; background-color: #e0e0e0; border-radius: 50%; }
-.tpl-con-box li.yes { color: #5dc81b; }
-.tpl-con-box li.on i, .tpl-con-box li.yes i, .tpl-con-box li.no i { top: 0; left: -.39rem; width: .25rem; height: .25rem; background-color: #5dc81b; border: .035rem solid rgba(255,255,255,.5); }
-.tpl-con-box li.no { color: #fd4a4a; }
-.tpl-con-box li.no i { background-color: #fd4a4a; }
-.tpl-con-box li.on i { background-color: #f3cf08; }
-</style>
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/order/orderDetails.css?__inline"/>
     <!-- 内部样式 -->
 </head>
 <body class="bg-cc">
@@ -101,48 +70,8 @@
     </ul>
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript">/*resize.js*/
-!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
-<script type="text/javascript" src="/assets/common/js/main.js"></script>
-<script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
-<script type="text/javascript">/*login.js*/
-win.hideLoading();
-
- $(function () {
-    $("#password").on("focus",function () {
-        $(this).next("span").addClass("focus");
-    });
-    $("#password").blur(function () {
-        $(this).next("span").removeClass("focus");
-    });
-});
-var vm = new Vue({
-    el: '#container',
-    data: {
-       datas:'',  //订单详情数据
-       oderId:getQueryString('orderId'),
-    },
-    ready: function () {
-      var This=this;
-      //获取订单详情
-      $.AJAX({
-        type:'post',
-        url:config.basePath+'order/svqueryorder/orderdetail',
-        data:{
-          "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
-          "orderId": This.oderId,
-        },
-        success:function(data){
-          This.datas=data.data
-        },
-      }); 
-      
-    },
-    methods: { }
-});
-
-
-
-</script>
+<script type="text/javascript" src="../../assets/common/js/main.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/order/orderDetail.js?__inline"></script>
 </body>
 </html>

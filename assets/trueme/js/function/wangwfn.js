@@ -207,7 +207,7 @@ scrollGetData:function(json){
 cancelOrder:function(json){
   $.AJAX({
     type:'post',
-    url:config.basePath+'order/svorder/cancleorderpayno',
+    url:config.basePath+'order/svorder/cancleorder',
     data:{
         "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
         "orderId":json.orderId, //'P160519201459101012',//getQueryString('payOrderNo')
@@ -229,8 +229,8 @@ deteleOrder:function(json){
         "orderId":json.orderId, 
     },
     success:function(data){
-      Popup.miss({title:'删除订单成功!'});
       json.success(data);
+      Popup.miss({title:'删除订单成功!'});
     },
   });
 },

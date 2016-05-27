@@ -22,6 +22,7 @@ var vm = new Vue({
        //根据订单号 获取支付信息
        $.AJAX({
             type:'post', 
+            code: true,
             url:config.basePath+'order/svorder/querypay', 
             data:{
                 "tid": "fcdf6c8a85cd34faa24eb58c1c06ffb5",
@@ -45,7 +46,13 @@ var vm = new Vue({
                         This.closeOrder();
                     }
                 }, 1000);
-
+            },
+            error: function(data){
+                if(data.code == 4004){
+                    location.href = 'myOrder.html';
+                }else{
+                    Popup.alert({type:'msg',title: data.desc});
+                }
             }
        });
     },

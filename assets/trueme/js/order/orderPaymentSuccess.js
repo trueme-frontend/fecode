@@ -2,14 +2,16 @@
 win.hideLoading();
 window.onload=function(){
   setTimeout(function(){
-    Popup.loading({"title":"支付中，请稍后"}); 
+    Popup.loading({"title":"订单支付中，请稍后"}); 
     },0)  
 };
 
 var vm = new Vue({
     el: '#orderSuccess',
+    mixins: [mixin],
     data: {
         done: false,
+        hotSaleList:[], //hut推荐
         totalFee: ''
     },
     ready: function () {
@@ -61,6 +63,9 @@ var vm = new Vue({
         }
     }
 });
+vm.conflicting({callback:function(data){
+    vm.hotSaleList=data;
+}});
 
 
 

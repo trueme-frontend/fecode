@@ -106,8 +106,12 @@ $(function () {
             $.AJAX({
                 type: "POST",
                 code: true,
+                pageSet: true,
                 url: config.basePath + 'user/sviscollectforgoods?spuId=' + shopSpuId,
                 error: function(o){
+                    if(o.code == 1004){
+                        return false;
+                    }
                     if(o.code == 5300){
                         This.hasCollected = true;
                     }
@@ -241,7 +245,7 @@ $(function () {
                             var href="http://"+window.location.host+"/trueme/order/confirmOrder.html";
                             location.href = href;
                             sessionStorage.setItem('weixin-next-url', href);
-                        },
+                        }
                     });
                 }//end
             },

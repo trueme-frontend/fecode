@@ -68,6 +68,22 @@ var vm = new Vue({
             contentId:contentId,
           });
        },
+
+       //获得分享的shareId
+       getShareIdWenAnDetails:function(contentId){
+          //根据contentId获得分享shareId
+          maker.shareContentSetback({
+            contentId:contentId,
+            success:function(data){
+                //调用页面查看次数接口
+                if(isShare){
+                  window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId+'&isShare=1'; 
+                }else{
+                  window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId; 
+                };
+            },
+          });
+       },
        
     }
 });

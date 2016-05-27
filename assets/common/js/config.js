@@ -1,4 +1,4 @@
-/*-------------------------------------------后台配置------------------------------------------------*/ 
+﻿/*-------------------------------------------后台配置------------------------------------------------*/ 
 window.config={
 	//登陆页面 
 	loginUrl:"/trueme/user/login.html", 
@@ -10,11 +10,8 @@ window.config={
 	basePath:'http://dev.truemeee.com/',
 	//basePath:'http://192.168.0.101:8080/',
 
-	//弹出框 消失层 的消失时间              
-	popLayerHideTime:1000,
-
-	//主模板display:block的时间                                            
-	contentTimeShow:200,  
+	//container div显示的时间                                            
+	containerShowTime:10,  
 
 	//ajax 超时配置                                              
 	ajaxtimeout:8000,  

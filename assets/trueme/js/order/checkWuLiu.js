@@ -1,5 +1,4 @@
 /*** Created by HZH on 2016/5/19.*/
-win.hideLoading();
 var stateOrder=0;  
 //用户userId
 var truemeUserId=$.cookie('cuserid'); 

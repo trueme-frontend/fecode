@@ -8,81 +8,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
+    <script type="text/javascript" src="assets/common/js/resize.js?__inline"></script>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css" />
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/swiper-3.3.1.min.css" />
-    <style type="text/css" >@charset "UTF-8";
-@import url(/assets/trueme/css/main/footer.css);
-img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
-/*-------------------顶部导航样式----------------------*/
-.wrapper { position: relative; background-color: #f0f0f0; }
-.top-header { position: relative; height: 0.88rem; line-height: 0.88rem; }
-.top-header .platform { background-color: #fff; display: inline-block; width: 7.5rem; text-align: center; font-size: 0.36rem; color: #fd4a4a; font-weight: 900; }
-.top-header .big-search { position: absolute; top: 0; right: 0; bottom: 0; width: .88rem; }
-.top-header .big-search .big-search-icon { position: absolute; top: 50%; left: 50%; margin-top: -.19rem; margin-left: -.185rem; width: .37rem; height: .38rem; background: url('/assets/trueme/images/main/big_search_icon.png') no-repeat 0 0; background-size: cover; }
-/* 分类nav */
-.header .nav-wrap { text-align: center; height: 0.7rem; width: 7.5rem; background-color: #fff; }
-.header .nav-wrap .swiper-nav { text-align: center; width: auto; color: #4a4a4a; }
-.nav-wrap .swiper-wrapper { width: auto; display: inline-flex; display: -webkit-inline-box; display: -moz-inline-box; display: -ms-inline-box; display: -webkit-inline-flex; }
-.nav-wrap .swiper-slide { width: auto; }
-.header .nav-wrap .swiper-nav .nav-menu { display: inline-block; min-width: .58rem; height: 0.6rem; line-height: 0.74rem; text-align: center; }
-.header .nav-wrap .nav-menu.active { border-bottom: 2px solid #fd4a4a; color: #737373; }
-/*-------------------轮播图----------------------*/
-.banner-slide { padding-top: 1.58rem; width: 7.5rem; padding-bottom: 0.2rem; }
-.banner-slide .swiper-wrapper .swiper-slide img { width: 7.5rem; height: 3.8rem; }
-.banner-slide .swiper-pagination_ball { position: absolute; z-index: 28; width: 2rem; text-align: center; bottom: .2rem; }
-.banner-slide .swiper-pagination-bullet { display: inline-block; width: 0.1rem; height: 0.1rem; border: 1px solid rgba(255,255,255,1); border-radius: 50%; background: rgba(157,157,157,.8); margin: 0 2px; opacity: 0.8; cursor: pointer; }
-.swiper-container .swiper-pagination-bullet-active { background: #fd4a4a; }
-/* 专题活动 */
-.activity_wrap { padding-bottom: 0.2rem; }
-.activity_wrap .activity_banner_wrap { position: relative; overflow: hidden; padding-bottom: 0.12rem; background-color: #fff; }
-.activity_wrap .activity_banner img { display: block; width: 100%; height: 2.8rem; }
-.activity_wrap .triangle_box { width: 0.22rem; height: 0.22rem; position: absolute; left: 0.2rem; bottom: -0.04rem; }
-.activity_wrap .triangle_box .triangle { width: 0.16rem; height: 0.16rem; background: #fff; transform: rotate(42deg); -ms-transform: rotate(42deg); /* IE 9 */ -moz-transform: rotate(42deg); /* Firefox */ -webkit-transform: rotate(42deg); /* Safari 和 Chrome */ -o-transform: rotate(42deg); }
-.activity_pro_wrap { height: 3.7rem; background-color: #fff; }
-.activity_pro_wrap .pro_wrap { width: 7.5rem; height: 3.6rem; background-color: #fff; transform: none; }
-.activity_pro_wrap .pro_wrap .swiper-slidebox { overflow: hidden; }
-.activity_pro_wrap .pro_wrap .pro_box { margin-left: 0.2rem; width: 2.38rem; float: left; }
-.pro_wrap .pro_box .img { width: 2.38rem; height: 2.38rem; }
-.pro_wrap .pro_box .img img { display: block; width: 2.38rem; height: 2.38rem; }
-.pro_wrap .pro_name { margin-top: .04rem; font-size: 0.2rem; text-align: center; color: #4a4a4a; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; text-overflow: ellipsis;}
-.pro_wrap .pro_tit { font-size: 0.22rem; text-align: center; color: #929292; width: 2.38rem; word-break: break-all; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.pro_wrap .pro_price { font-size: 0.28rem; text-align: center; color: #fd4a4a; }
-.activity_pro_wrap .pro_wrap .pro_box .more { width: 2.36rem; height: 2.36rem; border-color: #9e9e9e; overflow: hidden;}
-.activity_pro_wrap .pro_wrap .pro_box .more:before { border-color: #9e9e9e; }
-.activity_pro_wrap .more .more_con { margin: 0.64rem 0.56rem; text-align: center; }
-.more .more_con .see_more { border-bottom: 1px solid #d2d7d3; color: #fd4a4a; font-size: 0.3rem; }
-.more .more_con .annotation { line-height: 0.5rem; color: #989898; }
-/*单品推荐*/
-.hot_wrap { padding-left: 0.2rem; padding-right: 0.2rem; margin-bottom: 0.2rem; background-color: #fff; }
-.hot_wrap .hot_tit { height: 0.86rem; text-align: center; position: relative; }
-.hot_wrap .hot_tit .tit_con { font-size: 0.32rem; color: #4a4a4a; background-color: #fff; position: absolute; z-index: 20; left: 2.86rem; top: 0.17rem; padding: 0 0.1rem; }
-.hot_wrap .hot_tit .line { position: absolute; left: 2.5rem; top: 0.4rem; width: 2.2rem; height: 1px; background-color: #4a4a4a; z-index: 10; }
-.hot_wrap .pro_wrap .brand_tit { height: 1.2rem; line-height: 1.2rem; }
-.hot_wrap .pro_wrap .brand_tit img { width: 1.2rem; height: 1.2rem; float: left; }
-.hot_wrap .pro_wrap .brand_tit .brand_name { line-height: 1.2rem; float: left; margin-left: 0.2rem; }
-.hot_prowrap .img { width: 7.3rem; height: 6.3rem; }
-.hot_prowrap .img img { width: 100%; }
-.hot_prowrap .hot_protit { width: 7.1rem; height: 0.6rem; line-height: 0.6rem; color: #000; word-break: break-all; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; }
-.hot_prowrap .origin { height: 0.6rem; line-height: 0.6rem; overflow: hidden; }
-.hot_prowrap .origin img { width: 0.5rem; height: 0.38rem; float: left; margin-top: 0.1rem; margin-right: 0.26rem; }
-.hot_prowrap .origin .delivery_address { margin-left: 0.2rem; }
-.hot_prowrap .origin .style { font-size: 0.22rem; color: #797979; float: left; }
-.hot_prowrap .origin .eva_num { float: right; font-size: 0.22rem; color: #797979; }
-.operation_btn { height: 1.08rem; padding-bottom: 0.2rem; }
-.operation_btn .price { padding-left: 0.66rem; padding-right: 0.66rem; height: 0.86rem; line-height: 0.86rem; float: left; text-align: center; border-radius: 0.05rem; border-color: #fd4a4a; }
-.operation_btn .price:before { border-color: #fd4a4a; border-radius: 0.15rem; }
-.operation_btn .price .new { font-size: 0.3rem; color: #fd4a4a; }
-.operation_btn .price .old { font-size: 0.22rem; color: #d3d3d3; text-decoration: line-through; margin-left: 0.1rem; }
-.operation_btn .praise { padding-left: 0.3rem; padding-right: 0.3rem; height: 0.86rem; line-height: 0.86rem; float: right; text-align: center; border-color: #a4a4a4; border-radius: 0.05rem; }
-.operation_btn .praise:before { border-color: #a4a4a4; border-radius: 0.15rem; }
-.operation_btn .praise .praise_icon { background-image: url('/assets/trueme/images/main/praise1.png'); background-repeat: no-repeat; background-position: center center; float: left; width: 0.6rem; height: 0.38rem; margin-top: 0.24rem; background-size: 0.6rem 0.38rem; }
-.operation_btn .praise .praise_icon.praised { background-image: url('/assets/trueme/images/main/praise2.png'); background-repeat: no-repeat; background-position: center center; }
-.operation_btn .praise .praise_num { line-height: 0.86rem; float: left; font-size: 0.3rem; color: #b3b3b3; }
-.operation_btn .share { padding-left: 0.6rem; padding-right: 0.6rem; height: 0.86rem; line-height: 0.86rem; float: right; text-align: center; border-color: #a4a4a4; border-radius: 0.05rem; background: url('/assets/trueme/images/main/share1.png') no-repeat center center; background-size: 0.6rem 0.38rem; }
-.operation_btn .share:before { border-color: #a4a4a4; border-radius: 0.05rem; }
-.operation_btn .share.active { background: url('/assets/trueme/images/main/share2.png') no-repeat center center; }
-</style>
+    <link rel="stylesheet" type="text/css" href="assets/common/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="assets/common/css/swiper-3.3.1.min.css" />
+    <link rel="stylesheet" type="text/css" href="assets/trueme/css/index/index.css?__inline" />
     <!-- 内部样式 -->
     <style type="text/css">
     	#container{display:none;}
@@ -130,9 +60,9 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 			        </div>
 			        <div class="activity_wrap" v-for="topic in item.topicList">
 			            <div class="activity_banner_wrap">
-			                <a v-bind:href="'/trueme/special/special.html?spuId='+ topic.itemHomeSpuImgInfo.spuId + '&topTypeId=' + key" class="activity_banner">
+			                <a v-bind:href="'/trueme/special/special.html?showCaseId='+ topic.showCaseInfo.showCaseId + '&topTypeId=' + key" class="activity_banner">
 			                	<!-- <img src="assets/images/index/activity_bn.jpg"> -->
-			                	<img v-bind:src="topic.itemHomeSpuImgInfo.spuHomeImgUrl">
+			                	<img v-bind:src="topic.showCaseInfo.spuHomeImgUrl">
 			                </a>
 			                <div class="triangle_box">
 			                    <div class="triangle"></div>
@@ -140,7 +70,7 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 			            </div>
 			            <div class="swiper-container swiper-container-horizontal activity_pro_wrap">
 			                <div class="swiper-wrapper pro_wrap">
-			                    <a v-for="topicItem in topic.itemHomeSkuList" v-bind:href="'/trueme/ware/wareDetail.html?spuId='+ topic.itemHomeSpuImgInfo.spuId" class="swiper-slide pro_box">
+			                    <a v-for="topicItem in topic.spuList" v-bind:href="'/trueme/ware/wareDetail.html?spuId='+ topicItem.spuId" class="swiper-slide pro_box">
 			                    	<div class="pro_inner">
 				                        <div class="img">
 				                            <!-- <img src="assets/images/index/pro_1.jpg" /> -->
@@ -151,7 +81,7 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 				                        <div class="pro_price">&yen;<i v-text="topicItem.salePrice"></i></div>
 			                    	</div>
 			                    </a>
-			                    <a v-bind:href="'/trueme/special/special.html?spuId='+ topic.itemHomeSpuImgInfo.spuId + '&topTypeId=' + key" class="swiper-slide pro_box">
+			                    <a v-bind:href="'/trueme/special/special.html?showCaseId='+ topic.showCaseInfo.showCaseId + '&topTypeId=' + key" class="swiper-slide pro_box">
 			                        <div class="img more g-border">
 			                            <div class="more_con">
 			                                <div class="see_more">查看更多</div>
@@ -191,7 +121,7 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 			                            <span class="new">&yen;<i v-text="hotItem.salePrice"></i></span>
 			                            <span class="old">&yen;<i v-text="hotItem.markedPrice"></i></span>
 			                        </div>
-			                        <div class="praise g-border" v-on:click="praise($event)">
+			                        <div class="praise g-border" v-on:click="praise($event)" v-bind:data-spu-id="hotItem.spuId">
 			                            <span class="praise_icon"></span>
 			                            <!-- <span class="praise_num">99+</span> -->
 			                            <span class="praise_num" v-text="hotItem.collectNum"></span>
@@ -203,212 +133,16 @@ img { display: block; max-width: 100%; height: auto; vertical-align: middle; }
 	        	</li>
 	        </ul>
 	        <!--底部菜单-->
-	         <!-- footer 底部菜单 -->
- <div class="fixed-bar-box">
-    <div class="fixed-bar g-border-t">
-        <ul id="bar_ul">
-            <li class="active"><a href="/index.html"><span id="img1" class="index-sprite sprite-icon_home_1"></span><span class="menu">首页</span></a></li>
-            <!-- <li><a href="javascript:void(0);"><span id="img2" class="index-sprite sprite-icon_categ_1"></span><span class="menu">分类</span></a></li> -->
-            <li>
-                <a href="/maker/index/index.html"><span id="img3" class="index-sprite sprite-icon_guest_1"></span><span class="menu">创客</span></a>
-            </li>
-            <li><a href="/trueme/cart/cart_new.html"><span id="img4" class="index-sprite sprite-icon_cart_1 "></span><span class="menu">购物车</span></a></li>
-            <li><a href="/trueme/user/myHome.html"><span id="img5" class="index-sprite sprite-icon_user_1"></span><span class="menu">我的</span></a></li>
-        </ul>
-    </div>
-</div>
-
+	        <link rel="import" href="/trueme/main/footer.html?__inline">
         </div>
     </div>
 	<!-- script -->
-    <script type="text/javascript">/*resize.js*/
-!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
-    <script src="/assets/common/js/main.js"></script>
-    <script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
-    <script type="text/javascript" src="/assets/common/js/T.js?_inline"></script>
-    <script src="/assets/common/js/swiper-3.3.1.jquery.min.js"></script>
-    <script>
-/*index.js*/
-
-
-var vm = new Vue({
-    el: '#container',
-    data: {
-        doingAjax: false,
-        hotSkuStartNum: 0,
-        nowTabId: 0,
-        nav: [],
-        items: {}
-    },
-    ready: function(){
-        var that = this;
-        $('#container').show();
-        $.AJAX({
-            url: config.basePath+"content/svItemHome/getItemHomeList",
-            success: function(o){
-                that.nav = o.data.itemHomeTypeList;
-                that.nowTabId = that.nav[0].topTypeId;
-                that.items = {};
-                var arr = {};
-                for(var i=0; i< that.nav.length; i++){
-                    arr[that.nav[i].topTypeId] = {
-                        firstLoaded: false,
-                        lastPage: false,
-                        hotSkuStartNum: 0,
-                        banner: {},
-                        topicList: {},
-                        hotList: {}
-                    };
-                }
-                that.items = arr;
-                that.items[that.nav[0].topTypeId].banner = o.data.itemHomeBannerList;
-                that.items[that.nav[0].topTypeId].topicList = o.data.itemHomeSpuList;
-                that.items[that.nav[0].topTypeId].hotList = o.data.itemHomeHotSkuList;
-                that.items[that.nav[0].topTypeId].hotSkuStartNum = o.data.hotSkuStartNum;
-                // debugger;
-                // that.banner = o.data.itemHomeBannerList;
-                // that.topicList = o.data.itemHomeSpuList;
-                // that.hotList = o.data.itemHomeHotSkuList;
-                // that.hotSkuStartNum = o.data.hotSkuStartNum;
-                setTimeout(function(){
-                    $('.swiper-nav').eq(0).find('.nav-menu').addClass('active');
-                    initNav();
-                },0)
-                function initNav(){
-                    var navLen = $('.nav-item').length;
-                    var navWidth = 0;
-                    for(var i=0; i<navLen; i++){
-                        navWidth += $('.nav-item')[i].offsetWidth;
-                        $('.nav-item').eq(i).parents('.swiper-slide').width(Math.ceil($('.nav-item')[i].offsetWidth));
-                    }
-                    if(navWidth > $('.nav-wrap').width()){
-                        $('.nav-wrap .swiper-wrapper').css({
-                            'width': '100%',
-                            'display': '-webkit-box',
-                            'display': '-moz-box',
-                            'display': '-ms-box',
-                            'display': '-webkit-flex',
-                            'display': 'flex'
-                        });
-                        var haha = new Swiper('.nav-wrap',{
-                            slidesPerView: 'auto'
-                        });
-                    }
-                }
-                setTimeout(function(){
-                    var $container = $('.content-list li[data-id="'+ that.nowTabId +'"]').find('.banner-slide');
-                    return new Swiper($container, {
-                        autoplay: 2000,
-                        autoplayDisableOnInteraction : false,
-                        visibilityFullFit: true,
-                        loop: true,
-                        pagination: '.swiper-pagination'
-                    });
-                },0);
-                setTimeout(function(){
-                    return new Swiper('.activity_pro_wrap', {
-                        slidesPerView: 'auto',
-                        freeMode: true,
-                    });
-                },0);
-                that.items[that.nav[0].topTypeId].firstLoaded = true;
-            }
-        }); 
-        
-        $(window).on('scroll', function(){
-            if($(window).scrollTop() + $(window).height() + 200 > document.body.offsetHeight){
-                if(!that.items[that.nowTabId].firstLoaded || that.doingAjax || that.items[that.nowTabId].lastPage){
-                    return false;
-                }
-                that.doingAjax = true;
-                win.showLoading();
-                var url = config.basePath+'content/svItemHome/getHotSkuInfo?topTypeId=' + that.nowTabId + '&hotSkuStartNum=' + that.items[that.nowTabId].hotSkuStartNum;
-                //请求数据
-                $.AJAX({
-                    url: url,
-                    success: function(o){
-                        that.items[that.nowTabId].hotList = that.items[that.nowTabId].hotList.concat(o.data.itemHomeHotSkuList);
-                        that.items[that.nowTabId].hotSkuStartNum = o.data.hotSkuStartNum;
-                        if(o.data.itemHomeHotSkuList.length == 0){
-                            that.items[that.nowTabId].lastPage = true;
-                        }
-                    },
-                    complete: function(){
-                        that.doingAjax = false;
-                    }
-                });
-            }
-        });
-    },
-    methods: {
-        praise: function(e){
-            var that = this;
-            $(e.target).find('.praise_icon').addClass('praised');
-        },
-        getNavData: function(e){
-            var that = this;
-            that.doingAjax = true;
-            var navId = '';
-            var $nav = null;
-            if(e.target.tagName.toUpperCase() == 'SPAN'){
-                $('.nav-menu').removeClass('active');
-                $(e.target).addClass('active');
-                $nav = e.target.parentNode;
-            }else{
-                $('.nav-menu').removeClass('active');
-                $(e.target).find('.nav-menu').addClass('active');
-                $nav = e.target;
-            }
-            navId = $nav.getAttribute('data-id');
-            that.nowTabId = parseInt(navId);
-            if(that.items[that.nowTabId].firstLoaded){
-                Vue.nextTick(function () {
-                    that.doingAjax = false;
-                    return false;
-                })
-            }else{
-                win.showLoading();
-                $.AJAX({
-                    url: config.basePath+"content/svItemHome/getItemHomeList?topTypeId=" + that.nowTabId,
-                    success: function(o){
-                        that.items[that.nowTabId].banner = o.data.itemHomeBannerList;
-                        that.items[that.nowTabId].topicList = o.data.itemHomeSpuList;
-                        that.items[that.nowTabId].hotList = o.data.itemHomeHotSkuList;
-                        that.items[that.nowTabId].hotSkuStartNum = o.data.hotSkuStartNum;
-                        setTimeout(function(){
-                            var $container = $('.content-list li[data-id="'+ that.nowTabId +'"]').find('.banner-slide');
-                            return new Swiper($container, {
-                                autoplay: 2000,
-                                autoplayDisableOnInteraction : false,
-                                visibilityFullFit: true,
-                                loop: true,
-                                pagination: '.swiper-pagination'
-                            });
-                        },0);
-                        setTimeout(function(){
-                            return new Swiper('.activity_pro_wrap', {
-                                slidesPerView: 'auto',
-                                freeMode: true,
-                            });
-                        },0);
-                    },
-                    complete: function(){
-                        that.doingAjax = false;
-                        that.items[that.nowTabId].firstLoaded = true;
-                    }
-                });
-            }//end
-        }
-    }
-});
-
-//导航轮播
-
-//banner轮播
-
-
-//活动商品轮播
-    </script>
+    <script type="text/javascript" src="assets/common/js/resize.js?__inline"></script>
+    <script src="assets/common/js/main.js"></script>
+    <!-- <script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script> -->
+    <script type="text/javascript" src="assets/common/js/T.js?_inline"></script>
+    <script src="assets/common/js/swiper-3.3.1.jquery.min.js"></script>
+    <script src="assets/trueme/js/index/index.js?__inline"></script>
 </body>
 
 </html>

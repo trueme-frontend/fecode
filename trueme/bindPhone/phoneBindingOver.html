@@ -8,16 +8,8 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <style type="text/css">/*phone-binding.css*/
-.phone-binding-over .binding{margin:0.74rem 0;text-align:center;}
-.phone-binding-over .bind{margin:0.2rem 0.2rem 0;display:block;}
-.phone-binding-over .bind>button{width:100%;display:block;height:0.7rem;}
-
-
-
-
-</style>
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/bindPhone/phoneBindingOver.css?__inline"/>
     <!-- 内部样式 -->
 </head>
 <body class="bg-cc">
@@ -36,34 +28,8 @@
     </div>
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript">/*resize.js*/
-!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
-<script type="text/javascript" src="/assets/common/js/main.js"></script>
-<script type="text/javascript">/*login.js*/
-win.hideLoading();
-
- $(function () {
-    $("#password").on("focus",function () {
-        $(this).next("span").addClass("focus");
-    });
-    $("#password").blur(function () {
-        $(this).next("span").removeClass("focus");
-    });
-});
-var vm = new Vue({
-    el: '#container',
-    data: {},
-    ready: function () {
-       
-    },
-    methods: {}
-});
-
-
-
-
-
-
-</script>
+<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+<script type="text/javascript" src="../../assets/common/js/main.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/bindPhone/phoneBindingOver.js?__inline"></script>
 </body>
 </html>

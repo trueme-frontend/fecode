@@ -1,5 +1,4 @@
 /*login.js*/
-win.hideLoading();
 
  $(function () {
     $("#password").on("focus",function () {

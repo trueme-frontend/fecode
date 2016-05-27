@@ -24,7 +24,7 @@ footer ul li i {
     height: .4rem;
     margin-top: .1rem;
     margin-bottom: 0;
-    background: url("/assets/maker/images/common/maker-nav.png") no-repeat;
+    background: url("../../images/common/maker-nav.png") no-repeat;
     background-size: 1.75rem auto;
 }
 footer ul li p{

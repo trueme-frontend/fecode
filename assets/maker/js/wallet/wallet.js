@@ -13,6 +13,9 @@ var vm = new Vue({
             url: config.basePath+"maker/svMaker/getWalletInfo",
             success: function(data){
                This.datas=data.data;
+               setTimeout(function(){
+                    $('#container').removeClass('hide'); 
+                }, config.containerShowTime);
             },
         });
     },

@@ -2,7 +2,7 @@
 .header { position: relative; line-height: .88rem; text-align: center; font-size: .36rem; color: #2c2c2c; background-color: #fff; z-index: 100; border-bottom: 1px solid #e0e0e0; }
 .header .header-left { position: absolute; top: 0; width: .8rem; height: .88rem; }
 .header .header-left { left: 0; }
-.header a { display: block; width: 100%; height: 100%; background-image: url('/assets/trueme/images/user/user1.png'); background-repeat: no-repeat; background-size: 4.1rem auto; }
+.header a { display: block; width: 100%; height: 100%; background-image: url('../../images/user/user1.png'); background-repeat: no-repeat; background-size: 4.1rem auto; }
 .header .header-left a { background-position: .3rem center; }
 .phone-binding{}
 .phone-binding .top{width:100%;height:0.64rem;line-height:0.64rem;padding-left:0.2rem;}

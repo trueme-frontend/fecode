@@ -7,157 +7,63 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/index/wallet.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/wallet/wallet.css"/>
     <!-- script -->
-    <script type="text/javascript">/*resize.js*/
-!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
-    <script type="text/javascript" src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+    <script type="text/javascript" src="../../assets/common/js/main.js"></script>
 </head>
-<body>
+<body class="bg-cc">
 <header>
     <div class="m-header g-border-b">
         <div class="header-left"><a href="javascript:void(0)" onclick="goBack();" class="back"></a></div>
         我的钱包
     </div>
 </header>
-<div class="wrapper padding-wrapper" id="container">
-    <div class="text-center">总收入金额(元)<br><span v-text="'¥'+datas.totalMoney"></span></div>
-    <hr>
-    <div class="row text-center">
-        <div class="col-xs-4"><span v-text="'¥'+datas.todayIncome"></span> <br>今日收入</div>
-        <div class="col-xs-4"><span v-text="'¥'+datas.usableMoney"></span> <br>可提现收入</div>
-        <div class="col-xs-4"><span v-text="'¥'+datas.unbilledMoney"></span> <br>未入账收入</div>
+<div class="wrapper padding-wrapper hide" id="container">
+    <div class="wallet-top-box">
+        总收入金额(元)<br><span v-text="'¥'+datas.totalMoney"></span>
     </div>
-    <hr>
-    <h3>收入明细</h3>
-    <ul class="srmx">
-        <li><a href="walletMakerIncome.html"><div class="pull-left">创客收入</div><div class="pull-right" v-text="'¥'+datas.makerIncome"></div></a></li>
-        <li><a href="walletTeamIncome.html"><div class="pull-left">团队收入</div><div class="pull-right" v-text="'¥'+datas.teamIncome"></div></a></li>
-        <li><a href="walletWithdrawCashRecord.html"><div class="pull-left">提现记录</div><div class="pull-right" v-text="'¥'+datas.withdrawRecord"></div></a></li>
-    </ul>
-    <hr>
-    <div class="container"><a href="withdrawCash.html" class="btn btn-default btn-block">我要提现</a></div>
+    <div class="row text-center wallet-nav g-border-b">
+        <div class="col-xs-4">今日收入<br><span v-text="'¥'+datas.todayIncome"></span></div>
+        <div class="col-xs-4">可提现收入<br><span v-text="'¥'+datas.usableMoney"></span></div>
+        <div class="col-xs-4">未入账收入<br><span v-text="'¥'+datas.unbilledMoney"></span></div>
+    </div>
+    <div class="wallet-list">
+        <h3 class="g-border-b">收入明细</h3>
+        <ul class="srmx">
+            <li class="g-border-b">
+                <a href="walletMakerIncome.html">
+                    <div class="pull-left">创客收入</div>
+                    <i></i>
+                    <div class="pull-right" v-text="'¥'+datas.makerIncome"></div>
+                </a>
+            </li>
+            <li class="g-border-b">
+                <a href="walletTeamIncome.html">
+                    <div class="pull-left">团队收入</div>
+                    <i></i>
+                    <div class="pull-right" v-text="'¥'+datas.teamIncome"></div>
+                </a>
+            </li>
+            <li class="g-border-b">
+                <a href="walletWithdrawCashRecord.html">
+                    <div class="pull-left">提现记录</div>
+                    <i></i>
+                    <div class="pull-right" v-text="'¥'+datas.withdrawRecord"></div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container padding-vertical">
+        <a href="withdrawCash.html" class="btn btn-main btn-block">我要提现</a>
+        <div class="wallet-msg">
+            <div class="col-xs-1"></div>
+            <p class="col-xs-11 padding-0 text-justify">申请提现后，金额将会在3-7个工作日到账，每次提现金额必 须大于等于100元。</p>
+        </div>
+    </div>
 </div>
-<!-- footer -->
-<style>
-<style type="text/css">footer{}
-footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: 7.5rem;
-    height: .98rem;
-    margin: 0 auto;
-    background-color: #fff;
-}
-footer ul {
-    display: table;
-    width: 100%;
-}
-footer ul li {
-    display: table-cell;
-    text-align: center;
-}
-footer ul li i {
-    display: inline-block;
-    width: .4rem;
-    height: .4rem;
-    margin-top: .1rem;
-    margin-bottom: 0;
-    background: url("/assets/maker/images/common/maker-nav.png") no-repeat;
-    background-size: 1.75rem auto;
-}
-footer ul li p{
-    margin-top: -.1rem;
-}
-footer ul li i.ma1 {
-    background-position: 0 0;
-}
-footer ul li i.ma2 {
-    background-position: -.72rem 0;
-}
-footer ul li i.ma3 {
-    background-position: -1.28rem 0;
-    width: .5rem;
-}
-footer ul li.active a{
-    color: #fd4a4a;
-}
-footer ul li.active i.ma1 {
-    background-position: 0 bottom;
-}
-footer ul li.active i.ma2 {
-    background-position: -.72rem bottom;
-}
-footer ul li.active i.ma3 {
-    background-position: -1.28rem bottom;
-}</style>
-<!-- html -->
-<footer class="g-border-t">
-    <ul class="fixed-bar">
-        <li><a href="/maker/index/index.html"><i class="ma1"></i><p>创客</p></a></li>
-        <li><a href="/maker/wenan/hotWenAn.html"><i class="ma2"></i><p>内容</p></a></li>
-        <li><a href="/maker/team/term.html"><i class="ma3"></i><p>团队</p></a></li>
-    </ul>
-</footer>
-
-<script>
-    //首页底部导航增加active样式
-    $(function(){
-        var linkArr = ['/maker/index/index.html',['/maker/wenan/hotWenAn.html','/maker/wenan/keepWenAn.html','/maker/wenan/shareWenAn.html'],'/maker/team/term.html'];
-        for(var i=0; i<linkArr.length; i++){
-            if(typeof(linkArr[i])=='object'){
-                for(var j=0; j<linkArr[i].length; j++){
-                    if(location.href.indexOf(linkArr[i][j]) > -1){
-                        $('.fixed-bar li').removeClass('active');
-                        $('.fixed-bar li').eq(i).addClass('active');
-                        $('.fixed-bar li').eq(i).on('click', function(){
-                            return false;
-                        })
-                    }
-                }
-            }else{
-                if(location.href.indexOf(linkArr[i]) > -1){
-                    $('.fixed-bar li').removeClass('active');
-                    $('.fixed-bar li').eq(i).addClass('active');
-                    $('.fixed-bar li').eq(i).on('click', function(){
-                        return false;
-                    })
-                }
-            };
-        };
-    });
-</script>
-
-</style>
-
 <!-- 模板js文件 -->
-<script type="text/javascript">
-/*创客index.js*/
-
-var vm = new Vue({
-    el: '#container',
-    data: {
-        datas: {}, //我的钱包数据
-    },
-    ready: function(){
-        var This = this;
-        $.AJAX({
-            type:'post',
-            url: config.basePath+"maker/svMaker/getWalletInfo",
-            success: function(data){
-               This.datas=data.data;
-            },
-        });
-    },
-    methods: {
-        
-    }
-});
-
-    </script>
+<script type="text/javascript" src="../../assets/maker/js/wallet/wallet.js?__inline"></script>
 </body>
 </html>

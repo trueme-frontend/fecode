@@ -7,8 +7,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/maker/css/index/invite.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/invite/invite.css"/>
 </head>
 <body>
 <header>
@@ -17,17 +17,42 @@
         确认订单
     </div>
 </header>
-<div class="wrapper">
+<div class="wrapper padding-wrapper-top">
     <div>填写收货地址</div>
-    <a href="inviteReferrer.html">推荐人：XXX</a>
-    <a href="#" class="btn btn-main">去支付</a>
+    <button type="button" class="btn btn-default btn-block" id="select_referrer">推荐人：XXX</button>
+    <a href="#" class="btn btn-main btn-block">去支付</a>
+</div>
+<!--选择推荐人-->
+<div id="inviteReferrer">
+    <div class="inviteReferrer-bg"></div>
+    <div class="inviteReferrer-box">
+        <h3 class="g-border-b">选择推荐人</h3>
+        <ul>
+            <li class="g-border-b active"><span>战南北战队</span> <i></i></li>
+            <li class="g-border-b"><span>战南北战队</span> <i></i></li>
+            <li class="g-border-b"><span>战南北战队</span> <i></i></li>
+            <li class="g-border-b"><span>战南北战队</span> <i></i></li>
+        </ul>
+        <p>注：根据三级分销规则，我们会将您随机分配到一名大咖名下，或者挑选一个您喜欢的名字，和伙伴们一起开始创客之路吧。</p>
+        <button type="button">确定</button>
+    </div>
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript">/*resize.js*/
-!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
-<script type="text/javascript" src="/assets/common/js/main.js"></script>
+<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+<script type="text/javascript" src="../../assets/common/js/main.js"></script>
 <script>
     win.hideLoading();
+    $(function () {
+        $("#select_referrer").click(function () {
+            $("#inviteReferrer").show();
+        });
+        $("#inviteReferrer .inviteReferrer-bg").click(function () {
+            $("#inviteReferrer").hide();
+        });
+        $(".inviteReferrer-box ul li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+    })
 </script>
 </body>
 </html>

@@ -11,11 +11,11 @@ var vm = new Vue({
        //请求后台接口获取下单时间
        $.AJAX({
             type:'post', 
-            url:config.basePath+'content/svItemHome/getItemHomeSpuDetail',
-            data:{
-                spuId:getQueryString('spuId'),  //是 int 专题spuId
-                topTypeId:getQueryString('topTypeId'),  //是 int 专题所在首页分类ID
-            },
+            url:config.basePath+'content/svItemHome/getShowCaseDetail?showCaseId=' + getQueryString('showCaseId'),
+            // data:{
+            //     showCaseId:,  //是 int 专题spuId
+            //     topTypeId:getQueryString('topTypeId'),  //是 int 专题所在首页分类ID
+            // },
             success:function(data){
               This.datas=data.data;
               This.startNum=data.data.startNum;
@@ -35,17 +35,17 @@ var vm = new Vue({
                   type:'post',
                   url:config.basePath+'content/svItemHome/getItemHomeSpuSkuList',
                   data:{
-                      spuId:getQueryString('spuId'),  //是 int 专题spuId
+                      showCaseId:getQueryString('showCaseId'),  //是 int 专题spuId
                       startNum:This.startNum,  //是 int 专题所在首页分类ID
                   },
                   success:function(data){
                     //向数组里push数据
-                    if(data.data.skuInfoList.length>0){
-                      This.datas.skuInfoList = This.datas.skuInfoList.concat(data.data.skuInfoList);
+                    if(data.data.spuList.length>0){
+                      This.datas.spuList = This.datas.spuList.concat(data.data.spuList);
                     }
                     This.startNum=data.data.startNum;
                     //判断是否还需要滚动获取数据
-                    if(data.data.skuInfoList.length>0){
+                    if(data.data.spuList.length>0){
                         config.scrollbegin=true; //可以再次滚动
                     }
                   }

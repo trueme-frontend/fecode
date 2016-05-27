@@ -7,28 +7,6 @@ $(function () {
         $(".grade-box").hide();
     })
 });
-/*创客index.js*/
-Vue.filter('makerDeji', function (value,num) {
-    var text="";
-    switch(value){
-        case 1:
-            text='一星创客';
-            break;
-        case 2:
-            text='二星创客';
-            break;
-        case 3:
-            text='三星创客';
-            break;
-        case 4:
-            text='四星创客';
-            break; 
-        case 5:
-            text='大咖';
-            break;                 
-    }
-    return text;
-});
 
 var vm = new Vue({
     el: '#container',

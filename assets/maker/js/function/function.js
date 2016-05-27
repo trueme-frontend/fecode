@@ -29,7 +29,6 @@ likeElectricityWenAn:function(json){
 			contentId:json.contentId
 		},
 		success:function(data){
-			Popup.miss({title:data.data.desc});
 			if(json.success){
 				json.success(data);
 			}
@@ -51,7 +50,6 @@ shareContentSetback:function(json){
 			}
 		},
 	});
-
 },
 
 //回调增加分享文案浏览次数

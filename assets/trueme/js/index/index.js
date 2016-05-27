@@ -12,6 +12,7 @@ var vm = new Vue({
         items: {}
     },
     ready: function(){
+        // alert(window.window.devicePixelRatio);
         var that = this;
         $('#container').show();
         $.AJAX({
@@ -33,7 +34,7 @@ var vm = new Vue({
                 }
                 that.items = arr;
                 that.items[that.nav[0].topTypeId].banner = o.data.itemHomeBannerList;
-                that.items[that.nav[0].topTypeId].topicList = o.data.itemHomeSpuList;
+                that.items[that.nav[0].topTypeId].topicList = o.data.showCaseList;
                 that.items[that.nav[0].topTypeId].hotList = o.data.itemHomeHotSkuList;
                 that.items[that.nav[0].topTypeId].hotSkuStartNum = o.data.hotSkuStartNum;
                 // debugger;
@@ -114,7 +115,22 @@ var vm = new Vue({
     methods: {
         praise: function(e){
             var that = this;
-            $(e.target).find('.praise_icon').addClass('praised');
+            var praiseSpu = $(e.target).data('spu-id');
+            var $targetIcon = $(e.target).find('.praise_icon');
+            $.AJAX({
+                type:'post',
+                url:config.basePath+'user/svUserProductCollect?spuId=' + praiseSpu,
+                code:true,
+                success:function(data){
+                    if(data.data.flag ==2){
+                        $targetIcon.addClass('praised');
+                        Popup.miss({title:'收藏成功！'});
+                    }else{
+                        $targetIcon.removeClass('praised');
+                        Popup.miss({title:'取消收藏成功！'});
+                    }
+                },
+            });
         },
         getNavData: function(e){
             var that = this;

@@ -333,116 +333,147 @@ iframe {
 }
 /*边框*/
 
+
+
+.g-border-top{
+    background: url(../images/border-background-h.png) no-repeat left top!important;
+}
+.g-border-bootom{
+    background: url(../images/border-background-h.png) no-repeat left bottom!important;
+}
+.g-border-right{
+    background: url(../images/border-background-l.png) no-repeat right top!important;
+}
+.g-border-left{
+    background: url(../images/border-background-l.png) no-repeat left top!important;
+}
+
 .g-border-t {
-    border-top: 1px solid rgba(0, 0, 0, .08);
+  border-top: 1px solid rgba(0,0,0,.08);
 }
+
 .g-border-b {
-    border-bottom: 1px solid rgba(0, 0, 0, .08);
+  border-bottom: 1px solid rgba(0,0,0,.08);
 }
+
 .g-border-tb {
-    border-top: 1px solid rgba(0, 0, 0, .08);
-    border-bottom: 1px solid rgba(0, 0, 0, .08);
-    background-image: none;
+  border-top: 1px solid rgba(0,0,0,.08);
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  background-image: none;
 }
+
 .g-border-l {
-    border-left: 1px solid rgba(0, 0, 0, .08);
+  border-left: 1px solid rgba(0,0,0,.08);
 }
+
 .g-border-r {
-    border-right: 1px solid rgba(0, 0, 0, .08);
+  border-right: 1px solid rgba(0,0,0,.08);
 }
+
 .g-border {
-    border: 1px solid rgba(0, 0, 0, .08);
+  border: 1px solid rgba(0,0,0,.08);
 }
-@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (-moz-min-device-pixel-ratio: 2), screen and (-o-min-device-pixel-ratio: 2), screen and (min-device-pixel-ratio: 2) {
-    .g-border {
-        position: relative;
-        border: 0;
-    }
-    .g-border-t,
-    .g-border-b,
-    .g-border-l,
-    .g-border-r,
-    .g-border-tb {
-        border: 0;
-    }
-    .g-border:before {
-        content: "";
-        width: 200%;
-        height: 200%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border: 1px solid rgba(0, 0, 0, .08);
-        padding: 1px;
-        transform: scale(0.5);
-        transform-origin: 0 0;
-        box-sizing: border-box;
-        -webkit-transform: scale(0.5);
-        -webkit-transform-origin: 0 0;
-        -webkit-box-sizing: border-box;
-        -moz-transform: scale(0.5);
-        -moz-transform-origin: 0 0;
-        -moz-box-sizing: border-box;
-        -o-transform: scale(0.5);
-        -o-transform-origin: 0 0;
-        -o-box-sizing: border-box;
-    }
-    .g-border-t {
-        background-position: left top;
-        background-image: gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -moz-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -o-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-    }
-    .g-border-b {
-        background-position: left bottom;
-        background-image: gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -moz-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -o-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-    }
-    .g-border-t,
-    .g-border-b {
-        background-repeat: repeat-x;
-        background-size: 100% 1px;
-        -webkit-background-size: 100% 1px;
-        -moz-background-size: 100% 1px;
-        -o-background-size: 100% 1px;
-    }
-    .g-border-tb {
-        background: gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08))) left top repeat-x, gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08))) left bottom repeat-x;
-        background: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08))) left top repeat-x, -webkit-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08))) left bottom repeat-x;
-        background: -moz-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08))) left top repeat-x, -moz-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08))) left bottom repeat-x;
-        background: -o-gradient(linear, left bottom, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08))) left top repeat-x, -o-gradient(linear, left top, left bottom, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08))) left bottom repeat-x;
-    }
-    .g-border-tb {
-        background-size: 100% 1px;
-        -webkit-background-size: 100% 1px;
-        -moz-background-size: 100% 1px;
-        -o-background-size: 100% 1px;
-    }
-    .g-border-l {
-        background-position: left top;
-        background-image: gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -webkit-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -moz-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -o-gradient(linear, left top, right top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-    }
-    .g-border-r {
-        background-position: right top;
-        background-image: gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -webkit-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -moz-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-        background-image: -o-gradient(linear, right top, left top, color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.08)), to(rgba(0, 0, 0, 0.08)));
-    }
-    .g-border-l,
-    .g-border-r {
-        background-repeat: repeat-y;
-        background-size: 1px 100%;
-        -webkit-background-size: 1px 100%;
-        -moz-background-size: 1px 100%;
-        -o-background-size: 1px 100%;
-    }
+
+@media screen and (-webkit-min-device-pixel-ratio:2),screen and (-moz-min-device-pixel-ratio:2),screen and (-o-min-device-pixel-ratio:2),screen and (min-device-pixel-ratio:2) {
+  .g-border {
+    position: relative;
+    border: 0;
+  }
+
+  .g-border-t,
+  .g-border-b,
+  .g-border-l,
+  .g-border-r,
+  .g-border-tb {
+    border: 0;
+  }
+
+  .g-border:before {
+    content: "";
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid rgba(0,0,0,.08);
+    padding: 1px;
+    transform: scale(0.5);
+    transform-origin: 0 0;
+    box-sizing: border-box;
+    -webkit-transform: scale(0.5);
+    -webkit-transform-origin: 0 0;
+    -webkit-box-sizing: border-box;
+    -moz-transform: scale(0.5);
+    -moz-transform-origin: 0 0;
+    -moz-box-sizing: border-box;
+    -o-transform: scale(0.5);
+    -o-transform-origin: 0 0;
+    -o-box-sizing: border-box;
+  }
+
+  .g-border-t {
+    background-position: left top;
+    background-image: gradient(linear,left bottom,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -moz-gradient(linear,left bottom,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -o-gradient(linear,left bottom,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+  }
+
+  .g-border-b {
+    background-position: left bottom;
+    background-image: gradient(linear,left top,left bottom,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -moz-gradient(linear,left top,left bottom,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -o-gradient(linear,left top,left bottom,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+  }
+
+  .g-border-t,
+  .g-border-b {
+    background-repeat: repeat-x;
+    background-size: 100% 1px;
+    -webkit-background-size: 100% 1px;
+    -moz-background-size: 100% 1px;
+    -o-background-size: 100% 1px;
+  }
+
+  .g-border-tb {
+    background: gradient(linear,left bottom,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08))) left top repeat-x,gradient(linear,left top,left bottom,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08))) left bottom repeat-x;
+    background: -webkit-gradient(linear,left bottom,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08))) left top repeat-x,-webkit-gradient(linear,left top,left bottom,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08))) left bottom repeat-x;
+    background: -moz-gradient(linear,left bottom,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08))) left top repeat-x,-moz-gradient(linear,left top,left bottom,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08))) left bottom repeat-x;
+    background: -o-gradient(linear,left bottom,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08))) left top repeat-x,-o-gradient(linear,left top,left bottom,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08))) left bottom repeat-x;
+  }
+
+  .g-border-tb {
+    background-size: 100% 1px;
+    -webkit-background-size: 100% 1px;
+    -moz-background-size: 100% 1px;
+    -o-background-size: 100% 1px;
+  }
+
+  .g-border-l {
+    background-position: left top;
+    background-image: gradient(linear,left top,right top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -webkit-gradient(linear,left top,right top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -moz-gradient(linear,left top,right top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -o-gradient(linear,left top,right top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+  }
+
+  .g-border-r {
+    background-position: right top;
+    background-image: gradient(linear,right top,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -webkit-gradient(linear,right top,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -moz-gradient(linear,right top,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+    background-image: -o-gradient(linear,right top,left top,color-stop(0.5,transparent),color-stop(0.5,rgba(0,0,0,0.08)),to(rgba(0,0,0,0.08)));
+  }
+
+  .g-border-l,
+  .g-border-r {
+    background-repeat: repeat-y;
+    background-size: 1px 100%;
+    -webkit-background-size: 1px 100%;
+    -moz-background-size: 1px 100%;
+    -o-background-size: 1px 100%;
+  }
 }
 /*-------------------底部菜单样式----------------------*/
 .fixed-bar-box{
@@ -499,7 +530,7 @@ iframe {
     display: inline-block;
     height: 0.4rem;
     margin-top: 0.1rem;
-    background: url("/assets/common/images/nav_icon.png") 0 0 no-repeat;
+    background: url("../images/nav_icon.png") 0 0 no-repeat;
     background-size: 1.92rem .8rem;
 }
 .sprite-icon_home_1 {
@@ -542,7 +573,7 @@ iframe {
 }
 
 /* 遮罩类 */
-#loading {position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100001; background: rgba(248,248,248,.8) url('/assets/common/images/loading.gif') no-repeat center center;}
+#loading {position: fixed; left: 0; top: 0; width: 100%; height: 100%; z-index: 100001; background: rgba(248,248,248,.8) url('../images/loading.gif') no-repeat center center;}
 
 /*公共头部导航*/
 header{ position: fixed; top: 0; left: 0; right: 0; width: 100%; max-width: 7.5rem; height: .88rem; margin: 0 auto; z-index: 10000; }
@@ -550,6 +581,6 @@ header{ position: fixed; top: 0; left: 0; right: 0; width: 100%; max-width: 7.5r
 .m-header .header-left, .m-header .header-right { position: absolute; top: 0; width: .8rem; height: .88rem; }
 .m-header .header-left { left: 0; }
 .m-header .header-right { right: 0; }
-.m-header a { display: block; width: 100%; height: 100%; background-image: url('/assets/trueme/images/user/user1.png'); background-repeat: no-repeat; background-size: 4.1rem auto; }
+.m-header a { display: block; width: 100%; height: 100%; background-image: url('../../trueme/images/user/user1.png'); background-repeat: no-repeat; background-size: 4.1rem auto; }
 .m-header .header-left .back { background-position: .3rem center; }
 .m-header .header-right .setting { background-position: -.6rem center; }

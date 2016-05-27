@@ -9,6 +9,9 @@ var vm = new Vue({
         userInfo: {}
     },
     ready: function () {
+        $('.jumpCheck').on('click', function(){
+            location.href = $(this).data('link');
+        });
         var that = this;
         $.AJAX({
             type: "POST",
@@ -24,9 +27,6 @@ var vm = new Vue({
                     success: function(o){
                         that.userInfo = o.data.userCenterInfo;
                         $('#container').show();
-                        $('.jumpCheck').on('click', function(){
-                            location.href = $(this).data('link');
-                        });
                     }
                 });
             },
@@ -56,20 +56,12 @@ var vm = new Vue({
         login: function(){
             trueme.w.getWeiXinCode();
         },
-        logout: function(){
-            win.showLoading();
-            $.AJAX({
-                type: "POST",
-                url: config.basePath + 'user/svloginout?userId=' + $.cookie('cuserid'),
-                success: function(){
-                    location.reload();
-                }
-            });
-        },
+        
         showService: function(){
             Popup.customHtml({
                 header:'弹出页面',
                 style:'width:80%',
+                maskHide:true,
                 closeBut:false,
                 html:'<div class="pop-header g-border-b">萃美客服电话</div>\
                   <div class="pop-tel">0755-2691-0969</div>\
@@ -86,8 +78,4 @@ var vm = new Vue({
         // }
     }
 });
-
-
-
-
 

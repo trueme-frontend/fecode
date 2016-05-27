@@ -7,13 +7,12 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
+    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
     <!-- style -->
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/maker/css/index/index.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/index/index.css?__inline"/>
     <!-- 模板js文件 -->
-    <script type="text/javascript">/*resize.js*/
-!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
-    <script type="text/javascript" src="/assets/common/js/main.js"></script>
+    <script type="text/javascript" src="../../assets/common/js/main.js"></script>
     
 </head>
 <body class="bg-cc padding-bottom-xl hide" id="container">
@@ -33,17 +32,19 @@
         <a class="grade" id="grade" href="javascript:void (0);">等级声明</a>
     </div>
     <div class="data-box">
-        <dl class="g-border-b g-border-r">
+        <dl class="g-border-b">
             <dt>今日销售额</dt>
             <dd class="text-main" v-text="'¥'+datas.todaySaleFee"></dd>
+            <dd class="g-border-r"></dd>
         </dl>
         <dl class="g-border-b">
             <dt>今日订单数</dt>
             <dd class="text-main" v-text="datas.todayOrderCount"></dd>
         </dl>
-        <dl class="g-border-b g-border-r">
+        <dl class="g-border-b">
             <dt>今日团队佣金</dt>
             <dd class="text-main" v-text="datas.todayTeamFee"></dd>
+            <dd class="g-border-r"></dd>
         </dl>
         <dl class="g-border-b">
             <dt>今日个人佣金</dt>
@@ -61,162 +62,15 @@
     <div class="grade-bg"></div>
     <div class="grade-box-t">
         <p class="p1">我的等级：<span class="text-main" v-text="datas.makerLevel | makerDeji"></span></p>
-        <p>人数：<span class="text-main">140</span></p>
+        <p>人数：<span class="text-main" v-text="datas.teamCount"></span></p>
     </div>
     <ul class="grade-box-h">
         <li v-for="item in datas.levelRule"><button v-text="item.ruleName"></button><span v-text="'所需人数：'+item.ruleVal"></span></li>
     </ul>
 </div>
 <!-- footer -->
-<style>
-<style type="text/css">footer{}
-footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: 7.5rem;
-    height: .98rem;
-    margin: 0 auto;
-    background-color: #fff;
-}
-footer ul {
-    display: table;
-    width: 100%;
-}
-footer ul li {
-    display: table-cell;
-    text-align: center;
-}
-footer ul li i {
-    display: inline-block;
-    width: .4rem;
-    height: .4rem;
-    margin-top: .1rem;
-    margin-bottom: 0;
-    background: url("/assets/maker/images/common/maker-nav.png") no-repeat;
-    background-size: 1.75rem auto;
-}
-footer ul li p{
-    margin-top: -.1rem;
-}
-footer ul li i.ma1 {
-    background-position: 0 0;
-}
-footer ul li i.ma2 {
-    background-position: -.72rem 0;
-}
-footer ul li i.ma3 {
-    background-position: -1.28rem 0;
-    width: .5rem;
-}
-footer ul li.active a{
-    color: #fd4a4a;
-}
-footer ul li.active i.ma1 {
-    background-position: 0 bottom;
-}
-footer ul li.active i.ma2 {
-    background-position: -.72rem bottom;
-}
-footer ul li.active i.ma3 {
-    background-position: -1.28rem bottom;
-}</style>
-<!-- html -->
-<footer class="g-border-t">
-    <ul class="fixed-bar">
-        <li><a href="/maker/index/index.html"><i class="ma1"></i><p>创客</p></a></li>
-        <li><a href="/maker/wenan/hotWenAn.html"><i class="ma2"></i><p>内容</p></a></li>
-        <li><a href="/maker/team/term.html"><i class="ma3"></i><p>团队</p></a></li>
-    </ul>
-</footer>
-
-<script>
-    //首页底部导航增加active样式
-    $(function(){
-        var linkArr = ['/maker/index/index.html',['/maker/wenan/hotWenAn.html','/maker/wenan/keepWenAn.html','/maker/wenan/shareWenAn.html'],'/maker/team/term.html'];
-        for(var i=0; i<linkArr.length; i++){
-            if(typeof(linkArr[i])=='object'){
-                for(var j=0; j<linkArr[i].length; j++){
-                    if(location.href.indexOf(linkArr[i][j]) > -1){
-                        $('.fixed-bar li').removeClass('active');
-                        $('.fixed-bar li').eq(i).addClass('active');
-                        $('.fixed-bar li').eq(i).on('click', function(){
-                            return false;
-                        })
-                    }
-                }
-            }else{
-                if(location.href.indexOf(linkArr[i]) > -1){
-                    $('.fixed-bar li').removeClass('active');
-                    $('.fixed-bar li').eq(i).addClass('active');
-                    $('.fixed-bar li').eq(i).on('click', function(){
-                        return false;
-                    })
-                }
-            };
-        };
-    });
-</script>
-
-</style>
+<link rel="stylesheet" href="../main/footer.html?__inline">
 <!-- script -->
-<script type="text/javascript">win.hideLoading()
-$(function () {
-    $("#grade").click(function () {
-        $(".grade-box").show();
-    });
-    $(".grade-box .grade-bg").click(function () {
-        $(".grade-box").hide();
-    })
-});
-/*创客index.js*/
-Vue.filter('makerDeji', function (value,num) {
-    var text="";
-    switch(value){
-        case 1:
-            text='一星创客';
-            break;
-        case 2:
-            text='二星创客';
-            break;
-        case 3:
-            text='三星创客';
-            break;
-        case 4:
-            text='四星创客';
-            break; 
-        case 5:
-            text='大咖';
-            break;                 
-    }
-    return text;
-});
-
-var vm = new Vue({
-    el: '#container',
-    data: {
-        datas: {}, //首页数据
-    },
-    ready: function(){
-        var This = this;
-        $.AJAX({
-            type:'post',
-            url: config.basePath+"maker/svMaker/getMakerHomeInfo",
-            success: function(data){
-               This.datas=data.data;
-               setTimeout(function(){
-                    $('#container').removeClass('hide');
-               },50);
-            },
-        });
-    },
-    methods: {
-        
-    }
-});
-
-    </script>
+<script type="text/javascript" src="../../assets/maker/js/index/index.js?__inline"></script>
 </body>
 </html>

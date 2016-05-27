@@ -8,14 +8,13 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- style -->
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <link rel="stylesheet" type="text/css" href="/assets/maker/css/wenan/wenan.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/maker/css/wenan/wenan.css"/>
     <!-- 模板js文件 -->
-    <script type="text/javascript">/*resize.js*/
-!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
-    <script type="text/javascript" src="/assets/common/js/main.js"></script>
-    <script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
-    <script type="text/javascript" src="/assets/maker/js/function/function.js"></script>
+    <script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+    <script type="text/javascript" src="../../assets/common/js/main.js"></script>
+    <script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
+    <script type="text/javascript" src="../../assets/maker/js/function/function.js"></script>
 </head>
 <body class="bg-cc">
 <header>
@@ -41,241 +40,27 @@
             </div>
         </div>
         <!-- 主图 -->
-        <div class="center">
-            <img :src="item.mainUrl|qiniuImgFilter">
-        </div>
-        <p class="wenan-p" v-text="item.title"></p>
+        <a href="javascript:void(0)" v-on:click="getShareIdWenAnDetails(item.contentId)">
+            <div class="center">
+                <img :src="item.mainUrl|qiniuImgFilter">
+            </div>
+            <p class="wenan-p" v-text="item.title">000000</p>
+        </a>
         <p class="wenan-fy">最高分佣：<span class="text-main strong" v-text="'¥'+item.maxReward"></span></p>
-        <p class="wenan-fy">历史累计分佣：<span class="text-main" v-text="'¥'+item.sumReward"></span><span class="fx">分享</span><span class="can" v-text="item.likeCount" v-on:click="likeElectricity(item.contentId)"></span></p>
+        <p class="wenan-fy">历史累计分佣：
+            <span class="text-main" v-text="'¥'+item.sumReward"></span>
+            <span class="fx" v-on:click="getShareIdWenAnDetails(item.contentId,true)">分享</span>
+            <span class="can" v-text="item.likeCount" v-on:click="likeElectricity(item.contentId)"></span>
+        </p>
     </div>
     <!-- 底部element -->
     <div id='bottomscolltop'></div>
 </div>
 <!-- footer -->
-<style>
-<style type="text/css">footer{}
-footer {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    max-width: 7.5rem;
-    height: .98rem;
-    margin: 0 auto;
-    background-color: #fff;
-}
-footer ul {
-    display: table;
-    width: 100%;
-}
-footer ul li {
-    display: table-cell;
-    text-align: center;
-}
-footer ul li i {
-    display: inline-block;
-    width: .4rem;
-    height: .4rem;
-    margin-top: .1rem;
-    margin-bottom: 0;
-    background: url("/assets/maker/images/common/maker-nav.png") no-repeat;
-    background-size: 1.75rem auto;
-}
-footer ul li p{
-    margin-top: -.1rem;
-}
-footer ul li i.ma1 {
-    background-position: 0 0;
-}
-footer ul li i.ma2 {
-    background-position: -.72rem 0;
-}
-footer ul li i.ma3 {
-    background-position: -1.28rem 0;
-    width: .5rem;
-}
-footer ul li.active a{
-    color: #fd4a4a;
-}
-footer ul li.active i.ma1 {
-    background-position: 0 bottom;
-}
-footer ul li.active i.ma2 {
-    background-position: -.72rem bottom;
-}
-footer ul li.active i.ma3 {
-    background-position: -1.28rem bottom;
-}</style>
-<!-- html -->
-<footer class="g-border-t">
-    <ul class="fixed-bar">
-        <li><a href="/maker/index/index.html"><i class="ma1"></i><p>创客</p></a></li>
-        <li><a href="/maker/wenan/hotWenAn.html"><i class="ma2"></i><p>内容</p></a></li>
-        <li><a href="/maker/team/term.html"><i class="ma3"></i><p>团队</p></a></li>
-    </ul>
-</footer>
-
-<script>
-    //首页底部导航增加active样式
-    $(function(){
-        var linkArr = ['/maker/index/index.html',['/maker/wenan/hotWenAn.html','/maker/wenan/keepWenAn.html','/maker/wenan/shareWenAn.html'],'/maker/team/term.html'];
-        for(var i=0; i<linkArr.length; i++){
-            if(typeof(linkArr[i])=='object'){
-                for(var j=0; j<linkArr[i].length; j++){
-                    if(location.href.indexOf(linkArr[i][j]) > -1){
-                        $('.fixed-bar li').removeClass('active');
-                        $('.fixed-bar li').eq(i).addClass('active');
-                        $('.fixed-bar li').eq(i).on('click', function(){
-                            return false;
-                        })
-                    }
-                }
-            }else{
-                if(location.href.indexOf(linkArr[i]) > -1){
-                    $('.fixed-bar li').removeClass('active');
-                    $('.fixed-bar li').eq(i).addClass('active');
-                    $('.fixed-bar li').eq(i).on('click', function(){
-                        return false;
-                    })
-                }
-            };
-        };
-    });
-</script>
-
-</style>
+<link rel="stylesheet" href="../main/footer.html?__inline">
 <!-- script -->
-<script type="text/javascript">
-/*hotwenan.html*/
-win.hideLoading()
-/*spacial.js*/
-var vm = new Vue({
-    el: '#container',
-    data: {
-       startNum:0, //分页起始页
-       datas:{}, //页面数据 
-    },
-    ready: function () {
-        var This=this;
-       //请求后台接口获取下单时间
-       $.AJAX({
-            type:'post', 
-            url:config.basePath+'content/svMakerContent/getHotMakerContentList',
-            data:{
-                startNum:This.startNum,
-            },
-            success:function(data){
-              This.datas=data.data;
-              This.startNum=data.data.startNum;
-              //滚动拉去更多数据
-              This.scollGetMoreData();
-            }
-       });
-    },
-    methods: {
-       //滚动获得更多数据
-       scollGetMoreData:function(){
-        var This=this;
-        trueme.w.scrollGetData({
-            lastObj:$('#bottomscolltop'),
-            bottomTop:700,
-            callback:function(){ 
-              $.AJAX({
-                  type:'post',
-                  url:config.basePath+'content/svMakerContent/getHotMakerContentList',
-                  data:{
-                      startNum:This.startNum,
-                  },
-                  success:function(data){
-                    //向数组里push数据
-                    if(data.data.contentList.length>0){
-                      This.datas.contentList = This.datas.contentList.concat(data.data.contentList);
-                    }
-                    This.startNum=data.data.startNum;
-                    //判断是否还需要滚动获取数据
-                    if(data.data.contentList.length>0){
-                        config.scrollbegin=true; //可以再次滚动
-                    }
-                  }
-             });  
-            }
-        });
-       }, //end 
-       
-       //收藏文案
-       collectionwenan:function(contentId){
-          maker.collectionWenAn({
-            contentId:contentId,
-          });
-       },
+<script type="text/javascript" src="../../assets/maker/js/wenan/hotWenAn.js?__inline"></script>
 
-       //点赞
-       likeElectricity:function(contentId){
-          maker.likeElectricityWenAn({
-            contentId:contentId,
-          });
-       },
-
-    }
-});
-
-
-
-
-
-
-
-
-
-</script>
-
-
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script>
-     wx.config({
-         debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-         appId: config.appId, // 必填，公众号的唯一标识
-         timestamp: time(), // 必填，生成签名的时间戳
-         nonceStr: randomString(), // 必填，生成签名的随机串
-         signature: '<{$signature}>',// 必填，签名，见附录1
-         jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
-     });
-     
-     wx.ready(function(){
-         // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
-
-         //分享给朋友圈
-         wx.onMenuShareTimeline({
-             title: '鹅厂纪念册—企鹅成长记', // 分享标题
-             link: '__TRANSFER__/Public/Pages/<{$MD5_EngName}>.html', // 分享链接
-             imgUrl: '__ALBUMIMAGEURL__', // 分享图标
-             success: function () { 
-                 // 用户确认分享后执行的回调函数
-             },
-             cancel: function () { 
-                 // 用户取消分享后执行的回调函数
-             }
-         });
-
-         //分享给朋友
-         wx.onMenuShareAppMessage({
-             title: '鹅厂纪念册—企鹅成长记', // 分享标题
-             desc: '', // 分享描述
-             link: '__TRANSFER__/Public/Pages/<{$MD5_EngName}>.html', // 分享链接
-             imgUrl: '__ALBUMIMAGEURL__', // 分享图标
-             type: '', // 分享类型,music、video或link，不填默认为link
-             dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
-             success: function () { 
-                 // 用户确认分享后执行的回调函数
-             },
-             cancel: function () { 
-                 // 用户取消分享后执行的回调函数
-             }
-        });
-
-     });
-</script>
 
 </body>
 </html>

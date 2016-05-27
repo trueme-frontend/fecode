@@ -8,19 +8,8 @@
     <meta name="format-detection" content="telephone=no"/>
     <meta name="msapplication-tap-highlight" content="no"/>
     <!-- 样式文件 -->
-    <link rel="stylesheet" type="text/css" href="/assets/common/css/main.css"/>
-    <style type="text/css">/*special.css  专题*/
-.special .banner { height: 2.8rem; overflow: hidden; margin-bottom: 0.15rem; }
-.special .banner img { width: 100%; height: 100%; }
-.special .title { height: 1rem; padding: 0 0.3rem; }
-.special .title .default { line-height: 1rem; font-size: 0.25rem; display: inline-block; }
-.special .title .icon-down { width: 0.15rem; height: 0.15rem; margin-top: 8px; display: inline-block; background: url('/assets/trueme/images/special/down-icon.png') no-repeat center center; }
-.special .itemList { padding: 0 0.25rem; margin-top: 0.3rem; }
-.special .itemList li { width: 50%; padding: 0 0.05rem; float: left; overflow: hidden; margin-bottom: 0.2rem; }
-.special .itemList li img { width: 100%; height: 3.4rem; }
-.special .itemList li h1 { white-space: nowrap; text-align: center; font-size: 0.24rem; margin: 0.15rem 0; overflow: hidden; text-overflow: ellipsis;}
-.special .itemList li .price { font-size: 0.25rem; }
-</style>
+    <link rel="stylesheet" type="text/css" href="../../assets/common/css/main.css"/>
+    <link rel="stylesheet" type="text/css" href="../../assets/trueme/css/special/special.css?__inline"/>
     <!-- 内部样式 -->
 </head>
 <body >
@@ -40,8 +29,8 @@
             </div>
             <div class="itemList" id="itemList">
                 <ul>
-                    <li v-for="item in datas.skuInfoList">
-                        <a href="/trueme/ware/wareDetail.html?spuId={{datas.spuId}}">
+                    <li v-for="item in datas.spuList">
+                        <a v-bind:href="'/trueme/ware/wareDetail.html?spuId=' + item.spuId">
                         <img :src="item.imgMainUrl | qiniuImgFilter 2 350 350">
                         <h1 v-text="item.skuTitle"></h1>
                         <div class="price text-center text-main" v-text="'￥'+item.salePrice"></div>
@@ -54,76 +43,9 @@
     </div>
 </div>
 <!-- 模板js文件 -->
-<script type="text/javascript">/*resize.js*/
-!function(a){function b(){var b=g.getBoundingClientRect().width;a.rem=(b/7.5>100?100:(b/7.5<40?40:b/7.5)),g.style.fontSize=a.rem+"px"}var g=a.document.documentElement,e;a.addEventListener("resize",function(){clearTimeout(e),e=setTimeout(b,300)},!1),a.addEventListener("pageshow",function(a){a.persisted&&(clearTimeout(e),e=setTimeout(b,300))},!1),b()}(window);</script>
-<script type="text/javascript" src="/assets/common/js/main.js"></script>
-<script type="text/javascript" src="/assets/trueme/js/function/function.js"></script>
-<script type="text/javascript">
-/*spacial.js*/
-var vm = new Vue({
-    el: '#container',
-    data: {
-       datas:'', //返回专题列表数据
-       startNum:'', 
-    },
-    ready: function () {
-        var This=this;
-       //请求后台接口获取下单时间
-       $.AJAX({
-            type:'post', 
-            url:config.basePath+'content/svItemHome/getItemHomeSpuDetail',
-            data:{
-                spuId:getQueryString('spuId'),  //是 int 专题spuId
-                topTypeId:getQueryString('topTypeId'),  //是 int 专题所在首页分类ID
-            },
-            success:function(data){
-              This.datas=data.data;
-              This.startNum=data.data.startNum;
-              //滚动拉去更多数据
-              This.scollGetMoreData();
-            }
-       });
-    },
-    methods: {
-       //滚动获得更多数据
-       scollGetMoreData:function(){
-        var This=this;
-        trueme.w.scrollGetData({  
-            lastObj:$('#bottomscolltop'),
-            callback:function(){ 
-              $.AJAX({
-                  type:'post',
-                  url:config.basePath+'content/svItemHome/getItemHomeSpuSkuList',
-                  data:{
-                      spuId:getQueryString('spuId'),  //是 int 专题spuId
-                      startNum:This.startNum,  //是 int 专题所在首页分类ID
-                  },
-                  success:function(data){
-                    //向数组里push数据
-                    if(data.data.skuInfoList.length>0){
-                      This.datas.skuInfoList = This.datas.skuInfoList.concat(data.data.skuInfoList);
-                    }
-                    This.startNum=data.data.startNum;
-                    //判断是否还需要滚动获取数据
-                    if(data.data.skuInfoList.length>0){
-                        config.scrollbegin=true; //可以再次滚动
-                    }
-                  }
-             });  
-            }
-        });
-       }, //end 
-       
-    }
-});
-
-
-
-
-
-
-
-
-</script>
+<script type="text/javascript" src="../../assets/common/js/resize.js?__inline"></script>
+<script type="text/javascript" src="../../assets/common/js/main.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/function/function.js"></script>
+<script type="text/javascript" src="../../assets/trueme/js/special/special.js?__inline"></script>
 </body>
 </html>

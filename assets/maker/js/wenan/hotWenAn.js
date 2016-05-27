@@ -66,6 +66,25 @@ var vm = new Vue({
        likeElectricity:function(contentId){
           maker.likeElectricityWenAn({
             contentId:contentId,
+            success:function(data){
+              Popup.miss({title:'点赞成功'});
+            },
+          });
+       },
+
+       //获得分享的shareId
+       getShareIdWenAnDetails:function(contentId,isShare){
+          //根据contentId获得分享shareId
+          maker.shareContentSetback({
+            contentId:contentId,
+            success:function(data){
+                //调用页面查看次数接口
+                if(isShare){
+                  window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId+'&isShare=1'; 
+                }else{
+                  window.location.href='wenAnDetails.html?contentId='+contentId+'&shareId='+data.data.shareId; 
+                };
+            },
           });
        },
 
